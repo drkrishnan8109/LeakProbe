@@ -1,0 +1,251 @@
+1
+00:00:00,600 --> 00:00:05,072
+Water network sensors can reveal a problem without showing exactly where it is.
+
+2
+00:00:05,072 --> 00:00:13,377
+Leak Probe explores a practical response: compare possible explanations,
+identify the most useful measurement, and update the result.
+
+3
+00:00:13,377 --> 00:00:16,998
+This five minute walkthrough uses the actual local demo output.
+
+4
+00:00:16,998 --> 00:00:20,872
+Every reading is synthetic, and the investigation sequence is scripted.
+
+5
+00:00:25,600 --> 00:00:28,919
+The example has one water supply and two matching branches.
+
+6
+00:00:28,919 --> 00:00:32,445
+A flow sensor and a pressure sensor sit upstream of the split.
+
+7
+00:00:32,445 --> 00:00:34,195
+Either branch can develop a leak.
+
+8
+00:00:34,195 --> 00:00:40,503
+Because the branches are symmetric, these upstream sensors produce the same
+modeled response for leak A and leak B.
+
+9
+00:00:40,503 --> 00:00:43,131
+More upstream readings cannot resolve that tie.
+
+10
+00:00:50,600 --> 00:00:57,253
+The demo uses W N T R to simulate normal operation, a leak on branch A, and a
+leak on branch B.
+
+11
+00:00:57,253 --> 00:01:02,248
+Supply head is forty two meters, and each end junction requests five liters per
+second.
+
+12
+00:01:02,248 --> 00:01:06,099
+A sixteen millimeter leak opens halfway along one branch at two twenty.
+
+13
+00:01:06,099 --> 00:01:08,944
+The simulator computes the resulting flow and pressure.
+
+14
+00:01:15,600 --> 00:01:18,596
+The local walkthrough runs with Python three point twelve.
+
+15
+00:01:18,596 --> 00:01:24,422
+Create a virtual environment, activate it, install the requirements, and run the
+demo script.
+
+16
+00:01:24,422 --> 00:01:30,156
+That command generates the prediction files and observations, then executes the
+investigation tools.
+
+17
+00:01:30,156 --> 00:01:32,000
+This run completed successfully.
+
+18
+00:01:32,000 --> 00:01:37,906
+It uses the local simulator, so the walkthrough needs no model credentials or
+paid inference requests.
+
+19
+00:01:40,600 --> 00:01:46,647
+The observation file contains ten readings at five minute intervals, from two o
+clock to two forty five.
+
+20
+00:01:46,647 --> 00:01:52,987
+The synthetic upstream flow rises from about ten to fourteen point one five
+liters per second after the leak begins.
+
+21
+00:01:52,987 --> 00:01:54,680
+Pressure also falls slightly.
+
+22
+00:01:54,680 --> 00:01:57,631
+Small reproducible noise is added to observations.
+
+23
+00:01:57,631 --> 00:02:01,658
+These signals support a leak scenario, but leave its branch unresolved.
+
+24
+00:02:05,600 --> 00:02:11,220
+The comparison tool aligns the timestamps and scores the flow and pressure
+residuals against each scenario.
+
+25
+00:02:11,220 --> 00:02:16,089
+Before a branch measurement, both leak scenarios score zero point one two three
+seven.
+
+26
+00:02:16,089 --> 00:02:19,532
+Normal operation scores eleven point four two seven zero.
+
+27
+00:02:19,532 --> 00:02:21,765
+Lower normalized error means a better fit.
+
+28
+00:02:21,765 --> 00:02:27,731
+These scores are neither probabilities nor confidence levels, and only three
+fixed explanations are compared.
+
+29
+00:02:30,600 --> 00:02:33,607
+The tools also expose fictional maintenance records.
+
+30
+00:02:33,607 --> 00:02:36,059
+One record schedules flushing on branch B.
+
+31
+00:02:36,059 --> 00:02:40,003
+A later linked record says that flushing was cancelled and the crew reassigned.
+
+32
+00:02:40,003 --> 00:02:43,287
+That context matters when interpreting an apparent leak signal.
+
+33
+00:02:43,287 --> 00:02:51,968
+However, this starter simulator does not model flushing or sensor bias, and the
+numeric ranking does not automatically interpret the maintenance notes.
+
+34
+00:02:55,600 --> 00:02:59,676
+The planner compares the predicted branch pressures for the two leak scenarios.
+
+35
+00:02:59,676 --> 00:03:03,767
+Both measurement points offer about one point six three meters of separation.
+
+36
+00:03:03,767 --> 00:03:07,463
+But visiting M A takes fifteen minutes, while M B takes thirty.
+
+37
+00:03:07,463 --> 00:03:10,484
+With twenty minutes available, only M A is feasible.
+
+38
+00:03:10,484 --> 00:03:15,198
+The tool chooses pressure separation per minute using a simple demonstration
+heuristic.
+
+39
+00:03:20,600 --> 00:03:26,626
+The collection tool reveals the synthetic M A reading: thirty seven point eight
+zero nine meters of pressure head.
+
+40
+00:03:26,626 --> 00:03:31,216
+Leak A predicts about thirty seven point seven seven nine meters at that
+location.
+
+41
+00:03:31,216 --> 00:03:33,926
+Leak B predicts thirty nine point four one one.
+
+42
+00:03:33,926 --> 00:03:36,806
+The visit consumes fifteen minutes, leaving five.
+
+43
+00:03:36,806 --> 00:03:41,727
+This fixture assumes the final simulated hydraulic state stays steady until
+collection.
+
+44
+00:03:45,600 --> 00:03:49,492
+With the branch reading included, the tool compares the scenarios again.
+
+45
+00:03:49,492 --> 00:03:55,440
+Leak A now scores zero point one two five one, while leak B scores one point
+seven five two two.
+
+46
+00:03:55,440 --> 00:03:59,498
+Normal operation remains a poor fit at eleven point three seven nine nine.
+
+47
+00:03:59,498 --> 00:04:03,520
+Branch A best explains this synthetic evidence among the modeled candidates.
+
+48
+00:04:03,520 --> 00:04:06,049
+That result does not confirm a real field leak.
+
+49
+00:04:10,600 --> 00:04:13,677
+The full tool sequence is saved in the scripted trace file.
+
+50
+00:04:13,677 --> 00:04:20,686
+It includes the observations, network, maintenance notes, rankings,
+recommendation, and collected reading.
+
+51
+00:04:20,686 --> 00:04:24,191
+Prediction files expose the underlying simulation results.
+
+52
+00:04:24,191 --> 00:04:34,650
+This evidence trail is reviewable: you can see exactly why the result changes
+when a branch reading distinguishes two explanations that previously matched the
+upstream sensors equally well.
+
+53
+00:04:35,600 --> 00:04:39,900
+Leak Probe demonstrates how a limited measurement budget can guide an
+investigation.
+
+54
+00:04:39,900 --> 00:04:44,753
+The next extension is an optional language model that chooses tools through the
+same interface.
+
+55
+00:04:44,753 --> 00:04:47,236
+That live path is separate and was not used here.
+
+56
+00:04:47,236 --> 00:04:55,716
+Before field use, the system would need calibrated uncertainty, alternative
+scenarios, and validation against independent observations.
+
+57
+00:04:55,716 --> 00:04:59,071
+Today, this is a reproducible educational prototype.

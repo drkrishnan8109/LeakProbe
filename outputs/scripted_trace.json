@@ -1,0 +1,243 @@
+[
+  {
+    "tool": "get_observations",
+    "arguments": {},
+    "result": {
+      "provenance": "synthetic noisy observations",
+      "readings": [
+        {
+          "timestamp_utc": "2026-10-01 02:00:00+00:00",
+          "F01_flow_lps": 10.00003690658949,
+          "P01_pressure_m": 41.48587755863851
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:05:00+00:00",
+          "F01_flow_lps": 10.00896236811402,
+          "P01_pressure_m": 41.48188890737775
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:10:00+00:00",
+          "F01_flow_lps": 9.9917758663279,
+          "P01_pressure_m": 41.47434472460289
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:15:00+00:00",
+          "F01_flow_lps": 9.973282246826049,
+          "P01_pressure_m": 41.4432682557917
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:20:00+00:00",
+          "F01_flow_lps": 14.134646128467416,
+          "P01_pressure_m": 40.993561480596654
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:25:00+00:00",
+          "F01_flow_lps": 14.118536855372676,
+          "P01_pressure_m": 41.0152981311043
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:30:00+00:00",
+          "F01_flow_lps": 14.150090560100493,
+          "P01_pressure_m": 40.954112598852
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:35:00+00:00",
+          "F01_flow_lps": 14.188492709389203,
+          "P01_pressure_m": 40.98071056243935
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:40:00+00:00",
+          "F01_flow_lps": 14.133520056466027,
+          "P01_pressure_m": 40.93740235307653
+        },
+        {
+          "timestamp_utc": "2026-10-01 02:45:00+00:00",
+          "F01_flow_lps": 14.12967200502797,
+          "P01_pressure_m": 40.955752903077006
+        }
+      ]
+    }
+  },
+  {
+    "tool": "get_network",
+    "arguments": {},
+    "result": {
+      "supply_head_m": 42,
+      "demands_lps": {
+        "J1": 0,
+        "J2": 5,
+        "J3": 5
+      },
+      "pipes": [
+        {
+          "id": "P0",
+          "from": "R0",
+          "to": "J1",
+          "length_m": 200,
+          "diameter_mm": 150
+        },
+        {
+          "id": "PA",
+          "from": "J1",
+          "to": "J2",
+          "length_m": 300,
+          "diameter_mm": 100
+        },
+        {
+          "id": "PB",
+          "from": "J1",
+          "to": "J3",
+          "length_m": 300,
+          "diameter_mm": 100
+        }
+      ],
+      "roughness_HW": 130,
+      "elevations_m": 0,
+      "sensors": {
+        "F01": "P0 flow",
+        "P01": "J1 pressure",
+        "MA": "J2 pressure",
+        "MB": "J3 pressure"
+      },
+      "total_visit_minutes": {
+        "MA": 15,
+        "MB": 30
+      },
+      "remaining_minutes": 20,
+      "assumptions": "fixed demands; 16 mm mid-pipe leak starts 02:20; scenarios exclude sensor bias and flushing"
+    }
+  },
+  {
+    "tool": "get_operation_records",
+    "arguments": {},
+    "result": [
+      {
+        "id": "OP01",
+        "branch": "B",
+        "window": "02:15-03:00 UTC",
+        "text": "Flushing scheduled; execution not confirmed."
+      },
+      {
+        "id": "OP03",
+        "related_to": "OP01",
+        "timestamp": "01:55 UTC",
+        "text": "Flushing cancelled; crew reassigned."
+      }
+    ]
+  },
+  {
+    "tool": "compare_hypotheses",
+    "arguments": {},
+    "result": {
+      "ranking": [
+        {
+          "scenario": "leak_A",
+          "normalized_rmse": 0.12367986133113124,
+          "predicted_final": {
+            "F01_flow_lps": 14.148286252022569,
+            "P01_pressure_m": 40.99443903527055,
+            "MA_pressure_m": 37.778813245696945,
+            "MB_pressure_m": 39.41090172797243
+          }
+        },
+        {
+          "scenario": "leak_B",
+          "normalized_rmse": 0.12367986133113124,
+          "predicted_final": {
+            "F01_flow_lps": 14.148286252022569,
+            "P01_pressure_m": 40.99443903527055,
+            "MA_pressure_m": 39.41090172797243,
+            "MB_pressure_m": 37.778813245696945
+          }
+        },
+        {
+          "scenario": "normal",
+          "normalized_rmse": 11.4269960934877,
+          "predicted_final": {
+            "F01_flow_lps": 10.000000001988765,
+            "P01_pressure_m": 41.47118229713295,
+            "MA_pressure_m": 39.88764498982084,
+            "MB_pressure_m": 39.88764498982084
+          }
+        }
+      ],
+      "measurements_used": [],
+      "caution": "Lower score means better fit among THREE fixed scenarios, not confirmation or probability. No hole-size inference."
+    }
+  },
+  {
+    "tool": "recommend_measurement",
+    "arguments": {},
+    "result": {
+      "recommended": "MA",
+      "points": [
+        {
+          "point": "MA",
+          "minutes": 15,
+          "separation_m": 1.6320884822754849,
+          "feasible": true
+        },
+        {
+          "point": "MB",
+          "minutes": 30,
+          "separation_m": 1.6320884822754849,
+          "feasible": false
+        }
+      ],
+      "method": "A-versus-B predicted pressure separation per minute; fixed demonstration heuristic"
+    }
+  },
+  {
+    "tool": "collect_demo_measurement",
+    "arguments": {
+      "point": "MA"
+    },
+    "result": {
+      "pressure_head_m": 37.808813,
+      "timestamp_utc": "2026-10-01T03:00:00Z",
+      "provenance": "synthetic measurement; steady conditions after 02:20 assumed"
+    }
+  },
+  {
+    "tool": "compare_hypotheses",
+    "arguments": {},
+    "result": {
+      "ranking": [
+        {
+          "scenario": "leak_A",
+          "normalized_rmse": 0.12505880396529842,
+          "predicted_final": {
+            "F01_flow_lps": 14.148286252022569,
+            "P01_pressure_m": 40.99443903527055,
+            "MA_pressure_m": 37.778813245696945,
+            "MB_pressure_m": 39.41090172797243
+          }
+        },
+        {
+          "scenario": "leak_B",
+          "normalized_rmse": 1.7521842351134966,
+          "predicted_final": {
+            "F01_flow_lps": 14.148286252022569,
+            "P01_pressure_m": 40.99443903527055,
+            "MA_pressure_m": 39.41090172797243,
+            "MB_pressure_m": 37.778813245696945
+          }
+        },
+        {
+          "scenario": "normal",
+          "normalized_rmse": 11.379939232114985,
+          "predicted_final": {
+            "F01_flow_lps": 10.000000001988765,
+            "P01_pressure_m": 41.47118229713295,
+            "MA_pressure_m": 39.88764498982084,
+            "MB_pressure_m": 39.88764498982084
+          }
+        }
+      ],
+      "measurements_used": [
+        "MA"
+      ],
+      "caution": "Lower score means better fit among THREE fixed scenarios, not confirmation or probability. No hole-size inference."
+    }
+  }
+]

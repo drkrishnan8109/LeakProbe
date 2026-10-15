@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.DS_Store
+outputs/llm_trace.json
+outputs/demo_video/scene_*/
+outputs/demo_video/clips.txt
+outputs/demo_video/voice_test.aiff
+outputs/demo_video/preview.jpg

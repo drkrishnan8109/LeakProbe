@@ -1,0 +1,59 @@
+00:00 | LeakProbe
+Choose the next measurement
+
+Water network sensors can reveal a problem without showing exactly where it is. Leak Probe explores a practical response: compare possible explanations, identify the most useful measurement, and update the result. This five minute walkthrough uses the actual local demo output. Every reading is synthetic, and the investigation sequence is scripted.
+
+00:25 | 01 / The problem
+An upstream signal can hide the location
+
+The example has one water supply and two matching branches. A flow sensor and a pressure sensor sit upstream of the split. Either branch can develop a leak. Because the branches are symmetric, these upstream sensors produce the same modeled response for leak A and leak B. More upstream readings cannot resolve that tie.
+
+00:50 | 02 / The model
+Three explanations, one hydraulic simulator
+
+The demo uses W N T R to simulate normal operation, a leak on branch A, and a leak on branch B. Supply head is forty two meters, and each end junction requests five liters per second. A sixteen millimeter leak opens halfway along one branch at two twenty. The simulator computes the resulting flow and pressure.
+
+01:15 | 03 / Run it locally
+Python 3.12. No inference API required.
+
+The local walkthrough runs with Python three point twelve. Create a virtual environment, activate it, install the requirements, and run the demo script. That command generates the prediction files and observations, then executes the investigation tools. This run completed successfully. It uses the local simulator, so the walkthrough needs no model credentials or paid inference requests.
+
+01:40 | 04 / Observe the change
+Flow rises after 02:20
+
+The observation file contains ten readings at five minute intervals, from two o clock to two forty five. The synthetic upstream flow rises from about ten to fourteen point one five liters per second after the leak begins. Pressure also falls slightly. Small reproducible noise is added to observations. These signals support a leak scenario, but leave its branch unresolved.
+
+02:05 | 05 / Compare hypotheses
+A and B fit equally well
+
+The comparison tool aligns the timestamps and scores the flow and pressure residuals against each scenario. Before a branch measurement, both leak scenarios score zero point one two three seven. Normal operation scores eleven point four two seven zero. Lower normalized error means a better fit. These scores are neither probabilities nor confidence levels, and only three fixed explanations are compared.
+
+02:30 | 06 / Check the context
+Scheduled work was cancelled
+
+The tools also expose fictional maintenance records. One record schedules flushing on branch B. A later linked record says that flushing was cancelled and the crew reassigned. That context matters when interpreting an apparent leak signal. However, this starter simulator does not model flushing or sensor bias, and the numeric ranking does not automatically interpret the maintenance notes.
+
+02:55 | 07 / Plan the next measurement
+MA fits the 20-minute budget
+
+The planner compares the predicted branch pressures for the two leak scenarios. Both measurement points offer about one point six three meters of separation. But visiting M A takes fifteen minutes, while M B takes thirty. With twenty minutes available, only M A is feasible. The tool chooses pressure separation per minute using a simple demonstration heuristic.
+
+03:20 | 08 / Reveal branch evidence
+MA reads 37.809 m of pressure head
+
+The collection tool reveals the synthetic M A reading: thirty seven point eight zero nine meters of pressure head. Leak A predicts about thirty seven point seven seven nine meters at that location. Leak B predicts thirty nine point four one one. The visit consumes fifteen minutes, leaving five. This fixture assumes the final simulated hydraulic state stays steady until collection.
+
+03:45 | 09 / Update the result
+Branch A now fits best
+
+With the branch reading included, the tool compares the scenarios again. Leak A now scores zero point one two five one, while leak B scores one point seven five two two. Normal operation remains a poor fit at eleven point three seven nine nine. Branch A best explains this synthetic evidence among the modeled candidates. That result does not confirm a real field leak.
+
+04:10 | 10 / Inspect the evidence
+Every tool result is saved
+
+The full tool sequence is saved in the scripted trace file. It includes the observations, network, maintenance notes, rankings, recommendation, and collected reading. Prediction files expose the underlying simulation results. This evidence trail is reviewable: you can see exactly why the result changes when a branch reading distinguishes two explanations that previously matched the upstream sensors equally well.
+
+04:35 | 11 / What this demonstrates
+Compare. Measure. Update.
+
+Leak Probe demonstrates how a limited measurement budget can guide an investigation. The next extension is an optional language model that chooses tools through the same interface. That live path is separate and was not used here. Before field use, the system would need calibrated uncertainty, alternative scenarios, and validation against independent observations. Today, this is a reproducible educational prototype.
