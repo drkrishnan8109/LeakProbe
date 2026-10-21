@@ -1,13 +1,23 @@
 # LeakProbe — Product Requirements Document
 
-**Version:** 1.0 · **Date:** 22 September 2026  
-**Status:** Proposed product specification; no implementation, benchmark results, customer commitments, or field validation implied.  
+**Version:** 1.1 · **Date:** 21 October 2026  
+**Status:** Proposed product specification. A separate educational demo and synthetic benchmark now exist; this PRD is not a description of a completed product. No customer commitments or field validation are implied.  
 **Intended readers:** Founder, AI engineer, hydraulic modeling adviser, utility design partner, product reviewer.  
 **Product owner:** Founder; named owner to be assigned before implementation.
 
 > LeakProbe helps water-network engineers choose the next feasible measurement that is expected to reduce uncertainty about a suspected leak.
 
 ## 1. Executive decision
+
+### Current repository status (21 October 2026)
+
+The repository contains a runnable Python demo and a generated Net3 benchmark. The current benchmark has 500 labeled cases (400 development, 100 held-out) and two observation sets: sparse coverage (12 pressure junctions and 8 flow pipes) and full coverage (92 junctions and 117 pipes). Each stored reference bank has 24 leak profiles per candidate pipe and 3 normal profiles. The detector is a physics-based reference-pattern matcher; it does not train a machine-learning model on the development cases.
+
+For each observation set, the development cases were used to select a threshold on the leading fit score. A weak top leak fit becomes `uncertain`; binary alarm metrics count that as no leak alarm and report the rejected-case count separately. On the full-coverage held-out set, this raised specificity from 40% to 85% and lowered recall from 76.2% to 40%; 38 of 100 cases were rejected. The sparse-set threshold likewise raised specificity to 85% and lowered recall from 55% to 25%, rejecting 33 cases. These are results on generated cases, not evidence that the proposed product requirements or performance gates have been met. See `outputs/evaluations/net3_full_pipes_comparison.md` for the full metrics.
+
+The threshold is specific to the current case and reference banks. It is a cutoff on normalized RMSE, not a probability or general-purpose model-adequacy test. Recalibrate it if the data or reference patterns change.
+
+The remaining requirements below describe proposed product scope and future validation, not capabilities implied by the demo.
 
 Build a software-only research MVP for sequential leak investigation in a small water distribution network. Import an existing hydraulic model and pressure/flow observations, rank plausible explanations, simulate possible additional measurements, and recommend a short investigation plan under explicit time and access constraints.
 
@@ -431,7 +441,7 @@ Proceed to a pilot only with a completed P0 suite, credible comparative results,
 
 ## 19. Engineering handoff appendix
 
-No source code or executable commands currently exist for LeakProbe. The layout and command contract below are proposed for implementation, not instructions claimed to work today.
+The repository now contains a Python learning demo and benchmark tools in the `leakprobe/` package, with thin root-level command launchers for compatibility. They do not implement the full product described in this PRD. The layout and command contract below remain a proposed future architecture, not instructions claimed to work today.
 
 ```text
 apps/web/                 browser application

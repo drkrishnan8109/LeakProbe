@@ -14,7 +14,7 @@ def run(args):
     subprocess.run(args, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 def duration(path):
     return float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',str(path)]))
-TRACE=json.loads((ROOT/'outputs/scripted_trace.json').read_text())
+TRACE=json.loads((ROOT/'outputs/traces/scripted_trace.json').read_text())
 BEFORE=TRACE[3]['result']['ranking']; AFTER=TRACE[-1]['result']['ranking']
 READING=TRACE[5]['result']['pressure_head_m']
 SCENES=[
@@ -131,7 +131,7 @@ def content(i):
     elif kind=='trace':
         seq=['get_observations + get_network + get_operation_records','compare_hypotheses -> initial tie','recommend_measurement -> MA','collect_demo_measurement -> 37.809 m','compare_hypotheses -> leak A best fit']
         for j,s in enumerate(seq): text(d,(140,330+j*76),f'{j+1}.  {s}',32,TEAL if j==4 else WHITE)
-        text(d,(140,760),'outputs/scripted_trace.json  +  data/*.csv',35,BLUE,True)
+        text(d,(140,760),'outputs/traces/scripted_trace.json  +  data/demo/*.csv',35,BLUE,True)
     elif kind=='closing':
         text(d,(150,340),'A reproducible investigation loop',60,WHITE,True)
         text(d,(150,450),'Compare hypotheses -> choose evidence -> update the fit',39,TEAL)

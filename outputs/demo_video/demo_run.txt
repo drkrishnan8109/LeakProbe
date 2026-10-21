@@ -1,4 +1,4 @@
-Generated 3 prediction CSVs, observations.csv, and 2 JSON fixtures in data/.
+Generated demo prediction CSVs, observations.csv, and JSON fixtures in data/demo/.
 
 SCRIPTED LOCAL DEMO — no LLM or API calls
 
@@ -16,4 +16,4 @@ After measurement:
   normal: normalized RMSE 11.3799
 
 Lower RMSE is better fit, NOT confidence. Synthetic branch evidence is not field confirmation.
-Open data/*.csv and outputs/scripted_trace.json to inspect the calculations.
+Open data/demo/*.csv and outputs/traces/scripted_trace.json to inspect the calculations.

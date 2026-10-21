@@ -1,6 +1,6 @@
 # LeakProbe learning demo
 
-A runnable Python project for the two-branch water-network example. Start locally, inspect the CSVs, then optionally connect NVIDIA Nemotron through Nebius Token Factory.
+A runnable Python project for a small two-branch example and a larger synthetic benchmark based on EPA's EPANET Example Network 3 (Net3). The default walkthrough uses NVIDIA Nemotron through Nebius Token Factory; the scripted path remains available offline.
 
 **This is an educational subset of the PRD, not the complete LeakProbe product.** All observations, measurements, and operational notes are synthetic. No sensors, utility accounts, or physical equipment are connected.
 
@@ -9,7 +9,7 @@ A runnable Python project for the two-branch water-network example. Start locall
 1. Extract `leakprobe-demo.zip`.
 2. Install **Python 3.12** (3.11 is also intended to work) and VS Code's Microsoft Python extension. Python 3.13/3.14 are not supported by this pinned demo dependency set.
 3. In VS Code, choose **File → Open Folder** and select the extracted `leakprobe-demo` folder itself.
-4. Open **Terminal → New Terminal**. Run the commands below for your operating system.
+4. Open **Terminal → New Terminal**. Install the dependencies, configure Nebius, and run the commands below for your operating system.
 5. Select the virtual environment using **Python: Select Interpreter** in the command palette.
 
 ### macOS or Linux
@@ -17,9 +17,13 @@ A runnable Python project for the two-branch water-network example. Start locall
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+python -m pip install -r requirements-llm.txt
+cp .env.example .env
+# Add your Nebius API key to .env, then:
 python run_demo.py
 ```
+
+To run locally without sending data to a provider, use `python run_demo.py --scripted`.
 
 ### Windows PowerShell
 
@@ -27,19 +31,25 @@ Using the environment's executable directly avoids PowerShell activation-policy 
 
 ```powershell
 py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-llm.txt
+Copy-Item .env.example .env
+# Add your Nebius API key to .env, then:
 .\.venv\Scripts\python.exe run_demo.py
 ```
 
+For the offline scripted walkthrough, add `--scripted`.
+
 In the remaining commands, Windows users can replace `python` with `.\.venv\Scripts\python.exe` unless their environment is activated.
 
-The local demo requires internet only for installing packages. It makes no inference API calls. It regenerates the files in `data/`, so copy edited data elsewhere before rerunning it.
+Live mode sends synthetic observations and tool results to Nebius and may incur charges. Scripted mode makes no inference API calls. `python run_demo.py` uses the two-branch case; add `--network net3` to use the larger benchmark after generating it.
 
 If you use full Visual Studio rather than VS Code, install its Python workload, open this folder, select the same environment, and run `run_demo.py` as the startup file. The terminal commands remain the same. Only macOS/Python 3.12 execution was tested here; Windows/Linux instructions have not been executed.
 
 ## What happens when you run it
 
-`python run_demo.py` performs this scripted sequence:
+`python run_demo.py` sends the synthetic case and allowlisted tool definitions to Nemotron, which chooses the investigation steps. Python runs the hydraulic simulations, validates tool arguments, enforces the measurement budget, and returns the synthetic reading. If the model tries to finish after collecting a reading without comparing again, the runtime performs that comparison and asks the model to update its conclusion.
+
+Use `python run_demo.py --scripted` for the reproducible two-branch sequence:
 
 1. Build the network and simulate normal, leak A, and leak B scenarios.
 2. Generate ten upstream observations with small reproducible noise.
@@ -48,31 +58,89 @@ If you use full Visual Studio rather than VS Code, install its Python workload, 
 5. Recommend MA because it can distinguish A from B and fits the 20-minute budget.
 6. Reveal one synthetic MA measurement from the fixture and consume 15 minutes.
 7. Compare again. Branch A should fit the supplied fixture best.
-8. Write the entire sequence to `outputs/scripted_trace.json`.
+8. Write the entire sequence to `outputs/traces/scripted_trace.json`.
 
-This local sequence is explicitly scripted; it is not an LLM transcript. The optional agent decides its own sequence through the same tool interface.
+The scripted sequence is not an LLM transcript. Both modes use the same two-branch investigation tools.
 
-## Files to read first
+## Generate the larger Net3 benchmark
 
-| File | Purpose |
-|---|---|
-| `simulator.py` | Defines the physical network and runs WNTR |
-| `generate_data.py` | Generates reproducible prediction and observation fixtures |
-| `tools.py` | Local tools, scenario comparison, measurement choice, validation |
-| `run_demo.py` | Complete local walkthrough without an API key |
-| `agent.py` | Optional Nemotron tool-calling loop through Nebius |
-| `data/observations.csv` | Ten noisy readings from F01 and P01 only |
-| `data/prediction_normal.csv` | Ten normal-operation predictions |
-| `data/prediction_leak_A.csv` | Ten branch A leak predictions |
-| `data/prediction_leak_B.csv` | Ten branch B leak predictions |
-| `data/demo_measurements.json` | Synthetic measurement fixtures revealed by the collection tool |
-| `data/operations.json` | Fictional flushing schedule and cancellation records |
-| `outputs/scripted_trace.json` | Example local investigation trace |
-| `EXAMPLE_RESULTS.md` | Actual output recorded during local testing |
-| `.env.example` | API configuration template; contains no real key |
-| `.vscode/launch.json` | VS Code debug configurations |
-| `tests/` | Hydraulic behavior, tool boundaries, and mocked agent-loop tests |
-| `docs/LeakProbe-PRD.md` | Broader product specification; most of it is future scope |
+WNTR's official Net3 example is included at `data/networks/Net3.inp` so generation works offline. Net3 contains 92 junctions, 117 pipes, 2 pumps, and 2 reservoirs. This is a public benchmark model, not a validated model of a particular city. WNTR documents reading EPANET input files and simulating Net3; see [WNTR's getting-started example](https://usepa.github.io/WNTR/getting_started.html), the [source network](https://github.com/USEPA/WNTR/blob/main/examples/networks/Net3.inp), and the [WNTR license](https://github.com/USEPA/WNTR/blob/main/LICENSE.md).
+
+The checked-in Net3 datasets currently contain **500 cases**: 400 development cases (320 leak, 80 normal) and 100 held-out test cases (80 leak, 20 normal). Leak pipes are split between development and test, so test pipes are not among the development candidates. The current stored reference bank contains 24 leak profiles for each of 24 candidate pipes, plus 3 normal-operation profiles. A profile is one simulated scenario and parameter combination; it is not an observation case.
+
+To generate a fresh 500-case benchmark and a larger 200-profile reference bank, run:
+
+```bash
+python generate_data.py --network net3 --cases 500 --train-fraction 0.8 --seed 2026 --patterns-per-scenario 200
+```
+
+Regenerating replaces the checked-in data. The rejection thresholds below are calibrated to the current stored cases and reference profiles; they do not automatically transfer to a newly generated bank. Re-evaluate and recalibrate before using new data.
+
+Evaluate the held-out cases without making LLM calls:
+
+```bash
+python evaluate_net3.py --split test
+```
+
+To compare the same 500 labeled cases with pressure measured at every junction and flow measured in every pipe, create a paired full-observation dataset. This uses the existing case labels, train/test split, candidate-pipe split, and reference parameter samples, while creating new full-coverage observations and prediction profiles:
+
+```bash
+python generate_full_net3_dataset.py
+python evaluate_net3.py --split test --data-dir data/net3_full_pipes_data
+```
+
+Use `--split all` to produce a descriptive report over all 500 cases. This combines development and held-out cases, so treat it as an overall dataset summary rather than a held-out performance estimate:
+
+```bash
+python evaluate_net3.py --split all --data-dir data/net3_full_pipes_data
+```
+
+The standard dataset records pressure at 12 junctions and flow in 8 pipes. The companion records pressure at all 92 junctions and flow in all 117 pipes at each time step. It reuses the original readings for the 20 existing sensors and adds readings for the newly covered locations. It has no optional measurement points because every junction is already observed. This tests a best-case instrumentation setup; it does not represent a real utility's sensor deployment. The two datasets use the same scenario labels, so their held-out results can be compared directly.
+
+The generator simulates six hours at 15-minute intervals. Cases include normal operation and one leak, with varied pipe location, leak diameter, start and duration, overall demand, sensor noise, and sparse sensor dropouts. The 24 spatially distributed candidate pipes are divided into disjoint train and test sets, and parameter ranges also differ between splits. Candidate predictions search a coarse grid of leak and demand parameters. Truth labels and synthetic measurement fixtures are stored separately from observations; they are instructional files, not tamper-proof hidden data.
+
+Run the scripted path on the first held-out test case:
+
+```bash
+python run_demo.py --scripted --network net3
+```
+
+Or ask Nemotron to investigate it:
+
+```bash
+python run_demo.py --network net3
+```
+
+Pass `--case case_020` to choose another generated case. Net3 tool scores compare pipes only within that case's train or test candidate set. The optional pressure-gauge planner uses pressure spread across the leading five candidates as a simple heuristic, not a calibrated information-gain method.
+
+### Net3 rejection threshold and current results
+
+The Net3 detector is a **physics-based reference-pattern matcher**, not a machine-learning model trained on the 400 development cases. The development cases were used to choose a rejection threshold. The detector ranks normal and candidate-leak fits by normalized RMSE, which is a fit score and **not a probability**. If a leak scenario ranks first but its fit score exceeds the threshold, the tool returns `uncertain` instead of a leak alarm. The evaluator counts `uncertain` as no leak alarm for binary metrics and also reports how many cases were rejected.
+
+The two observation sets have different score scales, so they use different cutoffs: **5.9836** for sparse coverage and **64.2958** for full coverage. On the 100 held-out full-coverage cases, the threshold changed the confusion matrix (TP / FN / FP / TN) from **61 / 19 / 12 / 8** to **32 / 48 / 3 / 17**. Specificity rose from 40% to 85%, while leak recall fell from 76.2% to 40%; 38 cases were rejected as uncertain. Balanced accuracy moved from 58.1% to 62.5%. This is a more cautious alarm setting, not a general accuracy improvement.
+
+For sparse coverage, the threshold changed the confusion matrix from **44 / 36 / 12 / 8** to **20 / 60 / 3 / 17**. Specificity rose from 40% to 85%, while recall fell from 55% to 25%; 33 cases were rejected. Across all 500 full-observation cases, the threshold produced 153 TP, 247 FN, 24 FP, and 76 TN, rejecting 292 cases. This combines development and test data, so it is descriptive only. Full before-and-after metrics and pipe-localization results are in [the comparison report](outputs/evaluations/net3_full_pipes_comparison.md).
+
+## Project layout
+
+```text
+leakprobe/                 Python package: simulator, tools, agent, benchmark, CLI logic
+data/
+  demo/                    Two-branch demo fixtures
+  networks/                EPANET network model files
+  net3/                    500-case sparse-observation benchmark
+  net3_full_pipes_data/    Paired full-observation benchmark
+docs/                      PRD, actual example results, environment notes
+outputs/
+  diagrams/                Workflow diagrams and their source files
+  evaluations/             Metric reports
+  presentation/            Presentation source
+  traces/                  Example scripted and LLM investigation traces
+  demo_video/              Demo-video project files
+tests/                     Simulator, evaluator, tool, and agent tests
+```
+
+The short root scripts (`run_demo.py`, `agent.py`, `generate_data.py`, `generate_full_net3_dataset.py`, and `evaluate_net3.py`) preserve the established command line interface. Their implementation lives in the `leakprobe/` package. The main references are [the pitch brief](PITCH.md), [the PRD](docs/LeakProbe-PRD.md), [actual example results](docs/EXAMPLE_RESULTS.md), and [the full-observation evaluation report](outputs/evaluations/net3_full_pipes_comparison.md).
 
 ## The network and units
 
@@ -107,7 +175,7 @@ python generate_data.py
 Or use the simulator from your own Python file:
 
 ```python
-from simulator import simulate
+from leakprobe.simulator import simulate
 
 normal = simulate('normal')
 leak = simulate('leak_A', hole_diameter_mm=12)
@@ -121,7 +189,7 @@ Supported scenario names are `normal`, `leak_A`, and `leak_B`. Hole diameter mus
 
 The comparison tool aligns timestamps and compares all ten upstream readings with each prediction. Flow and pressure errors are each divided by an illustrative scale of 0.2 in their respective units. It then calculates root mean squared normalized error. Once collected, a branch measurement adds one more residual against the scenario's final pressure prediction.
 
-**A lower score means a better fit among the three predefined scenarios. It is not a probability, confidence interval, or proof of a leak.** The scaling values are demonstration settings, not fitted sensor uncertainty. There is no parameter estimation, calibrated posterior, or out-of-distribution abstention implementation here.
+**A lower score means a better fit among the three predefined scenarios. It is not a probability, confidence interval, or proof of a leak.** The scaling values are demonstration settings, not fitted sensor uncertainty. This small two-branch walkthrough has no rejection threshold. Net3 uses the dataset-specific rejection thresholds described above, but these cutoffs are not a calibrated posterior or a general model-mismatch detector.
 
 The measurement planner compares the A-versus-B predicted pressures at MA and MB. Among feasible, unmeasured locations, it selects the largest pressure separation per minute. This is a simple heuristic, not the PRD's expected-information-gain algorithm.
 
@@ -129,9 +197,9 @@ MA takes 10 minutes to travel/setup plus 5 minutes to measure. MB takes 25 plus 
 
 The demo measurement at 03:00 reuses the final predicted hydraulic state plus a small offset. This assumes the network stays steady after 02:20. A real application needs predictions at the true collection time and actual measured data.
 
-## Connect an LLM through Nebius
+## Live Nemotron investigation through Nebius
 
-The local demo works first. Live mode additionally requires a Nebius API key, an accessible tool-calling model, internet access, and sufficient account balance. ChatGPT Pro is not an API credential. Your reported Token Factory credits are not checked by this project.
+Live mode requires a Nebius API key, an accessible tool-calling model, internet access, and sufficient account balance. ChatGPT Pro is not an API credential. Your reported Token Factory credits are not checked by this project. Use `--scripted` to run offline.
 
 ### 1. Install the optional adapter
 
@@ -179,7 +247,7 @@ The application sends the instruction and tool schemas to the model. The model m
 
 Python executes that function and sends back real simulator-based results. The model can then request `recommend_measurement`, `collect_demo_measurement` with `{"point":"MA"}`, and `compare_hypotheses` again. Tool choice is not forced, so actual behavior varies by model.
 
-A final answer and the tool results are saved to `outputs/llm_trace.json`. The trace stores tool calls/results and available usage counts; it does not capture private reasoning or API credentials. You can inspect exactly which evidence the model received.
+A final answer and the tool results are saved to `outputs/traces/llm_trace.json`. The trace stores tool calls/results and available usage counts; it does not capture private reasoning or API credentials. You can inspect exactly which evidence the model received.
 
 **Live mode sends synthetic observations, operations records, and tool outputs to your configured provider and may incur charges.** It allows at most eight model requests, up to 2048 requested output tokens per response, and at most sixteen tool executions. There is no guaranteed monetary spending cap; provider reasoning-token accounting may vary. Requests time out after 60 seconds and are not automatically retried.
 
@@ -199,7 +267,7 @@ The output text itself is not a formally verified report. Treat any unsupported 
 python -m unittest discover -s tests -v
 ```
 
-Tests cover normal flow balance, pressure symmetry, leak onset, input validation, upstream ambiguity, evidence updating, time-budget enforcement, invalid tool requests, and provider-independent tool-call round trips with a fake client.
+The current suite has 17 tests covering normal flow balance, pressure symmetry, leak onset, input validation, upstream ambiguity, evidence updating, rejection behavior, time-budget enforcement, invalid tool requests, and provider-independent tool-call round trips with a fake client.
 
 The local simulator and scripted flow were executed on Python 3.12/macOS. The agent loop was tested with a fake client, **not a paid live Nebius request**. Provider access, billing, and actual model tool-call behavior remain to be tested with your own account.
 

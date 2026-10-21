@@ -1,5 +1,5 @@
 import unittest
-from tools import Investigation, dispatch
+from leakprobe.tools import Investigation, dispatch
 
 class ToolTests(unittest.TestCase):
     def test_upstream_ambiguity_and_measurement_update(self):

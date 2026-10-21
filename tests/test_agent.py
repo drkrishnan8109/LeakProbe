@@ -1,6 +1,6 @@
 import unittest
 from types import SimpleNamespace as S
-from agent import investigate
+from leakprobe.agent import investigate
 
 class Message:
     def __init__(self, content=None, calls=None):

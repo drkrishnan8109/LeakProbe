@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from simulator import simulate
+from leakprobe.simulator import simulate
 
 class HydraulicTests(unittest.TestCase):
     def test_normal_conservation(self):

@@ -1,0 +1,4502 @@
+{
+  "case_000": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 11.738,
+    "start_hour": 0.685,
+    "leak_duration_hours": 3.266,
+    "demand_scale": 0.8768
+  },
+  "case_001": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 13.266,
+    "start_hour": 0.643,
+    "leak_duration_hours": 3.697,
+    "demand_scale": 0.8722
+  },
+  "case_002": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 9.331,
+    "start_hour": 0.924,
+    "leak_duration_hours": 3.493,
+    "demand_scale": 0.9991
+  },
+  "case_003": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 12.739,
+    "start_hour": 0.664,
+    "leak_duration_hours": 3.049,
+    "demand_scale": 0.9813
+  },
+  "case_004": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8933
+  },
+  "case_005": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 15.355,
+    "start_hour": 0.771,
+    "leak_duration_hours": 3.393,
+    "demand_scale": 0.8888
+  },
+  "case_006": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 10.562,
+    "start_hour": 0.794,
+    "leak_duration_hours": 3.072,
+    "demand_scale": 0.9073
+  },
+  "case_007": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 9.13,
+    "start_hour": 0.919,
+    "leak_duration_hours": 3.16,
+    "demand_scale": 0.9868
+  },
+  "case_008": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 14.893,
+    "start_hour": 0.645,
+    "leak_duration_hours": 3.481,
+    "demand_scale": 0.9976
+  },
+  "case_009": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.918
+  },
+  "case_010": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 10.135,
+    "start_hour": 0.673,
+    "leak_duration_hours": 3.569,
+    "demand_scale": 0.9716
+  },
+  "case_011": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 8.979,
+    "start_hour": 0.542,
+    "leak_duration_hours": 3.72,
+    "demand_scale": 0.904
+  },
+  "case_012": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 14.686,
+    "start_hour": 0.568,
+    "leak_duration_hours": 3.732,
+    "demand_scale": 0.9885
+  },
+  "case_013": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 14.262,
+    "start_hour": 0.914,
+    "leak_duration_hours": 3.5,
+    "demand_scale": 0.8936
+  },
+  "case_014": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9545
+  },
+  "case_015": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 15.305,
+    "start_hour": 0.522,
+    "leak_duration_hours": 3.475,
+    "demand_scale": 0.8555
+  },
+  "case_016": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 13.547,
+    "start_hour": 0.521,
+    "leak_duration_hours": 3.718,
+    "demand_scale": 0.8927
+  },
+  "case_017": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 15.443,
+    "start_hour": 0.749,
+    "leak_duration_hours": 3.204,
+    "demand_scale": 0.9655
+  },
+  "case_018": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 14.244,
+    "start_hour": 0.701,
+    "leak_duration_hours": 3.689,
+    "demand_scale": 0.861
+  },
+  "case_019": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9614
+  },
+  "case_020": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 8.047,
+    "start_hour": 0.696,
+    "leak_duration_hours": 3.051,
+    "demand_scale": 0.8824
+  },
+  "case_021": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 8.755,
+    "start_hour": 0.654,
+    "leak_duration_hours": 3.741,
+    "demand_scale": 0.8534
+  },
+  "case_022": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 12.621,
+    "start_hour": 0.948,
+    "leak_duration_hours": 3.248,
+    "demand_scale": 0.8839
+  },
+  "case_023": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 9.981,
+    "start_hour": 0.645,
+    "leak_duration_hours": 3.327,
+    "demand_scale": 0.9886
+  },
+  "case_024": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9008
+  },
+  "case_025": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 10.746,
+    "start_hour": 0.919,
+    "leak_duration_hours": 3.333,
+    "demand_scale": 0.9359
+  },
+  "case_026": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 11.12,
+    "start_hour": 0.855,
+    "leak_duration_hours": 3.687,
+    "demand_scale": 0.873
+  },
+  "case_027": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 8.946,
+    "start_hour": 0.833,
+    "leak_duration_hours": 3.73,
+    "demand_scale": 0.9339
+  },
+  "case_028": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 10.179,
+    "start_hour": 0.807,
+    "leak_duration_hours": 3.042,
+    "demand_scale": 0.9061
+  },
+  "case_029": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8786
+  },
+  "case_030": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 8.099,
+    "start_hour": 0.868,
+    "leak_duration_hours": 3.619,
+    "demand_scale": 0.9008
+  },
+  "case_031": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 15.417,
+    "start_hour": 0.673,
+    "leak_duration_hours": 3.344,
+    "demand_scale": 0.9441
+  },
+  "case_032": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 15.512,
+    "start_hour": 0.527,
+    "leak_duration_hours": 3.647,
+    "demand_scale": 0.9172
+  },
+  "case_033": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 12.419,
+    "start_hour": 0.684,
+    "leak_duration_hours": 3.128,
+    "demand_scale": 0.9193
+  },
+  "case_034": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9198
+  },
+  "case_035": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 13.353,
+    "start_hour": 0.712,
+    "leak_duration_hours": 3.128,
+    "demand_scale": 0.9789
+  },
+  "case_036": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 9.174,
+    "start_hour": 0.919,
+    "leak_duration_hours": 3.063,
+    "demand_scale": 0.9626
+  },
+  "case_037": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 13.248,
+    "start_hour": 0.963,
+    "leak_duration_hours": 3.568,
+    "demand_scale": 0.9316
+  },
+  "case_038": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 13.767,
+    "start_hour": 0.654,
+    "leak_duration_hours": 3.256,
+    "demand_scale": 0.9455
+  },
+  "case_039": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.996
+  },
+  "case_040": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 13.454,
+    "start_hour": 0.709,
+    "leak_duration_hours": 3.43,
+    "demand_scale": 0.8737
+  },
+  "case_041": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 10.453,
+    "start_hour": 0.881,
+    "leak_duration_hours": 3.384,
+    "demand_scale": 0.9812
+  },
+  "case_042": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 10.65,
+    "start_hour": 0.836,
+    "leak_duration_hours": 3.611,
+    "demand_scale": 0.9754
+  },
+  "case_043": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 11.27,
+    "start_hour": 0.627,
+    "leak_duration_hours": 3.136,
+    "demand_scale": 0.8857
+  },
+  "case_044": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9991
+  },
+  "case_045": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 14.61,
+    "start_hour": 0.505,
+    "leak_duration_hours": 3.168,
+    "demand_scale": 0.9477
+  },
+  "case_046": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 11.692,
+    "start_hour": 0.865,
+    "leak_duration_hours": 3.368,
+    "demand_scale": 0.8523
+  },
+  "case_047": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 14.702,
+    "start_hour": 0.916,
+    "leak_duration_hours": 3.064,
+    "demand_scale": 0.9145
+  },
+  "case_048": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 13.646,
+    "start_hour": 0.612,
+    "leak_duration_hours": 3.318,
+    "demand_scale": 0.8598
+  },
+  "case_049": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8899
+  },
+  "case_050": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 10.171,
+    "start_hour": 0.51,
+    "leak_duration_hours": 3.193,
+    "demand_scale": 0.8897
+  },
+  "case_051": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 11.764,
+    "start_hour": 0.757,
+    "leak_duration_hours": 3.687,
+    "demand_scale": 0.9444
+  },
+  "case_052": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 13.409,
+    "start_hour": 0.598,
+    "leak_duration_hours": 3.284,
+    "demand_scale": 0.9077
+  },
+  "case_053": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 10.95,
+    "start_hour": 0.62,
+    "leak_duration_hours": 3.088,
+    "demand_scale": 0.8943
+  },
+  "case_054": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.886
+  },
+  "case_055": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 14.645,
+    "start_hour": 0.627,
+    "leak_duration_hours": 3.608,
+    "demand_scale": 0.9112
+  },
+  "case_056": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 8.111,
+    "start_hour": 0.739,
+    "leak_duration_hours": 3.165,
+    "demand_scale": 0.9622
+  },
+  "case_057": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 11.176,
+    "start_hour": 0.86,
+    "leak_duration_hours": 3.026,
+    "demand_scale": 0.86
+  },
+  "case_058": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 11.322,
+    "start_hour": 0.768,
+    "leak_duration_hours": 3.319,
+    "demand_scale": 0.9336
+  },
+  "case_059": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9389
+  },
+  "case_060": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 9.165,
+    "start_hour": 0.524,
+    "leak_duration_hours": 3.74,
+    "demand_scale": 0.9919
+  },
+  "case_061": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 15.277,
+    "start_hour": 0.682,
+    "leak_duration_hours": 3.177,
+    "demand_scale": 0.8725
+  },
+  "case_062": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 14.972,
+    "start_hour": 0.619,
+    "leak_duration_hours": 3.004,
+    "demand_scale": 0.9488
+  },
+  "case_063": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 15.63,
+    "start_hour": 0.651,
+    "leak_duration_hours": 3.745,
+    "demand_scale": 0.9651
+  },
+  "case_064": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8605
+  },
+  "case_065": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 13.379,
+    "start_hour": 0.661,
+    "leak_duration_hours": 3.367,
+    "demand_scale": 0.9443
+  },
+  "case_066": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 8.562,
+    "start_hour": 0.859,
+    "leak_duration_hours": 3.159,
+    "demand_scale": 0.9925
+  },
+  "case_067": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 8.776,
+    "start_hour": 0.813,
+    "leak_duration_hours": 3.301,
+    "demand_scale": 0.9366
+  },
+  "case_068": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 13.067,
+    "start_hour": 0.565,
+    "leak_duration_hours": 3.213,
+    "demand_scale": 0.903
+  },
+  "case_069": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9023
+  },
+  "case_070": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 11.404,
+    "start_hour": 0.611,
+    "leak_duration_hours": 3.745,
+    "demand_scale": 0.918
+  },
+  "case_071": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 8.905,
+    "start_hour": 0.761,
+    "leak_duration_hours": 3.101,
+    "demand_scale": 0.8784
+  },
+  "case_072": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 9.679,
+    "start_hour": 0.542,
+    "leak_duration_hours": 3.664,
+    "demand_scale": 0.9255
+  },
+  "case_073": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 12.646,
+    "start_hour": 0.769,
+    "leak_duration_hours": 3.641,
+    "demand_scale": 0.8878
+  },
+  "case_074": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8957
+  },
+  "case_075": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 9.132,
+    "start_hour": 0.68,
+    "leak_duration_hours": 3.132,
+    "demand_scale": 0.8804
+  },
+  "case_076": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 13.231,
+    "start_hour": 0.695,
+    "leak_duration_hours": 3.656,
+    "demand_scale": 0.93
+  },
+  "case_077": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 10.144,
+    "start_hour": 0.505,
+    "leak_duration_hours": 3.169,
+    "demand_scale": 0.955
+  },
+  "case_078": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 12.546,
+    "start_hour": 0.934,
+    "leak_duration_hours": 3.557,
+    "demand_scale": 0.8959
+  },
+  "case_079": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8998
+  },
+  "case_080": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 10.803,
+    "start_hour": 0.769,
+    "leak_duration_hours": 3.565,
+    "demand_scale": 0.9113
+  },
+  "case_081": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 8.042,
+    "start_hour": 0.595,
+    "leak_duration_hours": 3.166,
+    "demand_scale": 0.8945
+  },
+  "case_082": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 12.65,
+    "start_hour": 0.994,
+    "leak_duration_hours": 3.564,
+    "demand_scale": 0.8769
+  },
+  "case_083": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 14.88,
+    "start_hour": 0.601,
+    "leak_duration_hours": 3.523,
+    "demand_scale": 0.9242
+  },
+  "case_084": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9895
+  },
+  "case_085": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 8.36,
+    "start_hour": 0.587,
+    "leak_duration_hours": 3.011,
+    "demand_scale": 0.9007
+  },
+  "case_086": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 11.832,
+    "start_hour": 0.813,
+    "leak_duration_hours": 3.371,
+    "demand_scale": 0.9058
+  },
+  "case_087": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 11.585,
+    "start_hour": 0.897,
+    "leak_duration_hours": 3.528,
+    "demand_scale": 0.8543
+  },
+  "case_088": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 8.084,
+    "start_hour": 0.867,
+    "leak_duration_hours": 3.457,
+    "demand_scale": 0.9757
+  },
+  "case_089": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9507
+  },
+  "case_090": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 11.896,
+    "start_hour": 0.709,
+    "leak_duration_hours": 3.569,
+    "demand_scale": 0.9942
+  },
+  "case_091": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 14.583,
+    "start_hour": 0.571,
+    "leak_duration_hours": 3.095,
+    "demand_scale": 0.9984
+  },
+  "case_092": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 11.766,
+    "start_hour": 0.981,
+    "leak_duration_hours": 3.708,
+    "demand_scale": 0.8951
+  },
+  "case_093": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 8.418,
+    "start_hour": 0.87,
+    "leak_duration_hours": 3.6,
+    "demand_scale": 0.8589
+  },
+  "case_094": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8994
+  },
+  "case_095": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 13.178,
+    "start_hour": 0.826,
+    "leak_duration_hours": 3.546,
+    "demand_scale": 0.9521
+  },
+  "case_096": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 8.685,
+    "start_hour": 0.904,
+    "leak_duration_hours": 3.607,
+    "demand_scale": 0.9096
+  },
+  "case_097": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 11.454,
+    "start_hour": 0.579,
+    "leak_duration_hours": 3.396,
+    "demand_scale": 0.9422
+  },
+  "case_098": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 12.067,
+    "start_hour": 0.655,
+    "leak_duration_hours": 3.646,
+    "demand_scale": 0.8793
+  },
+  "case_099": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.988
+  },
+  "case_100": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 12.366,
+    "start_hour": 0.697,
+    "leak_duration_hours": 3.495,
+    "demand_scale": 0.8679
+  },
+  "case_101": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 11.797,
+    "start_hour": 0.624,
+    "leak_duration_hours": 3.429,
+    "demand_scale": 0.968
+  },
+  "case_102": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 13.456,
+    "start_hour": 0.559,
+    "leak_duration_hours": 3.44,
+    "demand_scale": 0.9309
+  },
+  "case_103": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 12.971,
+    "start_hour": 0.536,
+    "leak_duration_hours": 3.216,
+    "demand_scale": 0.8623
+  },
+  "case_104": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9174
+  },
+  "case_105": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 12.714,
+    "start_hour": 0.963,
+    "leak_duration_hours": 3.552,
+    "demand_scale": 0.9602
+  },
+  "case_106": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 12.136,
+    "start_hour": 0.708,
+    "leak_duration_hours": 3.029,
+    "demand_scale": 0.8701
+  },
+  "case_107": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 10.197,
+    "start_hour": 0.508,
+    "leak_duration_hours": 3.525,
+    "demand_scale": 0.9761
+  },
+  "case_108": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 9.155,
+    "start_hour": 0.584,
+    "leak_duration_hours": 3.316,
+    "demand_scale": 0.8962
+  },
+  "case_109": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.939
+  },
+  "case_110": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 9.412,
+    "start_hour": 0.582,
+    "leak_duration_hours": 3.136,
+    "demand_scale": 0.8965
+  },
+  "case_111": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 9.46,
+    "start_hour": 0.894,
+    "leak_duration_hours": 3.601,
+    "demand_scale": 0.8739
+  },
+  "case_112": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 9.125,
+    "start_hour": 0.659,
+    "leak_duration_hours": 3.407,
+    "demand_scale": 0.9431
+  },
+  "case_113": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 12.946,
+    "start_hour": 0.814,
+    "leak_duration_hours": 3.07,
+    "demand_scale": 0.876
+  },
+  "case_114": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8565
+  },
+  "case_115": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 10.728,
+    "start_hour": 0.685,
+    "leak_duration_hours": 3.415,
+    "demand_scale": 0.9063
+  },
+  "case_116": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 10.911,
+    "start_hour": 0.54,
+    "leak_duration_hours": 3.257,
+    "demand_scale": 0.9032
+  },
+  "case_117": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 14.181,
+    "start_hour": 0.868,
+    "leak_duration_hours": 3.427,
+    "demand_scale": 0.9746
+  },
+  "case_118": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 9.152,
+    "start_hour": 0.964,
+    "leak_duration_hours": 3.094,
+    "demand_scale": 0.8566
+  },
+  "case_119": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8647
+  },
+  "case_120": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 10.597,
+    "start_hour": 0.97,
+    "leak_duration_hours": 3.672,
+    "demand_scale": 0.9421
+  },
+  "case_121": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 13.475,
+    "start_hour": 0.635,
+    "leak_duration_hours": 3.121,
+    "demand_scale": 0.9637
+  },
+  "case_122": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 8.58,
+    "start_hour": 0.585,
+    "leak_duration_hours": 3.123,
+    "demand_scale": 0.9268
+  },
+  "case_123": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 12.626,
+    "start_hour": 0.881,
+    "leak_duration_hours": 3.218,
+    "demand_scale": 0.8978
+  },
+  "case_124": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8916
+  },
+  "case_125": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 9.958,
+    "start_hour": 0.618,
+    "leak_duration_hours": 3.016,
+    "demand_scale": 0.9843
+  },
+  "case_126": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 15.063,
+    "start_hour": 0.963,
+    "leak_duration_hours": 3.181,
+    "demand_scale": 0.9009
+  },
+  "case_127": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 12.495,
+    "start_hour": 0.749,
+    "leak_duration_hours": 3.313,
+    "demand_scale": 0.9096
+  },
+  "case_128": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 13.652,
+    "start_hour": 0.745,
+    "leak_duration_hours": 3.17,
+    "demand_scale": 0.9781
+  },
+  "case_129": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9897
+  },
+  "case_130": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 10.781,
+    "start_hour": 0.618,
+    "leak_duration_hours": 3.446,
+    "demand_scale": 0.8946
+  },
+  "case_131": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 11.198,
+    "start_hour": 0.508,
+    "leak_duration_hours": 3.326,
+    "demand_scale": 0.9364
+  },
+  "case_132": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 15.942,
+    "start_hour": 0.919,
+    "leak_duration_hours": 3.469,
+    "demand_scale": 0.9946
+  },
+  "case_133": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 13.899,
+    "start_hour": 0.518,
+    "leak_duration_hours": 3.05,
+    "demand_scale": 0.884
+  },
+  "case_134": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8573
+  },
+  "case_135": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 15.182,
+    "start_hour": 0.701,
+    "leak_duration_hours": 3.025,
+    "demand_scale": 0.9692
+  },
+  "case_136": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 13.25,
+    "start_hour": 0.909,
+    "leak_duration_hours": 3.566,
+    "demand_scale": 0.917
+  },
+  "case_137": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 9.449,
+    "start_hour": 0.651,
+    "leak_duration_hours": 3.073,
+    "demand_scale": 0.9929
+  },
+  "case_138": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 10.422,
+    "start_hour": 0.958,
+    "leak_duration_hours": 3.001,
+    "demand_scale": 0.9386
+  },
+  "case_139": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.987
+  },
+  "case_140": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 9.535,
+    "start_hour": 0.929,
+    "leak_duration_hours": 3.306,
+    "demand_scale": 0.9201
+  },
+  "case_141": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 14.651,
+    "start_hour": 0.883,
+    "leak_duration_hours": 3.2,
+    "demand_scale": 0.9518
+  },
+  "case_142": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 11.03,
+    "start_hour": 0.975,
+    "leak_duration_hours": 3.268,
+    "demand_scale": 0.9143
+  },
+  "case_143": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 13.433,
+    "start_hour": 0.998,
+    "leak_duration_hours": 3.68,
+    "demand_scale": 0.8992
+  },
+  "case_144": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8523
+  },
+  "case_145": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 12.693,
+    "start_hour": 0.891,
+    "leak_duration_hours": 3.688,
+    "demand_scale": 0.8983
+  },
+  "case_146": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 15.553,
+    "start_hour": 0.556,
+    "leak_duration_hours": 3.023,
+    "demand_scale": 0.9896
+  },
+  "case_147": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 9.121,
+    "start_hour": 0.65,
+    "leak_duration_hours": 3.533,
+    "demand_scale": 0.9884
+  },
+  "case_148": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 11.386,
+    "start_hour": 0.714,
+    "leak_duration_hours": 3.215,
+    "demand_scale": 0.8502
+  },
+  "case_149": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8908
+  },
+  "case_150": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 9.008,
+    "start_hour": 0.602,
+    "leak_duration_hours": 3.652,
+    "demand_scale": 0.9939
+  },
+  "case_151": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 14.632,
+    "start_hour": 0.951,
+    "leak_duration_hours": 3.19,
+    "demand_scale": 0.9173
+  },
+  "case_152": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 11.799,
+    "start_hour": 0.645,
+    "leak_duration_hours": 3.622,
+    "demand_scale": 0.8804
+  },
+  "case_153": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 11.593,
+    "start_hour": 0.61,
+    "leak_duration_hours": 3.043,
+    "demand_scale": 0.907
+  },
+  "case_154": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8818
+  },
+  "case_155": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 12.403,
+    "start_hour": 0.991,
+    "leak_duration_hours": 3.423,
+    "demand_scale": 0.9166
+  },
+  "case_156": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 9.695,
+    "start_hour": 0.849,
+    "leak_duration_hours": 3.425,
+    "demand_scale": 0.9154
+  },
+  "case_157": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 13.292,
+    "start_hour": 0.948,
+    "leak_duration_hours": 3.614,
+    "demand_scale": 0.9939
+  },
+  "case_158": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 9.04,
+    "start_hour": 0.541,
+    "leak_duration_hours": 3.406,
+    "demand_scale": 0.9072
+  },
+  "case_159": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9706
+  },
+  "case_160": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 12.253,
+    "start_hour": 0.593,
+    "leak_duration_hours": 3.356,
+    "demand_scale": 0.9872
+  },
+  "case_161": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 12.939,
+    "start_hour": 0.805,
+    "leak_duration_hours": 3.217,
+    "demand_scale": 0.8695
+  },
+  "case_162": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 12.363,
+    "start_hour": 0.991,
+    "leak_duration_hours": 3.145,
+    "demand_scale": 0.8699
+  },
+  "case_163": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 8.087,
+    "start_hour": 0.791,
+    "leak_duration_hours": 3.055,
+    "demand_scale": 0.9777
+  },
+  "case_164": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9789
+  },
+  "case_165": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 11.865,
+    "start_hour": 0.563,
+    "leak_duration_hours": 3.164,
+    "demand_scale": 0.862
+  },
+  "case_166": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 11.105,
+    "start_hour": 0.69,
+    "leak_duration_hours": 3.138,
+    "demand_scale": 0.9519
+  },
+  "case_167": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 11.006,
+    "start_hour": 0.643,
+    "leak_duration_hours": 3.416,
+    "demand_scale": 0.912
+  },
+  "case_168": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 14.177,
+    "start_hour": 0.942,
+    "leak_duration_hours": 3.158,
+    "demand_scale": 0.8991
+  },
+  "case_169": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9571
+  },
+  "case_170": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 15.742,
+    "start_hour": 0.525,
+    "leak_duration_hours": 3.4,
+    "demand_scale": 0.8623
+  },
+  "case_171": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 8.284,
+    "start_hour": 0.754,
+    "leak_duration_hours": 3.457,
+    "demand_scale": 0.9035
+  },
+  "case_172": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 11.054,
+    "start_hour": 0.793,
+    "leak_duration_hours": 3.47,
+    "demand_scale": 0.8538
+  },
+  "case_173": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 10.578,
+    "start_hour": 0.554,
+    "leak_duration_hours": 3.517,
+    "demand_scale": 0.9509
+  },
+  "case_174": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9271
+  },
+  "case_175": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 13.459,
+    "start_hour": 0.548,
+    "leak_duration_hours": 3.334,
+    "demand_scale": 0.8842
+  },
+  "case_176": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 9.42,
+    "start_hour": 0.779,
+    "leak_duration_hours": 3.076,
+    "demand_scale": 0.9959
+  },
+  "case_177": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 9.999,
+    "start_hour": 0.505,
+    "leak_duration_hours": 3.411,
+    "demand_scale": 0.9979
+  },
+  "case_178": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 15.737,
+    "start_hour": 0.573,
+    "leak_duration_hours": 3.545,
+    "demand_scale": 0.9233
+  },
+  "case_179": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8957
+  },
+  "case_180": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 11.96,
+    "start_hour": 0.912,
+    "leak_duration_hours": 3.717,
+    "demand_scale": 0.972
+  },
+  "case_181": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 13.459,
+    "start_hour": 0.826,
+    "leak_duration_hours": 3.067,
+    "demand_scale": 0.9034
+  },
+  "case_182": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 12.63,
+    "start_hour": 0.756,
+    "leak_duration_hours": 3.251,
+    "demand_scale": 0.974
+  },
+  "case_183": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 13.449,
+    "start_hour": 0.51,
+    "leak_duration_hours": 3.456,
+    "demand_scale": 0.9633
+  },
+  "case_184": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8572
+  },
+  "case_185": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 8.103,
+    "start_hour": 0.962,
+    "leak_duration_hours": 3.142,
+    "demand_scale": 0.8957
+  },
+  "case_186": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 9.502,
+    "start_hour": 0.983,
+    "leak_duration_hours": 3.332,
+    "demand_scale": 0.9132
+  },
+  "case_187": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 10.052,
+    "start_hour": 0.928,
+    "leak_duration_hours": 3.537,
+    "demand_scale": 0.9844
+  },
+  "case_188": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 13.988,
+    "start_hour": 0.804,
+    "leak_duration_hours": 3.691,
+    "demand_scale": 0.9548
+  },
+  "case_189": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8528
+  },
+  "case_190": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 9.027,
+    "start_hour": 0.973,
+    "leak_duration_hours": 3.685,
+    "demand_scale": 0.9009
+  },
+  "case_191": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 10.296,
+    "start_hour": 0.694,
+    "leak_duration_hours": 3.715,
+    "demand_scale": 0.9039
+  },
+  "case_192": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 15.578,
+    "start_hour": 0.803,
+    "leak_duration_hours": 3.2,
+    "demand_scale": 0.8682
+  },
+  "case_193": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 9.588,
+    "start_hour": 0.81,
+    "leak_duration_hours": 3.115,
+    "demand_scale": 0.9706
+  },
+  "case_194": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9406
+  },
+  "case_195": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 13.968,
+    "start_hour": 0.96,
+    "leak_duration_hours": 3.351,
+    "demand_scale": 0.9329
+  },
+  "case_196": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 12.753,
+    "start_hour": 0.739,
+    "leak_duration_hours": 3.556,
+    "demand_scale": 0.8685
+  },
+  "case_197": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 13.205,
+    "start_hour": 0.933,
+    "leak_duration_hours": 3.271,
+    "demand_scale": 0.9852
+  },
+  "case_198": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 13.074,
+    "start_hour": 0.507,
+    "leak_duration_hours": 3.054,
+    "demand_scale": 0.8594
+  },
+  "case_199": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9218
+  },
+  "case_200": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 15.864,
+    "start_hour": 0.781,
+    "leak_duration_hours": 3.284,
+    "demand_scale": 0.9383
+  },
+  "case_201": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 13.004,
+    "start_hour": 0.738,
+    "leak_duration_hours": 3.16,
+    "demand_scale": 0.8874
+  },
+  "case_202": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 14.496,
+    "start_hour": 0.899,
+    "leak_duration_hours": 3.275,
+    "demand_scale": 0.9514
+  },
+  "case_203": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 14.605,
+    "start_hour": 0.827,
+    "leak_duration_hours": 3.448,
+    "demand_scale": 0.9745
+  },
+  "case_204": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.887
+  },
+  "case_205": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 15.851,
+    "start_hour": 0.709,
+    "leak_duration_hours": 3.277,
+    "demand_scale": 0.8671
+  },
+  "case_206": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 13.476,
+    "start_hour": 0.732,
+    "leak_duration_hours": 3.307,
+    "demand_scale": 0.9943
+  },
+  "case_207": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 13.409,
+    "start_hour": 0.628,
+    "leak_duration_hours": 3.194,
+    "demand_scale": 0.9494
+  },
+  "case_208": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 12.552,
+    "start_hour": 0.684,
+    "leak_duration_hours": 3.594,
+    "demand_scale": 0.8652
+  },
+  "case_209": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9639
+  },
+  "case_210": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 11.09,
+    "start_hour": 0.57,
+    "leak_duration_hours": 3.425,
+    "demand_scale": 0.8716
+  },
+  "case_211": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 14.569,
+    "start_hour": 0.868,
+    "leak_duration_hours": 3.385,
+    "demand_scale": 0.8593
+  },
+  "case_212": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 10.376,
+    "start_hour": 0.957,
+    "leak_duration_hours": 3.694,
+    "demand_scale": 0.8978
+  },
+  "case_213": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 10.792,
+    "start_hour": 0.512,
+    "leak_duration_hours": 3.157,
+    "demand_scale": 0.9932
+  },
+  "case_214": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8691
+  },
+  "case_215": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 15.679,
+    "start_hour": 0.812,
+    "leak_duration_hours": 3.29,
+    "demand_scale": 0.89
+  },
+  "case_216": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 15.696,
+    "start_hour": 0.73,
+    "leak_duration_hours": 3.109,
+    "demand_scale": 0.9753
+  },
+  "case_217": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 10.446,
+    "start_hour": 0.586,
+    "leak_duration_hours": 3.362,
+    "demand_scale": 0.8801
+  },
+  "case_218": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 10.296,
+    "start_hour": 0.979,
+    "leak_duration_hours": 3.274,
+    "demand_scale": 0.9177
+  },
+  "case_219": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9689
+  },
+  "case_220": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 9.465,
+    "start_hour": 0.538,
+    "leak_duration_hours": 3.455,
+    "demand_scale": 0.9861
+  },
+  "case_221": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 8.855,
+    "start_hour": 0.815,
+    "leak_duration_hours": 3.482,
+    "demand_scale": 0.9371
+  },
+  "case_222": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 9.658,
+    "start_hour": 0.795,
+    "leak_duration_hours": 3.08,
+    "demand_scale": 0.9753
+  },
+  "case_223": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 15.316,
+    "start_hour": 0.893,
+    "leak_duration_hours": 3.357,
+    "demand_scale": 0.9658
+  },
+  "case_224": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9101
+  },
+  "case_225": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 12.942,
+    "start_hour": 0.694,
+    "leak_duration_hours": 3.229,
+    "demand_scale": 0.9228
+  },
+  "case_226": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 12.061,
+    "start_hour": 0.921,
+    "leak_duration_hours": 3.506,
+    "demand_scale": 0.9833
+  },
+  "case_227": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 14.524,
+    "start_hour": 0.657,
+    "leak_duration_hours": 3.238,
+    "demand_scale": 0.9016
+  },
+  "case_228": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 8.43,
+    "start_hour": 0.538,
+    "leak_duration_hours": 3.522,
+    "demand_scale": 0.9783
+  },
+  "case_229": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9849
+  },
+  "case_230": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 13.222,
+    "start_hour": 0.714,
+    "leak_duration_hours": 3.434,
+    "demand_scale": 0.9176
+  },
+  "case_231": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 14.987,
+    "start_hour": 0.838,
+    "leak_duration_hours": 3.628,
+    "demand_scale": 0.9909
+  },
+  "case_232": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 13.744,
+    "start_hour": 0.829,
+    "leak_duration_hours": 3.181,
+    "demand_scale": 0.9238
+  },
+  "case_233": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 14.345,
+    "start_hour": 0.786,
+    "leak_duration_hours": 3.298,
+    "demand_scale": 0.9461
+  },
+  "case_234": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8804
+  },
+  "case_235": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 10.962,
+    "start_hour": 0.951,
+    "leak_duration_hours": 3.64,
+    "demand_scale": 0.8693
+  },
+  "case_236": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 8.134,
+    "start_hour": 0.749,
+    "leak_duration_hours": 3.086,
+    "demand_scale": 0.8964
+  },
+  "case_237": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 11.194,
+    "start_hour": 0.84,
+    "leak_duration_hours": 3.367,
+    "demand_scale": 0.863
+  },
+  "case_238": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 12.6,
+    "start_hour": 0.904,
+    "leak_duration_hours": 3.477,
+    "demand_scale": 0.8682
+  },
+  "case_239": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8986
+  },
+  "case_240": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 11.452,
+    "start_hour": 0.578,
+    "leak_duration_hours": 3.463,
+    "demand_scale": 0.9514
+  },
+  "case_241": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 10.202,
+    "start_hour": 0.954,
+    "leak_duration_hours": 3.072,
+    "demand_scale": 0.9985
+  },
+  "case_242": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 14.99,
+    "start_hour": 0.844,
+    "leak_duration_hours": 3.289,
+    "demand_scale": 0.9639
+  },
+  "case_243": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 14.218,
+    "start_hour": 0.729,
+    "leak_duration_hours": 3.261,
+    "demand_scale": 0.8564
+  },
+  "case_244": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9504
+  },
+  "case_245": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 15.838,
+    "start_hour": 0.998,
+    "leak_duration_hours": 3.044,
+    "demand_scale": 0.9509
+  },
+  "case_246": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 8.298,
+    "start_hour": 0.873,
+    "leak_duration_hours": 3.663,
+    "demand_scale": 0.9087
+  },
+  "case_247": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 12.272,
+    "start_hour": 0.584,
+    "leak_duration_hours": 3.509,
+    "demand_scale": 0.8804
+  },
+  "case_248": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 13.611,
+    "start_hour": 0.655,
+    "leak_duration_hours": 3.464,
+    "demand_scale": 0.9772
+  },
+  "case_249": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9472
+  },
+  "case_250": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 10.569,
+    "start_hour": 0.576,
+    "leak_duration_hours": 3.265,
+    "demand_scale": 0.902
+  },
+  "case_251": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 8.064,
+    "start_hour": 0.718,
+    "leak_duration_hours": 3.301,
+    "demand_scale": 0.8594
+  },
+  "case_252": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 8.883,
+    "start_hour": 0.546,
+    "leak_duration_hours": 3.646,
+    "demand_scale": 0.9554
+  },
+  "case_253": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 15.804,
+    "start_hour": 0.891,
+    "leak_duration_hours": 3.037,
+    "demand_scale": 0.8504
+  },
+  "case_254": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8912
+  },
+  "case_255": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 11.85,
+    "start_hour": 0.801,
+    "leak_duration_hours": 3.441,
+    "demand_scale": 0.8806
+  },
+  "case_256": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 10.497,
+    "start_hour": 0.702,
+    "leak_duration_hours": 3.389,
+    "demand_scale": 0.9725
+  },
+  "case_257": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 15.582,
+    "start_hour": 0.531,
+    "leak_duration_hours": 3.199,
+    "demand_scale": 0.9367
+  },
+  "case_258": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 9.197,
+    "start_hour": 0.926,
+    "leak_duration_hours": 3.564,
+    "demand_scale": 0.9026
+  },
+  "case_259": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8551
+  },
+  "case_260": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 11.574,
+    "start_hour": 0.601,
+    "leak_duration_hours": 3.251,
+    "demand_scale": 0.9829
+  },
+  "case_261": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 13.896,
+    "start_hour": 0.675,
+    "leak_duration_hours": 3.256,
+    "demand_scale": 0.8692
+  },
+  "case_262": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 13.93,
+    "start_hour": 0.755,
+    "leak_duration_hours": 3.684,
+    "demand_scale": 0.9937
+  },
+  "case_263": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 9.78,
+    "start_hour": 0.94,
+    "leak_duration_hours": 3.577,
+    "demand_scale": 0.884
+  },
+  "case_264": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8918
+  },
+  "case_265": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 11.646,
+    "start_hour": 0.959,
+    "leak_duration_hours": 3.653,
+    "demand_scale": 0.9971
+  },
+  "case_266": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 9.641,
+    "start_hour": 0.539,
+    "leak_duration_hours": 3.331,
+    "demand_scale": 0.8946
+  },
+  "case_267": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 15.381,
+    "start_hour": 0.926,
+    "leak_duration_hours": 3.163,
+    "demand_scale": 0.9653
+  },
+  "case_268": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 14.793,
+    "start_hour": 0.584,
+    "leak_duration_hours": 3.258,
+    "demand_scale": 0.8691
+  },
+  "case_269": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9809
+  },
+  "case_270": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 10.326,
+    "start_hour": 0.93,
+    "leak_duration_hours": 3.171,
+    "demand_scale": 0.8613
+  },
+  "case_271": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 9.232,
+    "start_hour": 0.978,
+    "leak_duration_hours": 3.594,
+    "demand_scale": 0.9237
+  },
+  "case_272": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 14.503,
+    "start_hour": 0.552,
+    "leak_duration_hours": 3.041,
+    "demand_scale": 0.8882
+  },
+  "case_273": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 9.655,
+    "start_hour": 0.987,
+    "leak_duration_hours": 3.583,
+    "demand_scale": 0.9747
+  },
+  "case_274": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8853
+  },
+  "case_275": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 8.539,
+    "start_hour": 0.95,
+    "leak_duration_hours": 3.309,
+    "demand_scale": 0.909
+  },
+  "case_276": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 11.787,
+    "start_hour": 0.539,
+    "leak_duration_hours": 3.234,
+    "demand_scale": 0.9054
+  },
+  "case_277": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 14.695,
+    "start_hour": 0.937,
+    "leak_duration_hours": 3.342,
+    "demand_scale": 0.9893
+  },
+  "case_278": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 9.085,
+    "start_hour": 0.751,
+    "leak_duration_hours": 3.031,
+    "demand_scale": 0.914
+  },
+  "case_279": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9577
+  },
+  "case_280": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 11.981,
+    "start_hour": 0.768,
+    "leak_duration_hours": 3.505,
+    "demand_scale": 0.8801
+  },
+  "case_281": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 12.659,
+    "start_hour": 0.508,
+    "leak_duration_hours": 3.673,
+    "demand_scale": 0.9377
+  },
+  "case_282": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 13.353,
+    "start_hour": 0.616,
+    "leak_duration_hours": 3.593,
+    "demand_scale": 0.9293
+  },
+  "case_283": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 13.121,
+    "start_hour": 0.7,
+    "leak_duration_hours": 3.533,
+    "demand_scale": 0.9698
+  },
+  "case_284": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.953
+  },
+  "case_285": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 10.65,
+    "start_hour": 0.635,
+    "leak_duration_hours": 3.585,
+    "demand_scale": 0.9745
+  },
+  "case_286": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 11.758,
+    "start_hour": 0.892,
+    "leak_duration_hours": 3.588,
+    "demand_scale": 0.9429
+  },
+  "case_287": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 11.829,
+    "start_hour": 0.659,
+    "leak_duration_hours": 3.39,
+    "demand_scale": 0.8617
+  },
+  "case_288": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 13.6,
+    "start_hour": 0.605,
+    "leak_duration_hours": 3.745,
+    "demand_scale": 0.9481
+  },
+  "case_289": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9083
+  },
+  "case_290": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 8.216,
+    "start_hour": 0.537,
+    "leak_duration_hours": 3.728,
+    "demand_scale": 0.8525
+  },
+  "case_291": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 14.694,
+    "start_hour": 0.634,
+    "leak_duration_hours": 3.249,
+    "demand_scale": 0.8814
+  },
+  "case_292": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 12.681,
+    "start_hour": 0.609,
+    "leak_duration_hours": 3.184,
+    "demand_scale": 0.9592
+  },
+  "case_293": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 12.679,
+    "start_hour": 0.824,
+    "leak_duration_hours": 3.473,
+    "demand_scale": 0.9301
+  },
+  "case_294": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8961
+  },
+  "case_295": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 10.4,
+    "start_hour": 0.955,
+    "leak_duration_hours": 3.115,
+    "demand_scale": 0.855
+  },
+  "case_296": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 10.922,
+    "start_hour": 0.554,
+    "leak_duration_hours": 3.603,
+    "demand_scale": 0.963
+  },
+  "case_297": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 10.869,
+    "start_hour": 0.921,
+    "leak_duration_hours": 3.697,
+    "demand_scale": 0.9174
+  },
+  "case_298": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 12.054,
+    "start_hour": 0.851,
+    "leak_duration_hours": 3.235,
+    "demand_scale": 0.9069
+  },
+  "case_299": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.879
+  },
+  "case_300": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 8.622,
+    "start_hour": 0.529,
+    "leak_duration_hours": 3.724,
+    "demand_scale": 0.9835
+  },
+  "case_301": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 13.617,
+    "start_hour": 0.697,
+    "leak_duration_hours": 3.113,
+    "demand_scale": 0.9927
+  },
+  "case_302": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 10.896,
+    "start_hour": 0.67,
+    "leak_duration_hours": 3.471,
+    "demand_scale": 0.9619
+  },
+  "case_303": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 8.172,
+    "start_hour": 0.976,
+    "leak_duration_hours": 3.729,
+    "demand_scale": 0.9688
+  },
+  "case_304": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9527
+  },
+  "case_305": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 12.985,
+    "start_hour": 0.753,
+    "leak_duration_hours": 3.421,
+    "demand_scale": 0.9382
+  },
+  "case_306": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 14.535,
+    "start_hour": 0.581,
+    "leak_duration_hours": 3.649,
+    "demand_scale": 0.9735
+  },
+  "case_307": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 10.535,
+    "start_hour": 0.972,
+    "leak_duration_hours": 3.321,
+    "demand_scale": 0.9924
+  },
+  "case_308": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 9.658,
+    "start_hour": 0.93,
+    "leak_duration_hours": 3.458,
+    "demand_scale": 0.9575
+  },
+  "case_309": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9497
+  },
+  "case_310": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 9.537,
+    "start_hour": 0.985,
+    "leak_duration_hours": 3.415,
+    "demand_scale": 0.9834
+  },
+  "case_311": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 9.405,
+    "start_hour": 0.586,
+    "leak_duration_hours": 3.462,
+    "demand_scale": 0.8534
+  },
+  "case_312": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 8.12,
+    "start_hour": 0.681,
+    "leak_duration_hours": 3.231,
+    "demand_scale": 0.8786
+  },
+  "case_313": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 12.843,
+    "start_hour": 0.827,
+    "leak_duration_hours": 3.062,
+    "demand_scale": 0.8879
+  },
+  "case_314": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9053
+  },
+  "case_315": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 9.943,
+    "start_hour": 0.971,
+    "leak_duration_hours": 3.011,
+    "demand_scale": 0.9398
+  },
+  "case_316": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 13.599,
+    "start_hour": 0.94,
+    "leak_duration_hours": 3.703,
+    "demand_scale": 0.9499
+  },
+  "case_317": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 9.663,
+    "start_hour": 0.523,
+    "leak_duration_hours": 3.068,
+    "demand_scale": 0.9599
+  },
+  "case_318": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 8.229,
+    "start_hour": 0.617,
+    "leak_duration_hours": 3.632,
+    "demand_scale": 0.9064
+  },
+  "case_319": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9786
+  },
+  "case_320": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 15.263,
+    "start_hour": 0.63,
+    "leak_duration_hours": 3.537,
+    "demand_scale": 0.8852
+  },
+  "case_321": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 14.299,
+    "start_hour": 0.977,
+    "leak_duration_hours": 3.318,
+    "demand_scale": 0.9123
+  },
+  "case_322": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 10.387,
+    "start_hour": 0.865,
+    "leak_duration_hours": 3.702,
+    "demand_scale": 0.872
+  },
+  "case_323": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 9.418,
+    "start_hour": 0.999,
+    "leak_duration_hours": 3.475,
+    "demand_scale": 0.9266
+  },
+  "case_324": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9311
+  },
+  "case_325": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 9.392,
+    "start_hour": 0.779,
+    "leak_duration_hours": 3.519,
+    "demand_scale": 0.9072
+  },
+  "case_326": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 13.29,
+    "start_hour": 0.886,
+    "leak_duration_hours": 3.587,
+    "demand_scale": 0.9157
+  },
+  "case_327": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 13.412,
+    "start_hour": 0.537,
+    "leak_duration_hours": 3.484,
+    "demand_scale": 0.8808
+  },
+  "case_328": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 8.681,
+    "start_hour": 0.951,
+    "leak_duration_hours": 3.743,
+    "demand_scale": 0.9048
+  },
+  "case_329": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9097
+  },
+  "case_330": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 14.683,
+    "start_hour": 0.804,
+    "leak_duration_hours": 3.623,
+    "demand_scale": 0.902
+  },
+  "case_331": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 9.292,
+    "start_hour": 0.911,
+    "leak_duration_hours": 3.014,
+    "demand_scale": 0.9901
+  },
+  "case_332": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 8.446,
+    "start_hour": 0.891,
+    "leak_duration_hours": 3.195,
+    "demand_scale": 0.8528
+  },
+  "case_333": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 9.008,
+    "start_hour": 0.857,
+    "leak_duration_hours": 3.387,
+    "demand_scale": 0.9281
+  },
+  "case_334": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8539
+  },
+  "case_335": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 15.904,
+    "start_hour": 0.823,
+    "leak_duration_hours": 3.061,
+    "demand_scale": 0.8519
+  },
+  "case_336": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 10.565,
+    "start_hour": 0.871,
+    "leak_duration_hours": 3.35,
+    "demand_scale": 0.9804
+  },
+  "case_337": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 14.555,
+    "start_hour": 0.852,
+    "leak_duration_hours": 3.617,
+    "demand_scale": 0.8895
+  },
+  "case_338": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 12.856,
+    "start_hour": 0.652,
+    "leak_duration_hours": 3.636,
+    "demand_scale": 0.8953
+  },
+  "case_339": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9754
+  },
+  "case_340": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 8.105,
+    "start_hour": 0.808,
+    "leak_duration_hours": 3.104,
+    "demand_scale": 0.9073
+  },
+  "case_341": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 8.844,
+    "start_hour": 0.811,
+    "leak_duration_hours": 3.738,
+    "demand_scale": 0.8592
+  },
+  "case_342": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 14.271,
+    "start_hour": 0.559,
+    "leak_duration_hours": 3.418,
+    "demand_scale": 0.8904
+  },
+  "case_343": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 12.974,
+    "start_hour": 0.682,
+    "leak_duration_hours": 3.727,
+    "demand_scale": 0.9349
+  },
+  "case_344": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8532
+  },
+  "case_345": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "105",
+    "leak_diameter_mm": 12.668,
+    "start_hour": 0.667,
+    "leak_duration_hours": 3.482,
+    "demand_scale": 0.9216
+  },
+  "case_346": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 8.174,
+    "start_hour": 0.637,
+    "leak_duration_hours": 3.204,
+    "demand_scale": 0.9363
+  },
+  "case_347": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 15.027,
+    "start_hour": 0.863,
+    "leak_duration_hours": 3.018,
+    "demand_scale": 0.9776
+  },
+  "case_348": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 12.104,
+    "start_hour": 0.886,
+    "leak_duration_hours": 3.551,
+    "demand_scale": 0.9936
+  },
+  "case_349": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8818
+  },
+  "case_350": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 11.65,
+    "start_hour": 0.636,
+    "leak_duration_hours": 3.154,
+    "demand_scale": 0.8672
+  },
+  "case_351": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 14.536,
+    "start_hour": 0.594,
+    "leak_duration_hours": 3.729,
+    "demand_scale": 0.8601
+  },
+  "case_352": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 8.328,
+    "start_hour": 0.974,
+    "leak_duration_hours": 3.725,
+    "demand_scale": 0.981
+  },
+  "case_353": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 10.715,
+    "start_hour": 0.801,
+    "leak_duration_hours": 3.696,
+    "demand_scale": 0.9147
+  },
+  "case_354": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9693
+  },
+  "case_355": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "133",
+    "leak_diameter_mm": 8.018,
+    "start_hour": 0.636,
+    "leak_duration_hours": 3.376,
+    "demand_scale": 0.9541
+  },
+  "case_356": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 8.331,
+    "start_hour": 0.828,
+    "leak_duration_hours": 3.25,
+    "demand_scale": 0.8523
+  },
+  "case_357": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "123",
+    "leak_diameter_mm": 14.236,
+    "start_hour": 0.846,
+    "leak_duration_hours": 3.585,
+    "demand_scale": 0.9666
+  },
+  "case_358": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 9.776,
+    "start_hour": 0.989,
+    "leak_duration_hours": 3.538,
+    "demand_scale": 0.9136
+  },
+  "case_359": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9668
+  },
+  "case_360": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 14.367,
+    "start_hour": 0.792,
+    "leak_duration_hours": 3.537,
+    "demand_scale": 0.9043
+  },
+  "case_361": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "137",
+    "leak_diameter_mm": 12.427,
+    "start_hour": 0.556,
+    "leak_duration_hours": 3.629,
+    "demand_scale": 0.9926
+  },
+  "case_362": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 8.792,
+    "start_hour": 0.634,
+    "leak_duration_hours": 3.064,
+    "demand_scale": 0.8597
+  },
+  "case_363": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 8.453,
+    "start_hour": 0.581,
+    "leak_duration_hours": 3.647,
+    "demand_scale": 0.9055
+  },
+  "case_364": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9254
+  },
+  "case_365": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "155",
+    "leak_diameter_mm": 8.886,
+    "start_hour": 0.652,
+    "leak_duration_hours": 3.726,
+    "demand_scale": 0.942
+  },
+  "case_366": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 12.843,
+    "start_hour": 0.676,
+    "leak_duration_hours": 3.671,
+    "demand_scale": 0.8551
+  },
+  "case_367": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 14.089,
+    "start_hour": 0.954,
+    "leak_duration_hours": 3.156,
+    "demand_scale": 0.9646
+  },
+  "case_368": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 12.126,
+    "start_hour": 0.712,
+    "leak_duration_hours": 3.569,
+    "demand_scale": 0.891
+  },
+  "case_369": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9326
+  },
+  "case_370": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 8.728,
+    "start_hour": 0.604,
+    "leak_duration_hours": 3.704,
+    "demand_scale": 0.9951
+  },
+  "case_371": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "175",
+    "leak_diameter_mm": 9.651,
+    "start_hour": 0.791,
+    "leak_duration_hours": 3.388,
+    "demand_scale": 0.8637
+  },
+  "case_372": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 14.212,
+    "start_hour": 0.86,
+    "leak_duration_hours": 3.168,
+    "demand_scale": 0.9716
+  },
+  "case_373": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 8.608,
+    "start_hour": 0.874,
+    "leak_duration_hours": 3.206,
+    "demand_scale": 0.8645
+  },
+  "case_374": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9548
+  },
+  "case_375": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 13.113,
+    "start_hour": 0.647,
+    "leak_duration_hours": 3.674,
+    "demand_scale": 0.985
+  },
+  "case_376": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "151",
+    "leak_diameter_mm": 8.952,
+    "start_hour": 0.925,
+    "leak_duration_hours": 3.703,
+    "demand_scale": 0.9063
+  },
+  "case_377": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 14.219,
+    "start_hour": 0.722,
+    "leak_duration_hours": 3.565,
+    "demand_scale": 0.8978
+  },
+  "case_378": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 12.82,
+    "start_hour": 0.948,
+    "leak_duration_hours": 3.691,
+    "demand_scale": 0.9864
+  },
+  "case_379": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9559
+  },
+  "case_380": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 9.125,
+    "start_hour": 0.813,
+    "leak_duration_hours": 3.076,
+    "demand_scale": 0.9816
+  },
+  "case_381": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 10.69,
+    "start_hour": 0.693,
+    "leak_duration_hours": 3.246,
+    "demand_scale": 0.9891
+  },
+  "case_382": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "229",
+    "leak_diameter_mm": 10.864,
+    "start_hour": 0.882,
+    "leak_duration_hours": 3.344,
+    "demand_scale": 0.8644
+  },
+  "case_383": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "291",
+    "leak_diameter_mm": 12.274,
+    "start_hour": 0.547,
+    "leak_duration_hours": 3.145,
+    "demand_scale": 0.9007
+  },
+  "case_384": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.8673
+  },
+  "case_385": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 12.22,
+    "start_hour": 0.602,
+    "leak_duration_hours": 3.705,
+    "demand_scale": 0.8915
+  },
+  "case_386": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 9.866,
+    "start_hour": 0.683,
+    "leak_duration_hours": 3.015,
+    "demand_scale": 0.9551
+  },
+  "case_387": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 8.303,
+    "start_hour": 0.869,
+    "leak_duration_hours": 3.435,
+    "demand_scale": 0.9437
+  },
+  "case_388": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "243",
+    "leak_diameter_mm": 9.962,
+    "start_hour": 0.888,
+    "leak_duration_hours": 3.156,
+    "demand_scale": 0.9875
+  },
+  "case_389": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9014
+  },
+  "case_390": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "181",
+    "leak_diameter_mm": 9.933,
+    "start_hour": 0.691,
+    "leak_duration_hours": 3.15,
+    "demand_scale": 0.9742
+  },
+  "case_391": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 9.292,
+    "start_hour": 0.541,
+    "leak_duration_hours": 3.512,
+    "demand_scale": 0.9269
+  },
+  "case_392": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "161",
+    "leak_diameter_mm": 14.484,
+    "start_hour": 0.824,
+    "leak_duration_hours": 3.736,
+    "demand_scale": 0.9101
+  },
+  "case_393": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "277",
+    "leak_diameter_mm": 13.81,
+    "start_hour": 0.798,
+    "leak_duration_hours": 3.306,
+    "demand_scale": 0.9352
+  },
+  "case_394": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9694
+  },
+  "case_395": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "153",
+    "leak_diameter_mm": 14.319,
+    "start_hour": 0.653,
+    "leak_duration_hours": 3.334,
+    "demand_scale": 0.9965
+  },
+  "case_396": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "215",
+    "leak_diameter_mm": 8.804,
+    "start_hour": 0.683,
+    "leak_duration_hours": 3.248,
+    "demand_scale": 0.8745
+  },
+  "case_397": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "225",
+    "leak_diameter_mm": 8.044,
+    "start_hour": 0.989,
+    "leak_duration_hours": 3.57,
+    "demand_scale": 0.9172
+  },
+  "case_398": {
+    "split": "train",
+    "incident": "single_leak",
+    "leak_pipe": "333",
+    "leak_diameter_mm": 14.117,
+    "start_hour": 0.748,
+    "leak_duration_hours": 3.387,
+    "demand_scale": 0.8639
+  },
+  "case_399": {
+    "split": "train",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 0.9521
+  },
+  "case_400": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 23.497,
+    "start_hour": 1.481,
+    "leak_duration_hours": 4.004,
+    "demand_scale": 1.0679
+  },
+  "case_401": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 23.569,
+    "start_hour": 1.436,
+    "leak_duration_hours": 4.077,
+    "demand_scale": 1.059
+  },
+  "case_402": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 18.371,
+    "start_hour": 1.298,
+    "leak_duration_hours": 3.825,
+    "demand_scale": 1.1317
+  },
+  "case_403": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 20.922,
+    "start_hour": 1.291,
+    "leak_duration_hours": 4.259,
+    "demand_scale": 1.1035
+  },
+  "case_404": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0569
+  },
+  "case_405": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 22.68,
+    "start_hour": 1.067,
+    "leak_duration_hours": 4.305,
+    "demand_scale": 1.0934
+  },
+  "case_406": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 21.633,
+    "start_hour": 1.092,
+    "leak_duration_hours": 4.119,
+    "demand_scale": 1.0296
+  },
+  "case_407": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 23.586,
+    "start_hour": 1.425,
+    "leak_duration_hours": 4.467,
+    "demand_scale": 1.1372
+  },
+  "case_408": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 19.312,
+    "start_hour": 1.268,
+    "leak_duration_hours": 4.282,
+    "demand_scale": 1.0008
+  },
+  "case_409": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0216
+  },
+  "case_410": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 23.677,
+    "start_hour": 1.434,
+    "leak_duration_hours": 4.184,
+    "demand_scale": 1.0794
+  },
+  "case_411": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 19.011,
+    "start_hour": 1.049,
+    "leak_duration_hours": 3.755,
+    "demand_scale": 1.059
+  },
+  "case_412": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 17.659,
+    "start_hour": 1.459,
+    "leak_duration_hours": 4.019,
+    "demand_scale": 1.1321
+  },
+  "case_413": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 23.428,
+    "start_hour": 1.046,
+    "leak_duration_hours": 4.016,
+    "demand_scale": 1.0432
+  },
+  "case_414": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1191
+  },
+  "case_415": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 18.563,
+    "start_hour": 1.068,
+    "leak_duration_hours": 4.257,
+    "demand_scale": 1.1034
+  },
+  "case_416": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 17.519,
+    "start_hour": 1.052,
+    "leak_duration_hours": 4.13,
+    "demand_scale": 1.0037
+  },
+  "case_417": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 22.22,
+    "start_hour": 1.235,
+    "leak_duration_hours": 4.144,
+    "demand_scale": 1.0544
+  },
+  "case_418": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 23.08,
+    "start_hour": 1.347,
+    "leak_duration_hours": 4.114,
+    "demand_scale": 1.0757
+  },
+  "case_419": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0045
+  },
+  "case_420": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 19.102,
+    "start_hour": 1.328,
+    "leak_duration_hours": 4.217,
+    "demand_scale": 1.1026
+  },
+  "case_421": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 18.465,
+    "start_hour": 1.48,
+    "leak_duration_hours": 4.171,
+    "demand_scale": 1.0124
+  },
+  "case_422": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 20.707,
+    "start_hour": 1.489,
+    "leak_duration_hours": 4.093,
+    "demand_scale": 1.1322
+  },
+  "case_423": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 20.05,
+    "start_hour": 1.404,
+    "leak_duration_hours": 3.878,
+    "demand_scale": 1.136
+  },
+  "case_424": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0541
+  },
+  "case_425": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 20.371,
+    "start_hour": 1.237,
+    "leak_duration_hours": 4.465,
+    "demand_scale": 1.0905
+  },
+  "case_426": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 18.416,
+    "start_hour": 1.076,
+    "leak_duration_hours": 4.338,
+    "demand_scale": 1.0751
+  },
+  "case_427": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 18.063,
+    "start_hour": 1.479,
+    "leak_duration_hours": 4.456,
+    "demand_scale": 1.0412
+  },
+  "case_428": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 17.812,
+    "start_hour": 1.099,
+    "leak_duration_hours": 3.772,
+    "demand_scale": 1.0393
+  },
+  "case_429": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0162
+  },
+  "case_430": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 23.909,
+    "start_hour": 1.291,
+    "leak_duration_hours": 4.106,
+    "demand_scale": 1.0992
+  },
+  "case_431": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 24.407,
+    "start_hour": 1.159,
+    "leak_duration_hours": 4.343,
+    "demand_scale": 1.0181
+  },
+  "case_432": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 24.608,
+    "start_hour": 1.403,
+    "leak_duration_hours": 3.929,
+    "demand_scale": 1.0523
+  },
+  "case_433": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 19.793,
+    "start_hour": 1.482,
+    "leak_duration_hours": 4.323,
+    "demand_scale": 1.0396
+  },
+  "case_434": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0468
+  },
+  "case_435": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 18.743,
+    "start_hour": 1.013,
+    "leak_duration_hours": 4.395,
+    "demand_scale": 1.0976
+  },
+  "case_436": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 17.186,
+    "start_hour": 1.488,
+    "leak_duration_hours": 3.976,
+    "demand_scale": 1.0702
+  },
+  "case_437": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 20.018,
+    "start_hour": 1.299,
+    "leak_duration_hours": 3.902,
+    "demand_scale": 1.1423
+  },
+  "case_438": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 23.694,
+    "start_hour": 1.003,
+    "leak_duration_hours": 3.977,
+    "demand_scale": 1.0792
+  },
+  "case_439": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1047
+  },
+  "case_440": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 22.461,
+    "start_hour": 1.04,
+    "leak_duration_hours": 4.344,
+    "demand_scale": 1.1343
+  },
+  "case_441": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 22.416,
+    "start_hour": 1.483,
+    "leak_duration_hours": 3.774,
+    "demand_scale": 1.0828
+  },
+  "case_442": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 23.963,
+    "start_hour": 1.066,
+    "leak_duration_hours": 4.134,
+    "demand_scale": 1.1498
+  },
+  "case_443": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 22.61,
+    "start_hour": 1.44,
+    "leak_duration_hours": 4.095,
+    "demand_scale": 1.0738
+  },
+  "case_444": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0757
+  },
+  "case_445": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 17.586,
+    "start_hour": 1.197,
+    "leak_duration_hours": 4.254,
+    "demand_scale": 1.1007
+  },
+  "case_446": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 24.039,
+    "start_hour": 1.164,
+    "leak_duration_hours": 4.408,
+    "demand_scale": 1.1087
+  },
+  "case_447": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 22.526,
+    "start_hour": 1.292,
+    "leak_duration_hours": 4.459,
+    "demand_scale": 1.1373
+  },
+  "case_448": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 21.695,
+    "start_hour": 1.248,
+    "leak_duration_hours": 4.482,
+    "demand_scale": 1.0337
+  },
+  "case_449": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1136
+  },
+  "case_450": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 24.667,
+    "start_hour": 1.358,
+    "leak_duration_hours": 4.002,
+    "demand_scale": 1.0059
+  },
+  "case_451": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 20.084,
+    "start_hour": 1.409,
+    "leak_duration_hours": 4.123,
+    "demand_scale": 1.1452
+  },
+  "case_452": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 18.716,
+    "start_hour": 1.339,
+    "leak_duration_hours": 4.041,
+    "demand_scale": 1.0484
+  },
+  "case_453": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 19.375,
+    "start_hour": 1.3,
+    "leak_duration_hours": 3.936,
+    "demand_scale": 1.0764
+  },
+  "case_454": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0738
+  },
+  "case_455": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 18.931,
+    "start_hour": 1.4,
+    "leak_duration_hours": 4.16,
+    "demand_scale": 1.0273
+  },
+  "case_456": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 17.688,
+    "start_hour": 1.427,
+    "leak_duration_hours": 4.389,
+    "demand_scale": 1.0461
+  },
+  "case_457": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 20.285,
+    "start_hour": 1.01,
+    "leak_duration_hours": 3.771,
+    "demand_scale": 1.0483
+  },
+  "case_458": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 19.27,
+    "start_hour": 1.494,
+    "leak_duration_hours": 4.469,
+    "demand_scale": 1.0795
+  },
+  "case_459": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0738
+  },
+  "case_460": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 21.51,
+    "start_hour": 1.102,
+    "leak_duration_hours": 4.281,
+    "demand_scale": 1.1126
+  },
+  "case_461": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 20.809,
+    "start_hour": 1.242,
+    "leak_duration_hours": 4.22,
+    "demand_scale": 1.1477
+  },
+  "case_462": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 19.503,
+    "start_hour": 1.218,
+    "leak_duration_hours": 4.483,
+    "demand_scale": 1.1014
+  },
+  "case_463": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 23.71,
+    "start_hour": 1.028,
+    "leak_duration_hours": 3.87,
+    "demand_scale": 1.1027
+  },
+  "case_464": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1256
+  },
+  "case_465": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 17.124,
+    "start_hour": 1.101,
+    "leak_duration_hours": 3.883,
+    "demand_scale": 1.0895
+  },
+  "case_466": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 18.967,
+    "start_hour": 1.21,
+    "leak_duration_hours": 4.328,
+    "demand_scale": 1.0446
+  },
+  "case_467": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 19.703,
+    "start_hour": 1.064,
+    "leak_duration_hours": 3.855,
+    "demand_scale": 1.1084
+  },
+  "case_468": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 18.442,
+    "start_hour": 1.232,
+    "leak_duration_hours": 4.09,
+    "demand_scale": 1.1465
+  },
+  "case_469": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.077
+  },
+  "case_470": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 24.151,
+    "start_hour": 1.265,
+    "leak_duration_hours": 4.46,
+    "demand_scale": 1.0958
+  },
+  "case_471": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 21.093,
+    "start_hour": 1.203,
+    "leak_duration_hours": 4.077,
+    "demand_scale": 1.1079
+  },
+  "case_472": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 20.563,
+    "start_hour": 1.398,
+    "leak_duration_hours": 4.13,
+    "demand_scale": 1.0378
+  },
+  "case_473": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "237",
+    "leak_diameter_mm": 19.408,
+    "start_hour": 1.474,
+    "leak_duration_hours": 4.326,
+    "demand_scale": 1.0098
+  },
+  "case_474": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0597
+  },
+  "case_475": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 21.341,
+    "start_hour": 1.105,
+    "leak_duration_hours": 3.781,
+    "demand_scale": 1.0614
+  },
+  "case_476": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 23.389,
+    "start_hour": 1.232,
+    "leak_duration_hours": 4.207,
+    "demand_scale": 1.1192
+  },
+  "case_477": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 23.387,
+    "start_hour": 1.312,
+    "leak_duration_hours": 3.959,
+    "demand_scale": 1.0971
+  },
+  "case_478": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 17.919,
+    "start_hour": 1.247,
+    "leak_duration_hours": 3.825,
+    "demand_scale": 1.1411
+  },
+  "case_479": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1494
+  },
+  "case_480": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 17.777,
+    "start_hour": 1.192,
+    "leak_duration_hours": 4.036,
+    "demand_scale": 1.1433
+  },
+  "case_481": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 24.487,
+    "start_hour": 1.341,
+    "leak_duration_hours": 4.3,
+    "demand_scale": 1.1429
+  },
+  "case_482": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 21.034,
+    "start_hour": 1.425,
+    "leak_duration_hours": 4.385,
+    "demand_scale": 1.0674
+  },
+  "case_483": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 20.691,
+    "start_hour": 1.216,
+    "leak_duration_hours": 3.923,
+    "demand_scale": 1.1167
+  },
+  "case_484": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0743
+  },
+  "case_485": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "115",
+    "leak_diameter_mm": 20.552,
+    "start_hour": 1.204,
+    "leak_duration_hours": 3.856,
+    "demand_scale": 1.07
+  },
+  "case_486": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 18.56,
+    "start_hour": 1.371,
+    "leak_duration_hours": 4.155,
+    "demand_scale": 1.0981
+  },
+  "case_487": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "171",
+    "leak_diameter_mm": 21.779,
+    "start_hour": 1.417,
+    "leak_duration_hours": 4.102,
+    "demand_scale": 1.097
+  },
+  "case_488": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 17.681,
+    "start_hour": 1.438,
+    "leak_duration_hours": 4.459,
+    "demand_scale": 1.0555
+  },
+  "case_489": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1021
+  },
+  "case_490": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 21.372,
+    "start_hour": 1.484,
+    "leak_duration_hours": 4.187,
+    "demand_scale": 1.0796
+  },
+  "case_491": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "251",
+    "leak_diameter_mm": 21.034,
+    "start_hour": 1.341,
+    "leak_duration_hours": 4.354,
+    "demand_scale": 1.1036
+  },
+  "case_492": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 24.286,
+    "start_hour": 1.341,
+    "leak_duration_hours": 4.034,
+    "demand_scale": 1.0172
+  },
+  "case_493": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 17.697,
+    "start_hour": 1.166,
+    "leak_duration_hours": 4.066,
+    "demand_scale": 1.0273
+  },
+  "case_494": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.0869
+  },
+  "case_495": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 23.9,
+    "start_hour": 1.472,
+    "leak_duration_hours": 3.816,
+    "demand_scale": 1.0745
+  },
+  "case_496": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "247",
+    "leak_diameter_mm": 23.266,
+    "start_hour": 1.433,
+    "leak_duration_hours": 3.822,
+    "demand_scale": 1.0135
+  },
+  "case_497": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "101",
+    "leak_diameter_mm": 22.226,
+    "start_hour": 1.172,
+    "leak_duration_hours": 4.109,
+    "demand_scale": 1.0175
+  },
+  "case_498": {
+    "split": "test",
+    "incident": "single_leak",
+    "leak_pipe": "202",
+    "leak_diameter_mm": 18.514,
+    "start_hour": 1.035,
+    "leak_duration_hours": 3.762,
+    "demand_scale": 1.1017
+  },
+  "case_499": {
+    "split": "test",
+    "incident": "normal",
+    "leak_pipe": null,
+    "leak_diameter_mm": null,
+    "start_hour": null,
+    "leak_duration_hours": null,
+    "demand_scale": 1.1188
+  }
+}

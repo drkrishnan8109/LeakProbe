@@ -1,0 +1,27 @@
+Create a polished hand-drawn educational workflow infographic for the LeakProbe project. Portrait poster, high resolution, generous whitespace, off-white paper, dark navy handwritten lettering, slightly imperfect ink boxes and arrows, small doodles of pipes, CSV pages, a robot, gauge and stopwatch. Teal for simulation/data, blue for investigation, amber for decisions, green for results. Text must be clearly legible. No fake UI, no ornamental tiny illegible text. This is a complete software workflow, not an operational utility system.
+
+Title verbatim: "LeakProbe: the full workflow"
+Subtitle verbatim: "Simulate -> compare -> measure -> update"
+
+Use a clean top-to-bottom flow with numbered stages and two short lanes at stage 3, shared tools at stage 4. Every connector must have an arrowhead showing flow.
+1. "Build the water network" with small accurate doodle: R0 supply -> F01 flow sensor -> J1 / P01 pressure sensor -> two branches PA and PB -> J2 / MA and J3 / MB. Supply head 42 m. Each branch requests 5 L/s. Measurement points MA and MB are pressure reading locations, not leaks.
+Arrow to
+2. "Generate synthetic data" / "python generate_data.py" / "WNTR: normal, leak A, leak B" / "16 mm leak begins at 02:20" / "Prediction CSVs + noisy observations + hidden measurement fixtures". Show a separate side document entering stage 4: "Fictional maintenance notes: flushing cancelled". Clarify fixtures are stored simulated readings.
+Arrow to stage 3 two equal boxes:
+3a "Scripted demo" / "python run_demo.py" / "Python chooses the tool sequence" / "No API calls"
+3b "Optional LLM agent" / "python agent.py" / "Nebius / Nemotron chooses tools" / "Needs API key + provider access"
+Both lanes merge into
+4. "Shared Python tools read the evidence" / "Observations + network + operations records" / "Compare normal vs leak A vs leak B"
+Arrow to
+5. "Upstream readings cannot separate A from B" / "Initial normalized RMSE" / "Leak A: 0.1237 | Leak B: 0.1237 | Normal: 11.4270"
+Arrow to
+6. "Choose the next measurement" / "20-minute budget" / "MA: 15 min, feasible" / "MB: 30 min, exceeds budget" / "A/B pressure separation: 1.632 m at either point" / "Select MA using separation per minute"
+Arrow to
+7. "Reveal the stored MA fixture" / "37.809 m pressure head" / "15 minutes used; 5 remain" / "Synthetic reading, not a field visit"
+Arrow to
+8. "Compare again with the new evidence" / "Scripted result: leak A fits best" / "RMSE: A 0.1251 | B 1.7522 | Normal 11.3799"
+Make this box part of the main scripted workflow, but add a clearly visible compact handwritten amber sticky note beside this box: "Latest LLM run skipped this final tool call; it interpreted the MA reading directly."
+Arrow to
+9. "Save a reviewable evidence trail" / "Scripted: outputs/traces/scripted_trace.json" / "LLM: outputs/traces/llm_trace.json"
+Footer in a clear separate pale strip: "Educational prototype. All readings are synthetic. Lower RMSE is better fit, not confidence or field confirmation."
+Do not imply the LLM was used in the scripted run. Do not imply visiting MA confirms a leak at MA. Keep arrows logically accurate and text spelled correctly. Favor crisp readable handwritten typography over dense sketch detail.
