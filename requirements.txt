@@ -4,3 +4,4 @@ setuptools==80.9.0
 numpy==1.26.4
 pandas==2.2.3
 jsonschema==4.26.0
+streamlit==1.50.0
