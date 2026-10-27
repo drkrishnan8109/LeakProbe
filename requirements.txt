@@ -4,3 +4,6 @@ setuptools==80.9.0
 numpy==1.26.4
 pandas==2.2.3
 jsonschema==4.26.0
+# Optional Net3 SMOTE classifier benchmark: pip install scikit-learn imbalanced-learn
+scikit-learn==1.7.2
+imbalanced-learn==0.14.0

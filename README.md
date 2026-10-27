@@ -121,6 +121,27 @@ The two observation sets have different score scales, so they use different cuto
 
 For sparse coverage, the threshold changed the confusion matrix from **44 / 36 / 12 / 8** to **20 / 60 / 3 / 17**. Specificity rose from 40% to 85%, while recall fell from 55% to 25%; 33 cases were rejected. Across all 500 full-observation cases, the threshold produced 153 TP, 247 FN, 24 FP, and 76 TN, rejecting 292 cases. This combines development and test data, so it is descriptive only. Full before-and-after metrics and pipe-localization results are in [the comparison report](outputs/evaluations/net3_full_pipes_comparison.md).
 
+### Experimental recall-led classifier benchmark
+
+The optional benchmark in `leakprobe/smote_benchmark.py` builds one feature row per case from sensor time-series summaries and compares a baseline, class weighting, and SMOTE. It is separate from the physics-based detector and uses synthetic data only. SMOTE is applied within each training fold. The classifier's positive class is leak; the default threshold aims for at least **90% leak recall** on out-of-fold development predictions, choosing the threshold with the highest precision among eligible thresholds. The held-out test split is used only for final reporting.
+
+Install the pinned optional dependencies from `requirements.txt`, then run:
+
+```bash
+python -m leakprobe.smote_benchmark
+```
+
+Set another recall target or output location with `--target-recall 0.95` or `--output PATH`. Features, per-case test predictions, and reports are written to `data/net3_smote_benchmark/` by default; source data under `data/net3/` is read-only for this workflow. This experiment does not establish field performance or an operational alert threshold.
+
+To create a separate, intentionally high-signal classifier smoke-test dataset using the same 500 case IDs, labels, and pipe split, run:
+
+```bash
+python -m leakprobe.generate_high_signal_dataset
+python -m leakprobe.smote_benchmark --source data/net3_high_signal --output data/net3_high_signal_benchmark
+```
+
+This variant gives leaks 28–35 mm openings lasting 4–4.5 hours and uses the same demand range in both splits. It is designed to make the synthetic leak signal easier to detect and to check that the classifier pipeline can learn a clear pattern. It is intentionally easier than the original benchmark and is **not representative of field conditions**. The original `data/net3/` files are not modified.
+
 ## Project layout
 
 ```text
@@ -129,6 +150,9 @@ data/
   demo/                    Two-branch demo fixtures
   networks/                EPANET network model files
   net3/                    500-case sparse-observation benchmark
+  net3_high_signal/        Separate 500-case, intentionally easy synthetic diagnostic
+  net3_high_signal_benchmark/ Results for the high-signal classifier diagnostic
+  net3_smote_benchmark/    Isolated recall-led classifier benchmark outputs
   net3_full_pipes_data/    Paired full-observation benchmark
 docs/                      PRD, actual example results, environment notes
 outputs/

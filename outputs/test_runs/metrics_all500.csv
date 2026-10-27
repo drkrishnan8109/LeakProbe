@@ -1,0 +1,3 @@
+dataset,observation_coverage,cases,leak_cases,normal_cases,tp,fn,fp,tn,accuracy_percent,precision_percent,recall_percent,specificity_percent,balanced_accuracy_percent,f1_percent,uncertain_cases,exact_pipe_among_predicted_leaks_n,exact_pipe_among_predicted_leaks_d,exact_pipe_among_predicted_leaks_percent,exact_pipe_all_actual_leaks_n,exact_pipe_all_actual_leaks_d,exact_pipe_all_actual_leaks_percent
+net3_sparse,12 pressure junctions + 8 pipe flows,500,400,100,157,243,29,71,45.6,84.4,39.2,71.0,55.1,53.6,238,33,157,21.0,33,400,8.2
+net3_full_pipes_data,all 92 pressure junctions + all 117 pipe flows,500,400,100,153,247,24,76,45.8,86.4,38.2,76.0,57.1,53.0,292,66,153,43.1,66,400,16.5
