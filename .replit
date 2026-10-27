@@ -1,0 +1,5 @@
+run = "python3 web_app.py"
+
+[deployment]
+run = ["python3", "web_app.py"]
+deploymentTarget = "cloudrun"
