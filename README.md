@@ -62,6 +62,17 @@ Use `python run_demo.py --scripted` for the reproducible two-branch sequence:
 
 The scripted sequence is not an LLM transcript. Both modes use the same two-branch investigation tools.
 
+## Streamlit front end
+
+Start the browser app locally from the repository root:
+
+```bash
+python -m pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+The app includes an investigation workbench, saved classifier benchmark comparisons, and an About page. All readings are synthetic. The app makes no provider calls and requires no API key. See [the Streamlit run and hosting guide](docs/STREAMLIT_FRONTEND_README.md).
+
 ## Generate the larger Net3 benchmark
 
 WNTR's official Net3 example is included at `data/networks/Net3.inp` so generation works offline. Net3 contains 92 junctions, 117 pipes, 2 pumps, and 2 reservoirs. This is a public benchmark model, not a validated model of a particular city. WNTR documents reading EPANET input files and simulating Net3; see [WNTR's getting-started example](https://usepa.github.io/WNTR/getting_started.html), the [source network](https://github.com/USEPA/WNTR/blob/main/examples/networks/Net3.inp), and the [WNTR license](https://github.com/USEPA/WNTR/blob/main/LICENSE.md).

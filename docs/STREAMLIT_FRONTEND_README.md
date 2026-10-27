@@ -1,6 +1,27 @@
-# Streamlit front end proposal
+# Streamlit front end
 
-**Status: plan for review. No Streamlit application code has been added.**
+**Status: implemented locally. Community Cloud deployment is the remaining step.**
+
+## Run locally
+
+Use Python 3.12 from the repository root:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+The app works without an API key and makes no external model call.
+
+## Pages
+
+- **Investigate:** switch between the two-branch walkthrough and the 500-case sparse Net3 dataset. Inspect pressure and flow charts, compare scenarios, get a measurement recommendation, and reveal a stored synthetic reading.
+- **Benchmarks:** compare saved baseline, class-weighted, and SMOTE reports for the original and high-signal datasets.
+- **About:** review the simulation assumptions and limits.
+
+The high-signal data uses intentionally large, long leaks. It is an easy classifier diagnostic, not evidence of field performance.
 
 ## Purpose
 
@@ -23,7 +44,7 @@ Build a browser-based, simulation-only LeakProbe workbench around the investigat
 - Read the saved benchmark reports rather than training models whenever the page reruns.
 - Compare precision, recall, confusion matrices, and false alarms for the baseline, class-weighted, and SMOTE variants.
 - Let the user view the original benchmark and the intentionally high-signal diagnostic side by side.
-- Label both as synthetic. Mark the high-signal results as deliberately easy and unsuitable as evidence of field performance.
+- Label both as synthetic.
 
 ### About and limitations
 
@@ -31,27 +52,24 @@ Build a browser-based, simulation-only LeakProbe workbench around the investigat
 - Distinguish observed readings, simulated readings, predictions, and confirmed facts in both labels and charts.
 - State that the prototype does not control pumps or valves, dispatch crews, or authorize excavation.
 
-## Suggested structure
+## App structure
 
 ```text
 streamlit_app.py                 Streamlit entry point and navigation
-leakprobe/ui/data_access.py      Read-only dataset and report loading
-leakprobe/ui/investigation.py    Investigation controls and result display
-leakprobe/ui/benchmarks.py       Saved classifier benchmark comparisons
-leakprobe/ui/about.py            Provenance, assumptions, and limitations
+leakprobe/ui/data_access.py      Cached read-only dataset and report loading
+leakprobe/ui/pages.py            Investigation, benchmark, and About pages
+.streamlit/config.toml           App theme
 ```
 
 Use Streamlit's `st.Page` and `st.navigation` for the three pages; the entry point can provide a shared title and persistent simulation notice. Streamlit currently recommends this approach for flexible multipage apps. [Official multipage app guidance](https://docs.streamlit.io/develop/concepts/multipage-apps/page-and-navigation)
 
 Call existing Python investigation functions from the UI rather than reimplementing their scoring. Keep the selected case, revealed synthetic readings, and remaining demo budget in per-session state. Do not cache a mutable investigation object across users. Cache read-only tables and JSON with `st.cache_data`; Streamlit describes it as the data cache and distinguishes it from shared resource caching. [Session State](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state) · [Caching overview](https://docs.streamlit.io/develop/concepts/architecture/caching)
 
-## Implementation stages
+## Hosting
 
-1. **Foundation:** add a pinned Streamlit dependency and entry point; verify Python 3.12 local startup and included data loading.
-2. **Investigation page:** connect the two-branch and Net3 modes to the existing deterministic tools; add charts, ranked fit table, uncertainty state, measurement action, and reset.
-3. **Benchmark and About pages:** display saved reports and explain provenance, units, synthetic status, and limits.
-4. **Optional LLM summary:** only after the offline interface works. Make it an explicit user action, use a provider key stored in deployment secrets, state that provider requests may incur charges, and never make a request on page load.
-5. **Hosting:** assume Streamlit Community Cloud for the first hosted demo. Select the app entry point and Python version, install from the dependency file, and add any provider secret through the host's secrets settings. Never commit a secrets file. [Deploy to Community Cloud](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) · [Secrets management](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management)
+The intended host is Streamlit Community Cloud. Deploy repository `drkrishnan8109/LeakProbe`, branch `feature/net3-synthetic-benchmark`, entry point `streamlit_app.py`, and Python 3.12. Community Cloud installs dependencies from the root `requirements.txt`. [Deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) · [Dependency setup](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies)
+
+The first release does not include a provider-backed summary. If that feature is added later, make it opt-in and keep provider credentials in host secrets. [Secrets management](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management)
 
 ## Acceptance checks
 
@@ -68,6 +86,6 @@ Call existing Python investigation functions from the UI rather than reimplement
 
 Real utility data upload, SCADA/GIS/work-order integration, authentication, geographic maps, collaborative workspaces, operational alerts, and model calibration are not in the current demo. They need separate data, workflow, and security decisions before implementation.
 
-## Approval assumption
+## Deployment status
 
-This plan assumes Streamlit Community Cloud is the intended host. The first implementation would be an offline-first synthetic demo; the optional Nebius-backed summary would be a later, explicit feature.
+The code is ready for review. Community Cloud requires a signed-in account with access to the GitHub repository before it can provide a hosted URL.

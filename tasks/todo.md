@@ -1,9 +1,10 @@
 # Streamlit front end checklist
 
-**State: waiting for approval of `docs/STREAMLIT_FRONTEND_README.md`.**
+**State: app implemented; Community Cloud sign-in and deployment remain.**
 
-- [ ] Confirm host target: Streamlit Community Cloud or another host.
-- [ ] Implement foundation and offline investigation flow.
-- [ ] Add benchmark and limitations pages.
-- [ ] Write the end-user Streamlit README.
-- [ ] Review local behavior and deploy a preview after approval.
+- [x] Confirm host target: Streamlit Community Cloud.
+- [x] Implement foundation and offline investigation flow.
+- [x] Add benchmark and limitations pages.
+- [x] Write the end-user Streamlit README.
+- [ ] Sign in to Community Cloud and complete deployment setup.
+- [ ] Verify the hosted URL is live.
