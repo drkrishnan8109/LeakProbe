@@ -9,7 +9,7 @@ import streamlit as st
 from leakprobe.net3_tools import Net3Investigation
 from leakprobe.paths import DATA, NET3_DATA, OUTPUTS
 
-MONITORING_CASE_ID = "case_401"
+MONITORING_CASE_ID = "case_405"
 
 
 @st.cache_data(show_spinner=False)
@@ -108,20 +108,20 @@ def _read_json_at_mtime(path: str, modified_ns: int) -> dict:
 
 def load_llm_trace_history() -> list[dict]:
     """Read saved full-channel LLM runs, newest first, without caching the directory scan."""
-    paths = sorted(
-        (OUTPUTS / "traces").glob("net3_full_high_signal_*_llm_trace.json"),
-        key=lambda candidate: candidate.stat().st_mtime_ns,
-        reverse=True,
-    )
-    runs = []
-    for path in paths:
+    saved_runs = []
+    for path in (OUTPUTS / "traces").glob("net3_full_high_signal_*_llm_trace.json"):
         modified_ns = path.stat().st_mtime_ns
         run = _read_json_at_mtime(str(path), modified_ns)
-        runs.append({
+        saved_at = run.get("saved_at_utc")
+        timestamp = datetime.fromisoformat(saved_at) if saved_at else datetime.fromtimestamp(
+            modified_ns / 1_000_000_000, tz=timezone.utc
+        )
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
+        timestamp = timestamp.astimezone(timezone.utc)
+        saved_runs.append((timestamp, {
             **run,
             "trace_file": path.name,
-            "saved_at_utc": datetime.fromtimestamp(
-                modified_ns / 1_000_000_000, tz=timezone.utc
-            ).strftime("%Y-%m-%d %H:%M:%S UTC"),
-        })
-    return runs
+            "saved_at_utc": timestamp.strftime("%Y-%m-%d %H:%M:%S UTC"),
+        }))
+    return [run for _, run in sorted(saved_runs, key=lambda item: item[0], reverse=True)]

@@ -23,13 +23,13 @@ The app starts without an API key and makes no external model call.
 4. Use the scenario-fit details when more context is needed. Fit errors rank candidate patterns; they are not probabilities or field confirmation. The dashboard does not create work orders or dispatch crews.
 5. After an investigation is closed, use **History & outcomes** to review recorded outcomes. This page is for after-action review, not part of the current alert calculation.
 
-The configured monitor window is `case_401` from the canonical 500-case dataset. It provides a repeatable feed for the employee workflow; a production deployment would replace that local input with a live or regularly delivered sensor feed.
+The configured monitor window is `case_405` from the canonical 500-case dataset. Its full-channel feed is labeled with a leak on pipe 202, and the scenario comparison ranks pipe 202 first. The map highlights pipe 202 from the comparison result. It provides a repeatable example for the employee workflow; a production deployment would replace that local input with a live or regularly delivered sensor feed.
 
 ## Pages
 
 - **Monitoring:** automatic full-channel comparison, normal-reference charts, network topology, alert evidence, and feed details.
 - **History & outcomes:** held-out outcomes for after-action review.
-- **Run history & traces:** browse all saved full-channel LLM runs, compare their lead fit and metadata, and open an individual explanation. This page reads trace files and does not call the provider.
+- **Run history & traces:** browse all saved full-channel LLM runs, compare their lead fit and metadata, and open an individual explanation. This page reads trace files and does not call the provider. Bundled traces include stable run timestamps; future runs saved on Community Cloud need persistent storage or a repository update to survive redeploys.
 - **Model performance:** saved baseline, class-weighted, and SMOTE benchmark results.
 - **About:** channel coverage, data provenance, and result limitations.
 

@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+from datetime import datetime, timezone
 
 from .paths import OUTPUTS, ROOT
 
@@ -87,6 +88,7 @@ def run_live(case_id=None):
         ) from None
     output = OUTPUTS / "traces"
     output.mkdir(parents=True, exist_ok=True)
+    result["saved_at_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     trace_name = f"net3_full_high_signal_{result.get('case_id') or case_id or 'test'}_llm_trace.json"
     (output / trace_name).write_text(json.dumps(result, indent=2), encoding="utf-8")
     print("\n" + result["answer"])
