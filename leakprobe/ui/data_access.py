@@ -101,6 +101,67 @@ def load_report(report_name: str) -> dict:
 
 
 @st.cache_data(show_spinner=False)
+def load_benchmark_case_history(benchmark_name: str) -> pd.DataFrame:
+    """Load held-out case results for each saved classifier benchmark."""
+    benchmark_paths = {
+        "500 cases · 100 held-out": DATA / "net3_full_high_signal_benchmark",
+        "1,000 cases · 200 held-out": DATA / "net3_full_high_signal_1000_benchmark",
+    }
+    if benchmark_name not in benchmark_paths:
+        raise ValueError("Unknown benchmark case set.")
+
+    benchmark_dir = benchmark_paths[benchmark_name]
+    history = None
+    for variant, label in (
+        ("baseline", "Baseline"),
+        ("class_weight", "Class-weighted"),
+        ("smote", "SMOTE"),
+    ):
+        predictions = pd.read_csv(benchmark_dir / f"{variant}_test_predictions.csv")
+        predictions = predictions[["case_id", "actual", "probability_leak", "predicted_leak"]]
+        predictions["actual"] = predictions["actual"].astype(int)
+        predictions["predicted_leak"] = predictions["predicted_leak"].astype(int)
+        predictions = predictions.rename(columns={
+            "probability_leak": f"{label} leak score",
+            "predicted_leak": f"{label} alert",
+        })
+
+        if history is None:
+            history = predictions
+        else:
+            expected_labels = history.set_index("case_id")["actual"].sort_index()
+            current_labels = predictions.set_index("case_id")["actual"].sort_index()
+            if not expected_labels.equals(current_labels):
+                raise ValueError(f"{label} predictions do not match the other held-out cases.")
+            history = history.merge(
+                predictions.drop(columns="actual"), on="case_id", validate="one_to_one"
+            )
+
+    if history is None:
+        return pd.DataFrame()
+
+    history["Reference outcome"] = history["actual"].map({1: "Leak", 0: "Normal"})
+    for label in ("Baseline", "Class-weighted", "SMOTE"):
+        history[f"{label} alert"] = history[f"{label} alert"].map(
+            {1: "Leak alert", 0: "No alert"}
+        )
+        history[f"{label} leak score"] = history[f"{label} leak score"].map(
+            lambda score: f"{score:.1%}"
+        )
+
+    return history[[
+        "case_id",
+        "Reference outcome",
+        "Baseline alert",
+        "Baseline leak score",
+        "Class-weighted alert",
+        "Class-weighted leak score",
+        "SMOTE alert",
+        "SMOTE leak score",
+    ]].rename(columns={"case_id": "Case"}).sort_values("Case").reset_index(drop=True)
+
+
+@st.cache_data(show_spinner=False)
 def _read_json_at_mtime(path: str, modified_ns: int) -> dict:
     """Cache a JSON artifact by path and modification time."""
     return json.loads(Path(path).read_text(encoding="utf-8"))
