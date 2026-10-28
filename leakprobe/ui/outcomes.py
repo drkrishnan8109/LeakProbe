@@ -2,6 +2,7 @@
 import pandas as pd
 import streamlit as st
 
+from leakprobe.ui.branding import render_product_header
 from leakprobe.ui.data_access import load_outcome_records
 
 
@@ -11,7 +12,8 @@ def render_outcome_review() -> None:
     leak_count = int((outcomes["Verified outcome"] == "Leak confirmed").sum())
     normal_count = int((outcomes["Verified outcome"] == "Normal operation confirmed").sum())
 
-    st.title(
+    render_product_header()
+    st.header(
         "Monitoring history and outcomes",
         help=(
             "After-action view of the held-out monitoring windows and their recorded outcomes. "
