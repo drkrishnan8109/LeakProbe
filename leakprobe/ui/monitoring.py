@@ -142,16 +142,17 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
 def render_monitoring_dashboard() -> None:
     st.title("Network monitoring")
     st.write("The current full-channel feed is checked automatically against normal operation and candidate leak patterns.")
+    st.caption("Demo and review: choose a saved case below to update the alert, pipe highlight, charts, and timestamps together.")
     try:
         case_ids = [case["case_id"] for case in load_case_index()]
         default_case_index = case_ids.index(MONITORING_CASE_ID) if MONITORING_CASE_ID in case_ids else 0
         selected_case_id = st.selectbox(
-            "Feed selection",
+            "Choose a case feed",
             options=case_ids,
             index=default_case_index,
             key="monitoring_case_id",
             help=(
-                "Choose a saved feed for demo or review. The alert, candidate pipe, map, "
+                "Select one of the saved cases. The alert, candidate pipe, network map, "
                 "baseline charts, and timestamps below will update together."
             ),
         )
@@ -262,7 +263,7 @@ def render_monitoring_dashboard() -> None:
             } for rank, row in enumerate(ranking[:6], start=1)]
             st.dataframe(pd.DataFrame(details), hide_index=True, use_container_width=True)
             st.caption(comparison["score_meaning"])
-    with st.expander("Feed record details"):
+    with st.expander("Feed record details (read-only)"):
         st.write({
             "Feed record": snapshot["case_id"],
             "Window start": pd.to_datetime(observations["timestamp_utc"], utc=True).iloc[0].strftime("%d %b %Y %H:%M UTC"),
