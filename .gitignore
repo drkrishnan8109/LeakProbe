@@ -4,11 +4,5 @@
 __pycache__/
 *.pyc
 .DS_Store
-outputs/traces/llm_trace.json
-outputs/traces/net3_*_llm_trace.json
-outputs/traces/net3_*_scripted_trace.json
+outputs/traces/
 temp.inp
-outputs/demo_video/scene_*/
-outputs/demo_video/clips.txt
-outputs/demo_video/voice_test.aiff
-outputs/demo_video/preview.jpg

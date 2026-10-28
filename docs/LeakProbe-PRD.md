@@ -1,7 +1,7 @@
 # LeakProbe — Product Requirements Document
 
 **Version:** 1.1 · **Date:** 21 October 2026  
-**Status:** Proposed product specification. A separate educational demo and synthetic benchmark now exist; this PRD is not a description of a completed product. No customer commitments or field validation are implied.  
+**Status:** Proposed product specification. A separate educational demo and synthetic benchmarks now exist; this PRD is not a description of a completed product. No customer commitments or field validation are implied.
 **Intended readers:** Founder, AI engineer, hydraulic modeling adviser, utility design partner, product reviewer.  
 **Product owner:** Founder; named owner to be assigned before implementation.
 
@@ -9,9 +9,9 @@
 
 ## 1. Executive decision
 
-### Current repository status (21 October 2026)
+### Current repository status (28 October 2026)
 
-The repository contains a runnable Streamlit workbench and one active Net3 dataset: a 500-case high-signal benchmark with full coverage (92 junction pressures and 117 pipe flows). It has 400 development cases and 100 held-out cases. Its reference bank has 24 leak profiles per candidate pipe and 24 normal profiles, matched to the high-signal leak ranges. The physics-based detector ranks reference patterns; a separate case-level classifier compares baseline, class weighting, and SMOTE.
+The repository contains a runnable Streamlit workbench. The app uses a canonical 500-case high-signal Net3 dataset with full coverage (92 junction pressures and 117 pipe flows), 400 development cases, and 100 held-out cases. A separate 1,000-case classifier experiment uses the same channel layout and simulation ranges; it is not an app source and does not add candidate-pipe coverage. The canonical reference bank has 24 leak profiles per candidate pipe and 24 normal profiles, matched to the high-signal leak ranges. The physics-based detector ranks reference patterns; a separate case-level classifier compares baseline, class weighting, and SMOTE.
 
 High-signal leak openings are 28–35 mm and last 4–4.5 hours; demand ranges match across development and test. This intentionally makes the benchmark easier. The physics-based ranking currently has no calibrated rejection threshold. The separate classifier chooses its recall-led threshold from out-of-fold development predictions, then reports the held-out set once. See `data/net3_full_high_signal_benchmark/report.md` for current precision, recall, and confusion matrices.
 

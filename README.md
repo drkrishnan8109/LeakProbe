@@ -1,6 +1,6 @@
 # LeakProbe
 
-LeakProbe is a Streamlit workbench for comparing a water-network sensor feed with normal-operation and candidate-leak patterns. The repository uses one Net3 dataset: the **high-signal 500-case benchmark**, with pressure at all 92 junctions and flow in all 117 pipes.
+LeakProbe is a Streamlit workbench for comparing a water-network sensor feed with normal-operation and candidate-leak patterns. The app uses the **canonical 500-case high-signal Net3 dataset**, with pressure at all 92 junctions and flow in all 117 pipes. A separate 1,000-case run is retained for a sample-size comparison; it is not an app data source.
 
 The cases are generated from the EPA EPANET Example Network 3 model. They are useful for a controlled benchmark and do not establish performance on a utility network.
 
@@ -42,6 +42,18 @@ Missing readings may occur within those columns. The channel definitions and col
 
 The canonical dataset is `data/net3_full_high_signal/`. It contains 500 cases: 400 development cases (320 leaks and 80 normal) and 100 held-out cases (80 leaks and 20 normal). It also contains the per-case outcomes and a reference-pattern bank matched to its high-signal leak ranges.
 
+## Separate 1,000-case experiment
+
+`data/net3_full_high_signal_1000/` contains 800 development cases and 200 held-out cases, all with the same 92 pressure and 117 flow channels. It was generated to check how classifier scores vary with a larger sample. Case split, outcome, and leak-pipe assignments from the 500-case set were each reused twice; readings and simulation parameters were generated afresh, so this run adds measurement variation but no new pipe assignments. The app continues to use the canonical 500-case dataset.
+
+The experiment's classifier report is [`data/net3_full_high_signal_1000_benchmark/report.md`](data/net3_full_high_signal_1000_benchmark/report.md). To rerun it:
+
+```bash
+python -m leakprobe.smote_benchmark \
+  --source data/net3_full_high_signal_1000 \
+  --output data/net3_full_high_signal_1000_benchmark
+```
+
 ## Evaluate and benchmark
 
 Run the physics-based comparison on the held-out cases:
@@ -58,7 +70,9 @@ python -m leakprobe.smote_benchmark
 
 Results and per-case predictions are written to `data/net3_full_high_signal_benchmark/`. The test split is reserved for final reporting. Use the held-out numbers to compare precision, recall, false alarms, and missed leaks.
 
-The earlier sparse-channel reports and standard-range dataset are retired. Do not use them for app runs, comparisons, or new result claims.
+The 500-case development split contains 320 leaks and 80 normal cases. Default SMOTE therefore generates normal-like examples to balance training; it does not add synthetic leak cases.
+
+The obsolete demo data, sparse-channel datasets, and separate standard-range archive have been removed. The canonical app data and the documented 1,000-case experiment are the retained Net3 datasets.
 
 ## Regenerate the high-signal feed
 
@@ -89,8 +103,10 @@ The physics-based matcher ranks reference simulations by normalized fit error. T
 
 ```text
 leakprobe/                         Python implementation
-data/net3_full_high_signal/        Sole active 500-case, 92/117-channel dataset
-data/net3_full_high_signal_benchmark/ Classifier reports and per-case predictions
+data/net3_full_high_signal/        Canonical app dataset, 500 cases, 92/117 channels
+data/net3_full_high_signal_benchmark/ Canonical classifier reports and predictions
+data/net3_full_high_signal_1000/   Separate 800/200 sample-size experiment
+data/net3_full_high_signal_1000_benchmark/ Experiment report and predictions
 data/networks/Net3.inp             EPANET network model
 docs/                              Product and Streamlit documentation
 outputs/evaluations/               Current full-channel evaluation report

@@ -13,7 +13,7 @@ Leaks waste treated water and the energy and chemicals used to produce it. They 
 LeakProbe is a **hydraulic-model-based leak investigation prototype**:
 
 - It uses a water-network model and pressure/flow time-series observations.
-- Its only active benchmark is the full-channel high-signal Net3 dataset: 92 pressure channels and 117 flow channels in each case.
+- The app uses the canonical full-channel high-signal Net3 dataset: 92 pressure channels and 117 flow channels in each case. A separate 1,000-case classifier experiment is available for sample-size comparison.
 - It compares observations against reference patterns for normal operation and candidate leak locations, ranking scenarios by normalized error.
 - It ranks normal and leak scenarios by fit error. The score is not a probability, and the active high-signal dataset has no calibrated rejection threshold.
 - Its agent can call Python tools to retrieve the complete observation feed and network information, then compare hypotheses using all channels.

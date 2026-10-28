@@ -29,6 +29,18 @@ The classifier threshold is selected from out-of-fold development predictions to
 
 SMOTE made no false alarms in these 20 normal cases, but missed 16 of the 80 leaks. The baseline caught six more leaks with two false alarms. Precision and recall should be read alongside the counts.
 
+## 1,000-case sample-size experiment
+
+The companion experiment trains on 800 cases and evaluates on 200 held-out cases (160 leaks and 40 normal cases). It uses the same full 92/117 channel layout and high-signal ranges. Existing split, outcome, and leak-pipe assignments were each used twice, with fresh simulated readings. It adds more measurement variations but no new candidate-pipe assignments.
+
+| Variant | Precision | Recall | TP / FN / FP / TN |
+|---|---:|---:|---:|
+| Baseline | 100.0% | 78.1% | 125 / 35 / 0 / 40 |
+| Class weight | 100.0% | 78.1% | 125 / 35 / 0 / 40 |
+| SMOTE | 100.0% | 78.8% | 126 / 34 / 0 / 40 |
+
+There were no false alarms among the 40 held-out normal cases, but each variant missed about one in five leaks. In the 640-leak/160-normal development split, default SMOTE oversamples normal examples because normal is the minority class. These results measure this controlled simulation setup, not field performance. See the [full report](../data/net3_full_high_signal_1000_benchmark/report.md).
+
 ## Where the “all leaks caught, all normal cases flagged” result came from
 
 That result was from the retired standard-range classifier on a smaller 12-pressure/8-flow dataset. It predicted all 100 test cases as leaks: 80 true positives, 20 false alarms, no missed leaks, and no true negatives. That is 100% recall but 80% precision and 0% specificity.
