@@ -3,7 +3,12 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-from leakprobe.ui.data_access import load_monitoring_snapshot, load_network_layout
+from leakprobe.ui.data_access import (
+    MONITORING_CASE_ID,
+    load_case_index,
+    load_monitoring_snapshot,
+    load_network_layout,
+)
 
 
 def _channel_columns(observations: pd.DataFrame, prefix: str) -> list[str]:
@@ -138,8 +143,20 @@ def render_monitoring_dashboard() -> None:
     st.title("Network monitoring")
     st.write("The current full-channel feed is checked automatically against normal operation and candidate leak patterns.")
     try:
+        case_ids = [case["case_id"] for case in load_case_index()]
+        default_case_index = case_ids.index(MONITORING_CASE_ID) if MONITORING_CASE_ID in case_ids else 0
+        selected_case_id = st.selectbox(
+            "Feed selection",
+            options=case_ids,
+            index=default_case_index,
+            key="monitoring_case_id",
+            help=(
+                "Choose a saved feed for demo or review. The alert, candidate pipe, map, "
+                "baseline charts, and timestamps below will update together."
+            ),
+        )
         with st.spinner("Checking the latest monitoring window…"):
-            snapshot = load_monitoring_snapshot()
+            snapshot = load_monitoring_snapshot(selected_case_id)
             layout = load_network_layout()
     except (OSError, ValueError, KeyError, ImportError) as exc:
         st.error(f"The monitoring feed could not be loaded: {exc}")
@@ -179,13 +196,22 @@ def render_monitoring_dashboard() -> None:
     )
 
     if decision["prediction"] == "leak":
-        st.error(f"Leak alert — review candidate pipe {candidate_pipe}")
+        st.error(
+            f"Leak alert · Feed {snapshot['case_id']} — "
+            f"review candidate pipe {candidate_pipe}"
+        )
         st.write("The leak pattern for this pipe is the best fit across the complete pressure and flow feed.")
         st.info("Recommended next step: verify the indicated pipe through the normal field-check process. This dashboard does not create a work order or dispatch a crew.")
     elif decision["prediction"] == "normal":
-        st.success("No leak alert — normal operation is the best-fitting pattern for this window.")
+        st.success(
+            f"No leak alert · Feed {snapshot['case_id']} — "
+            "normal operation is the best-fitting pattern for this window."
+        )
     else:
-        st.warning("Review required — the current feed does not support a clear leak or normal result.")
+        st.warning(
+            f"Review required · Feed {snapshot['case_id']} — "
+            "the current feed does not support a clear leak or normal result."
+        )
 
     st.subheader("Network and sensor map")
     st.vega_lite_chart(None, _network_map_spec(layout, candidate_pipe), use_container_width=True)
