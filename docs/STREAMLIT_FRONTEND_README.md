@@ -29,7 +29,7 @@ The configured monitor window is `case_401` from the canonical 500-case dataset.
 
 - **Monitoring:** automatic full-channel comparison, normal-reference charts, network topology, alert evidence, and feed details.
 - **History & outcomes:** held-out outcomes for after-action review.
-- **Analysis trace:** latest saved full-channel LLM trace. This page reads a file and does not call the provider.
+- **Run history & traces:** browse all saved full-channel LLM runs, compare their lead fit and metadata, and open an individual explanation. This page reads trace files and does not call the provider.
 - **Model performance:** saved baseline, class-weighted, and SMOTE benchmark results.
 - **About:** channel coverage, data provenance, and result limitations.
 
@@ -43,10 +43,10 @@ The Monitoring page calls `Net3Investigation.compare_hypotheses()` automatically
 
 ```text
 streamlit_app.py                 Streamlit entry point and navigation
-leakprobe/ui/data_access.py      Cached read-only feed, network, outcome, and report loading
+leakprobe/ui/data_access.py      Cached feed, network, outcome, report, and saved-run loading
 leakprobe/ui/monitoring.py       Employee monitoring dashboard and baseline evidence
 leakprobe/ui/outcomes.py         After-action outcome review
-leakprobe/ui/pages.py            Saved LLM, benchmark, and About pages
+leakprobe/ui/pages.py            Saved-run history, benchmark, and About pages
 leakprobe/net3_tools.py          Full-channel scenario comparison
 leakprobe/coverage.py             92/117 channel validation
 ```

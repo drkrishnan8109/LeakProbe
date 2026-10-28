@@ -15,7 +15,7 @@ python -m pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-The default Monitoring page automatically loads a configured six-hour sensor window, compares all 92 pressure and 117 flow channels with normal-operation references, and shows the result, network map, and readings that differ from baseline. Employees do not select a case or sensors. History & outcomes provides held-out labels for after-action review; Model performance compares the baseline, class-weighted, and SMOTE classifiers. Opening the app does not call an LLM provider.
+The default Monitoring page automatically loads a configured six-hour sensor window, compares all 92 pressure and 117 flow channels with normal-operation references, and shows the result, network map, and readings that differ from baseline. Employees do not select a case or sensors. History & outcomes provides held-out labels for after-action review, while Run history & traces lists saved LLM investigations. Model performance compares the baseline, class-weighted, and SMOTE classifiers. Opening the app does not call an LLM provider.
 
 To run an offline investigation from the terminal:
 

@@ -9,6 +9,7 @@
 - [x] Write the end-user Streamlit README.
 - [x] Implement the employee monitoring dashboard with automatic full-channel feed comparison.
 - [x] Add history and outcome review, separated from current alert scoring.
+- [x] Show all saved LLM runs in a browsable history and trace page.
 - [x] Document the employee workflow, feed source, and alert limitations.
 - [ ] Sign in to Community Cloud and complete deployment setup.
 - [ ] Verify the hosted URL is live.

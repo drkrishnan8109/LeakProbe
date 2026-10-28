@@ -5,23 +5,70 @@ import pandas as pd
 import streamlit as st
 
 from leakprobe.ui.data_access import (
-    load_latest_llm_trace,
+    load_llm_trace_history,
     load_report,
 )
 
-def render_latest_llm_run() -> None:
-    st.title("Latest LLM investigation")
-    st.write("Review the most recent saved Net3 investigation using all 209 sensor channels.")
-    st.caption("This page reads the saved trace and does not make a provider call.")
+
+def _run_comparison(saved_run: dict) -> dict | None:
+    comparisons = [
+        row["result"] for row in saved_run.get("trace", [])
+        if row.get("tool") == "compare_hypotheses"
+        and isinstance(row.get("result"), dict)
+        and row["result"].get("ranking")
+    ]
+    return comparisons[-1] if comparisons else None
+
+
+def render_llm_run_history() -> None:
+    st.title("Saved runs and traces")
+    st.write("Browse saved Net3 investigations and open each run's result and tool trace.")
+    st.caption("This page reads local trace files. Opening a saved run does not call the provider.")
     try:
-        saved_run = load_latest_llm_trace()
+        saved_runs = load_llm_trace_history()
     except (OSError, ValueError, json.JSONDecodeError) as exc:
-        st.error(f"Could not read the saved LLM trace: {exc}")
+        st.error(f"Could not read the saved LLM run history: {exc}")
         return
-    if saved_run is None:
-        st.info("No Net3 LLM run is saved. Run `python run_demo.py` to create one.")
+    if not saved_runs:
+        st.info("No Net3 LLM runs are saved. Run `python run_demo.py` to create one.")
         return
 
+    history_rows = []
+    for run in saved_runs:
+        comparison = _run_comparison(run)
+        ranking = comparison["ranking"] if comparison else []
+        winner = ranking[0] if ranking else {}
+        token_count = sum(
+            row.get("total_tokens", 0)
+            for row in run.get("usage", [])
+            if isinstance(row, dict)
+        )
+        history_rows.append({
+            "Saved at (UTC)": run["saved_at_utc"],
+            "Case": run.get("case_id") or "—",
+            "Status": run.get("status", "unknown").title(),
+            "Leading fit": winner.get("scenario", "—").replace("leak_pipe:", "Pipe "),
+            "Best fit error": winner.get("normalized_rmse"),
+            "LLM requests": len(run.get("usage", [])),
+            "Reported tokens": token_count,
+        })
+    st.subheader("Run history")
+    st.dataframe(
+        pd.DataFrame(history_rows), hide_index=True, use_container_width=True,
+        column_config={"Best fit error": st.column_config.NumberColumn(format="%.3f")},
+    )
+
+    selected_index = st.selectbox(
+        "Open a saved run",
+        options=list(range(len(saved_runs))),
+        format_func=lambda index: (
+            f"{saved_runs[index].get('case_id') or 'Unknown case'} · "
+            f"{saved_runs[index]['saved_at_utc']} · "
+            f"{saved_runs[index].get('status', 'unknown').title()}"
+        ),
+        key="saved_llm_run_selector",
+    )
+    saved_run = saved_runs[selected_index]
     status = saved_run.get("status", "unknown")
     if status != "completed":
         st.warning(f"The saved run status is **{status}**; review its result as incomplete.")
@@ -34,24 +81,19 @@ def render_latest_llm_run() -> None:
     summary[2].metric("LLM requests", len(usage))
     summary[3].metric("Reported tokens", f"{total_tokens:,}")
 
-    comparisons = [
-        row["result"] for row in tool_history
-        if row.get("tool") == "compare_hypotheses"
-        and isinstance(row.get("result"), dict)
-        and row["result"].get("ranking")
-    ]
-    if comparisons:
-        st.subheader("Latest full-channel comparison")
+    comparison = _run_comparison(saved_run)
+    if comparison:
+        st.subheader("Full-channel comparison")
         rows = [
             {"Rank": index, "Scenario": row["scenario"], "Pipe": row["leak_pipe"] or "—",
              "Normalized fit score": row["normalized_rmse"]}
-            for index, row in enumerate(comparisons[-1]["ranking"], start=1)
+            for index, row in enumerate(comparison["ranking"], start=1)
         ]
         st.dataframe(
             pd.DataFrame(rows), hide_index=True, use_container_width=True,
             column_config={"Normalized fit score": st.column_config.NumberColumn(format="%.3f")},
         )
-        st.caption(comparisons[-1]["score_meaning"])
+        st.caption(comparison["score_meaning"])
 
     answer = saved_run.get("answer")
     if answer:
@@ -64,6 +106,7 @@ def render_latest_llm_run() -> None:
         history = [{"Step": row.get("tool", "unknown").replace("_", " ").title()}
                    for row in tool_history]
         st.dataframe(pd.DataFrame(history), hide_index=True, use_container_width=True)
+        st.caption(f"Trace file: `{saved_run['trace_file']}`")
 
 
 def render_benchmarks() -> None:

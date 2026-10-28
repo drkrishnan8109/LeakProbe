@@ -1,5 +1,6 @@
 """Read-only cached access to bundled synthetic data and benchmark reports."""
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -105,10 +106,22 @@ def _read_json_at_mtime(path: str, modified_ns: int) -> dict:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def load_latest_llm_trace() -> dict | None:
-    """Read the newest saved full-channel Net3 investigation trace."""
-    traces = list((OUTPUTS / "traces").glob("net3_full_high_signal_*_llm_trace.json"))
-    if not traces:
-        return None
-    path = max(traces, key=lambda candidate: candidate.stat().st_mtime_ns)
-    return _read_json_at_mtime(str(path), path.stat().st_mtime_ns)
+def load_llm_trace_history() -> list[dict]:
+    """Read saved full-channel LLM runs, newest first, without caching the directory scan."""
+    paths = sorted(
+        (OUTPUTS / "traces").glob("net3_full_high_signal_*_llm_trace.json"),
+        key=lambda candidate: candidate.stat().st_mtime_ns,
+        reverse=True,
+    )
+    runs = []
+    for path in paths:
+        modified_ns = path.stat().st_mtime_ns
+        run = _read_json_at_mtime(str(path), modified_ns)
+        runs.append({
+            **run,
+            "trace_file": path.name,
+            "saved_at_utc": datetime.fromtimestamp(
+                modified_ns / 1_000_000_000, tz=timezone.utc
+            ).strftime("%Y-%m-%d %H:%M:%S UTC"),
+        })
+    return runs
