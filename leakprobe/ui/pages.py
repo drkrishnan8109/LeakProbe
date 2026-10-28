@@ -1,10 +1,17 @@
-"""Streamlit pages for case investigation, benchmark review, and project context."""
+"""Streamlit pages for investigation, saved LLM results, benchmarks, and context."""
+import json
+
 import pandas as pd
 import streamlit as st
 
 from leakprobe.net3_tools import Net3Investigation
 from leakprobe.tools import Investigation
-from leakprobe.ui.data_access import load_case_index, load_case_observations, load_report
+from leakprobe.ui.data_access import (
+    load_case_index,
+    load_case_observations,
+    load_latest_llm_trace,
+    load_report,
+)
 
 
 def _show_demo_result(result: dict) -> None:
@@ -219,6 +226,90 @@ def render_investigation() -> None:
         _render_net3_investigation()
     else:
         _render_two_branch_demo()
+
+
+def _trace_arguments(row: dict) -> dict:
+    arguments = row.get("arguments", {})
+    if isinstance(arguments, str):
+        try:
+            arguments = json.loads(arguments)
+        except json.JSONDecodeError:
+            return {}
+    return arguments if isinstance(arguments, dict) else {}
+
+
+def render_latest_llm_run() -> None:
+    st.title("Latest LLM investigation")
+    st.write("Review the last saved live run on the synthetic two-branch case.")
+    st.caption("This page reads the saved trace; opening it does not make a provider call.")
+    try:
+        saved_run = load_latest_llm_trace()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        st.error(f"Could not read the saved LLM trace: {exc}")
+        return
+    if saved_run is None:
+        st.info("No saved LLM run yet. Run `python run_demo.py` from the repository root to create one.")
+        return
+
+    status = saved_run.get("status", "unknown")
+    if status != "completed":
+        st.warning(f"The saved run status is **{status}**; review its result as incomplete.")
+    tool_history = saved_run.get("trace", [])
+    usage = saved_run.get("usage", [])
+    total_tokens = sum(row.get("total_tokens", 0) for row in usage if isinstance(row, dict))
+    summary_columns = st.columns(3)
+    summary_columns[0].metric("Run status", status.title())
+    summary_columns[1].metric("LLM requests", len(usage))
+    summary_columns[2].metric("Reported tokens", f"{total_tokens:,}")
+
+    measurements = [row for row in tool_history if row.get("tool") == "collect_demo_measurement"]
+    if measurements:
+        latest_measurement = measurements[-1]
+        point = _trace_arguments(latest_measurement).get("point", "Gauge")
+        reading = latest_measurement.get("result") or {}
+        pressure = reading.get("pressure_head_m")
+        if pressure is not None:
+            st.metric("Last synthetic pressure reading", f"{point} · {pressure:.2f} m head")
+            st.caption("MA is the optional pressure gauge on branch A; MB is on branch B. The reading is simulated.")
+
+    comparisons = [
+        row for row in tool_history
+        if row.get("tool") == "compare_hypotheses"
+        and isinstance(row.get("result"), dict)
+        and row["result"].get("ranking")
+    ]
+    if comparisons:
+        latest_comparison = comparisons[-1]["result"]
+        labels = {"leak_A": "Leak · Branch A", "leak_B": "Leak · Branch B", "normal": "Normal operation"}
+        ranking_rows = [
+            {"Rank": index, "Scenario": labels.get(row["scenario"], row["scenario"]),
+             "Normalized fit score": row["normalized_rmse"]}
+            for index, row in enumerate(latest_comparison["ranking"], start=1)
+        ]
+        st.subheader("Latest tool comparison")
+        st.dataframe(
+            pd.DataFrame(ranking_rows),
+            hide_index=True,
+            use_container_width=True,
+            column_config={"Normalized fit score": st.column_config.NumberColumn(format="%.3f")},
+        )
+        st.caption("Lower scores fit these synthetic readings better. They are not probabilities or field confirmation.")
+
+    answer = saved_run.get("answer")
+    if answer:
+        st.subheader("LLM interpretation")
+        st.markdown(answer)
+    else:
+        st.info("The saved run has no final written interpretation.")
+
+    with st.expander("Tool steps"):
+        history = [
+            {"Step": row.get("tool", "unknown").replace("_", " ").title(),
+             "Details": _trace_arguments(row).get("point", "") or
+                       ("Runtime-required comparison" if row.get("runtime_required") else "")}
+            for row in tool_history
+        ]
+        st.dataframe(pd.DataFrame(history), hide_index=True, use_container_width=True)
 
 
 def render_benchmarks() -> None:

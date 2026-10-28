@@ -18,6 +18,7 @@ The app works without an API key and makes no external model call.
 ## Pages
 
 - **Investigate:** switch between the two-branch walkthrough and the 500-case sparse Net3 dataset. Inspect pressure and flow charts, compare scenarios, get a measurement recommendation, and reveal a stored synthetic reading.
+- **Latest LLM run:** review the last saved two-branch LLM answer, its final tool comparison, synthetic measurement, and reported token usage. The page reads the saved trace and makes no provider call; it refreshes when the trace file changes.
 - **Benchmarks:** compare saved baseline, class-weighted, and SMOTE reports for the original and high-signal datasets.
 - **About:** review the simulation assumptions and limits.
 
@@ -57,7 +58,7 @@ Build a browser-based, simulation-only LeakProbe workbench around the investigat
 ```text
 streamlit_app.py                 Streamlit entry point and navigation
 leakprobe/ui/data_access.py      Cached read-only dataset and report loading
-leakprobe/ui/pages.py            Investigation, benchmark, and About pages
+leakprobe/ui/pages.py            Investigation, saved LLM run, benchmark, and About pages
 .streamlit/config.toml           App theme
 ```
 
@@ -69,7 +70,7 @@ Call existing Python investigation functions from the UI rather than reimplement
 
 The intended host is Streamlit Community Cloud. Deploy repository `drkrishnan8109/LeakProbe`, branch `feature/net3-synthetic-benchmark`, entry point `streamlit_app.py`, and Python 3.12. Community Cloud installs dependencies from the root `requirements.txt`. [Deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) · [Dependency setup](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies)
 
-The first release does not include a provider-backed summary. If that feature is added later, make it opt-in and keep provider credentials in host secrets. [Secrets management](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management)
+The LLM results page displays the last saved trace from the CLI; it does not send requests from Streamlit. A provider-backed summary inside the app is not included. If added later, make it opt-in and keep provider credentials in host secrets. [Secrets management](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management)
 
 ## Acceptance checks
 
@@ -78,6 +79,7 @@ The first release does not include a provider-backed summary. If that feature is
 - Revealing a synthetic measurement updates the ranking and respects the existing time budget.
 - Every displayed score has a label and explanation; none is presented as a probability or field confirmation.
 - The benchmark page matches the saved JSON reports, including class counts and confusion matrices.
+- The latest-run page shows a saved LLM result without making a provider call and reloads when the trace file changes.
 - Missing files or invalid case selections show a useful error instead of a blank page.
 - Session data from one user cannot mutate another user's investigation.
 - The optional LLM path is off until the user clicks it, and secrets remain outside source control.

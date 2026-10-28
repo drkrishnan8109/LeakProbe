@@ -71,7 +71,7 @@ python -m pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-The app includes an investigation workbench, saved classifier benchmark comparisons, and an About page. All readings are synthetic. The app makes no provider calls and requires no API key. See [the Streamlit run and hosting guide](docs/STREAMLIT_FRONTEND_README.md).
+The app includes an investigation workbench, the latest saved LLM investigation, classifier benchmarks, and an About page. The LLM page reads `outputs/traces/llm_trace.json`; it makes no provider calls and requires no API key. All readings are synthetic. See [the Streamlit run and hosting guide](docs/STREAMLIT_FRONTEND_README.md).
 
 ## Generate the larger Net3 benchmark
 

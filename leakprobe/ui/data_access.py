@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-from leakprobe.paths import DATA
+from leakprobe.paths import DATA, OUTPUTS
 
 
 @st.cache_data(show_spinner=False)
@@ -36,3 +36,17 @@ def load_report(report_name: str) -> dict:
     if report_name not in report_paths:
         raise ValueError("Unknown benchmark report.")
     return read_json(str(report_paths[report_name]))
+
+
+@st.cache_data(show_spinner=False)
+def _read_json_at_mtime(path: str, modified_ns: int) -> dict:
+    """Cache a JSON artifact by path and modification time."""
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def load_latest_llm_trace() -> dict | None:
+    """Read the saved demo trace and refresh the cache when a new run replaces it."""
+    path = OUTPUTS / "traces" / "llm_trace.json"
+    if not path.exists():
+        return None
+    return _read_json_at_mtime(str(path), path.stat().st_mtime_ns)
