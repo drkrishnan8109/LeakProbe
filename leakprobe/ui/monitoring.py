@@ -147,7 +147,7 @@ def render_monitoring_dashboard() -> None:
         case_ids = [case["case_id"] for case in load_case_index()]
         default_case_index = case_ids.index(MONITORING_CASE_ID) if MONITORING_CASE_ID in case_ids else 0
         selected_case_id = st.selectbox(
-            "Choose a case feed",
+            "Feed selection (Demo control)",
             options=case_ids,
             index=default_case_index,
             key="monitoring_case_id",
