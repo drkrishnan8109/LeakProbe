@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 
 from leakprobe.ui.data_access import (
+    load_benchmark_case_history,
     load_llm_trace_history,
     load_report,
 )
@@ -18,6 +19,75 @@ def _run_comparison(saved_run: dict) -> dict | None:
         and row["result"].get("ranking")
     ]
     return comparisons[-1] if comparisons else None
+
+
+def _render_benchmark_case_history() -> None:
+    st.divider()
+    st.subheader(
+        "Held-out classifier case history",
+        help=(
+            "Shows every held-out case already evaluated by the baseline, class-weighted, and "
+            "SMOTE classifiers. These are saved classifier results, separate from the LLM run traces above."
+        ),
+    )
+    st.caption(
+        "Choose a benchmark size to review each test case, its reference outcome, and the three "
+        "classifier alerts. Training cases are excluded."
+    )
+    benchmark_name = st.selectbox(
+        "Benchmark case set",
+        options=("500 cases · 100 held-out", "1,000 cases · 200 held-out"),
+        key="history_benchmark_case_set",
+        help="Select the saved benchmark whose held-out case results you want to inspect.",
+    )
+    try:
+        history = load_benchmark_case_history(benchmark_name)
+    except (OSError, ValueError, KeyError) as exc:
+        st.error(f"Could not load the saved classifier case history: {exc}")
+        return
+
+    if history.empty:
+        st.info("No held-out case results are saved for this benchmark.")
+        return
+
+    leak_count = int((history["Reference outcome"] == "Leak").sum())
+    normal_count = len(history) - leak_count
+    st.caption(
+        f"{len(history)} held-out cases · {leak_count} leak cases · {normal_count} normal cases · "
+        "92 pressure + 117 flow channels"
+    )
+    st.dataframe(
+        history,
+        hide_index=True,
+        use_container_width=True,
+        height=520,
+        column_config={
+            "Case": st.column_config.TextColumn(
+                help="Identifier of a held-out test case."
+            ),
+            "Reference outcome": st.column_config.TextColumn(
+                help="The saved correct label for this case: leak or normal operation."
+            ),
+            "Baseline alert": st.column_config.TextColumn(
+                help="Whether the baseline classifier's chosen threshold produced a leak alert."
+            ),
+            "Baseline leak score": st.column_config.TextColumn(
+                help="Model-assigned leak score, shown as a percentage. It is not guaranteed to be calibrated."
+            ),
+            "Class-weighted alert": st.column_config.TextColumn(
+                help="Whether the class-weighted classifier's chosen threshold produced a leak alert."
+            ),
+            "Class-weighted leak score": st.column_config.TextColumn(
+                help="Model-assigned leak score, shown as a percentage. It is not guaranteed to be calibrated."
+            ),
+            "SMOTE alert": st.column_config.TextColumn(
+                help="Whether the SMOTE classifier's chosen threshold produced a leak alert."
+            ),
+            "SMOTE leak score": st.column_config.TextColumn(
+                help="Model-assigned leak score, shown as a percentage. It is not guaranteed to be calibrated."
+            ),
+        },
+    )
 
 
 def render_llm_run_history() -> None:
@@ -34,9 +104,11 @@ def render_llm_run_history() -> None:
         saved_runs = load_llm_trace_history()
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         st.error(f"Could not read the saved LLM run history: {exc}")
+        _render_benchmark_case_history()
         return
     if not saved_runs:
         st.info("No Net3 LLM runs are saved. Run `python run_demo.py` to create one.")
+        _render_benchmark_case_history()
         return
 
     history_rows = []
@@ -195,6 +267,8 @@ def render_llm_run_history() -> None:
             },
         )
         st.caption(f"Trace file: `{saved_run['trace_file']}`")
+
+    _render_benchmark_case_history()
 
 
 def render_benchmarks() -> None:
