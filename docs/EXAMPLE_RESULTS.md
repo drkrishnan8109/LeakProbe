@@ -1,44 +1,50 @@
-# Actual local example results
+# Current full-channel high-signal results
 
-Generated and checked on Python 3.12.14 with WNTR 1.3.2 on macOS.
-These are actual solver outputs for the supplied synthetic network, not field measurements.
+The active benchmark has 500 cases, each with 92 pressure channels and 117 flow channels. The held-out test set contains 80 leak cases and 20 normal cases.
 
-## Predictions at 02:45
+## Physics-based detector
 
-| Scenario | F01 flow L/s | P01 head m | MA head m | MB head m |
-|---|---:|---:|---:|---:|
-| normal | 10.000 | 41.471 | 39.888 | 39.888 |
-| leak_A | 14.148 | 40.994 | 37.779 | 39.411 |
-| leak_B | 14.148 | 40.994 | 39.411 | 37.779 |
+The reference-pattern matcher uses the complete feed for each case. On the held-out split it produced:
 
-## Scripted investigation
+| Metric | Result |
+|---|---:|
+| Confusion matrix (TP / FN / FP / TN) | 76 / 4 / 1 / 19 |
+| Precision | 98.7% (76/77) |
+| Recall | 95.0% (76/80) |
+| Accuracy | 95.0% |
+| Specificity | 95.0% |
+| Exact pipe across actual leaks | 93.8% (75/80) |
 
-Before the portable-gauge measurement:
+These cases use intentionally large leaks (28–35 mm) lasting 4–4.5 hours. Demand ranges also match across the two splits. This controlled setup makes the task easier than detecting small leaks under changing real-world conditions. Fit scores are not probabilities, and these figures do not establish field performance.
 
-- Leak A normalized RMSE: 0.1237.
-- Leak B normalized RMSE: 0.1237.
-- Normal normalized RMSE: 11.4270.
+## Recall-led classifiers
 
-The upstream sensors cannot distinguish the symmetric leak scenarios. The planner recommends MA, which costs 15 minutes versus a remaining budget of 20. MB would cost 30 minutes.
+The classifier threshold is selected from out-of-fold development predictions to target at least 90% leak recall. Held-out results can differ from the target:
 
-The synthetic MA fixture reports 37.809 m. After including it:
+| Variant | Precision | Recall | TP / FN / FP / TN |
+|---|---:|---:|---:|
+| Baseline | 97.2% | 87.5% | 70 / 10 / 2 / 18 |
+| Class weight | 97.1% | 85.0% | 68 / 12 / 2 / 18 |
+| SMOTE | 100.0% | 80.0% | 64 / 16 / 0 / 20 |
 
-- Leak A normalized RMSE: 0.1251.
-- Leak B normalized RMSE: 1.7522.
-- Normal normalized RMSE: 11.3799.
+SMOTE made no false alarms in these 20 normal cases, but missed 16 of the 80 leaks. The baseline caught six more leaks with two false alarms. Precision and recall should be read alongside the counts.
 
-Scores are not probabilities. A small increase in the best-fit score after adding a noisy measurement is normal; the important change is separation from the alternative. Rounding and package/platform differences can cause small numerical variation.
+## 1,000-case sample-size experiment
 
-All 17 automated tests passed. Dependency consistency check passed. The real Nebius endpoint was not invoked; the API loop was tested with a fake provider client.
+The companion experiment trains on 800 cases and evaluates on 200 held-out cases (160 leaks and 40 normal cases). It uses the same full 92/117 channel layout and high-signal ranges. Existing split, outcome, and leak-pipe assignments were each used twice, with fresh simulated readings. It adds more measurement variations but no new candidate-pipe assignments.
 
-## Net3 held-out evaluation and rejection threshold
+| Variant | Precision | Recall | TP / FN / FP / TN |
+|---|---:|---:|---:|
+| Baseline | 100.0% | 78.1% | 125 / 35 / 0 / 40 |
+| Class weight | 100.0% | 78.1% | 125 / 35 / 0 / 40 |
+| SMOTE | 100.0% | 78.8% | 126 / 34 / 0 / 40 |
 
-The current benchmark contains 500 cases: 400 development cases and 100 held-out cases. The detector is a physics-based reference-pattern matcher. It does not train a machine-learning model on the development cases. Those cases were used to select the dataset-specific rejection cutoff.
+There were no false alarms among the 40 held-out normal cases, but each variant missed about one in five leaks. In the 640-leak/160-normal development split, default SMOTE oversamples normal examples because normal is the minority class. These results measure this controlled simulation setup, not field performance. See the [full report](../data/net3_full_high_signal_1000_benchmark/report.md).
 
-For the full-observation set (92 pressure junctions and 117 flow pipes), the 100 held-out cases contain 80 leaks and 20 normal cases. Before applying the rejection threshold, the confusion matrix was **61 TP, 19 FN, 12 FP, 8 TN**. With the **64.2958** normalized-RMSE threshold, it was **32 TP, 48 FN, 3 FP, 17 TN**. Specificity rose from 40% to 85%, while recall fell from 76.2% to 40%. The threshold rejected 38 cases as uncertain. Balanced accuracy changed from 58.1% to 62.5%.
+## Where the “all leaks caught, all normal cases flagged” result came from
 
-The sparse set uses a separate **5.9836** cutoff because it has fewer observed channels. On its same held-out cases, the confusion matrix changed from **44 / 36 / 12 / 8** to **20 / 60 / 3 / 17** (TP / FN / FP / TN), rejecting 33 cases. The cutoff reduces false alarms but misses more leaks; it is not an across-the-board accuracy improvement. See [the detailed comparison](../outputs/evaluations/net3_full_pipes_comparison.md) for precision, F1, and pipe-location results.
+That result was from the retired standard-range classifier on a smaller 12-pressure/8-flow dataset. It predicted all 100 test cases as leaks: 80 true positives, 20 false alarms, no missed leaks, and no true negatives. That is 100% recall but 80% precision and 0% specificity.
 
-Across all 500 full-observation cases with the threshold, the confusion matrix was **153 / 247 / 24 / 76** and 292 cases were uncertain. This includes the cases used for threshold selection, so it is descriptive rather than an independent test result.
+The classifier threshold was chosen on development folds for a high-recall target. On the old held-out data, every normal case scored above the threshold. Training and test demand ranges also differed, which made normal test cases unlike the normal examples in training. The all-leak result was therefore an unsuitable alert operating point, and that dataset is no longer used.
 
-The score is a normalized fit error, not a probability. These cutoffs apply to the current stored case and reference-pattern banks. They must be recalibrated if the data or reference profiles change. All Net3 cases are generated from a model and are not field-performance evidence.
+The current saved classifier report is [here](../data/net3_full_high_signal_benchmark/report.md). Full-channel physics and classifier results are in the [evaluation report](../outputs/evaluations/net3_full_pipes_comparison.md).

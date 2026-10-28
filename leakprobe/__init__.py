@@ -1,2 +1,2 @@
-"""LeakProbe hydraulic leak-investigation demo and benchmark tools."""
+"""LeakProbe full-channel Net3 investigation and benchmark tools."""
 

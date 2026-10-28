@@ -1,7 +1,7 @@
 # LeakProbe — Product Requirements Document
 
 **Version:** 1.1 · **Date:** 21 October 2026  
-**Status:** Proposed product specification. A separate educational demo and synthetic benchmark now exist; this PRD is not a description of a completed product. No customer commitments or field validation are implied.  
+**Status:** Proposed product specification. A separate educational demo and synthetic benchmarks now exist; this PRD is not a description of a completed product. No customer commitments or field validation are implied.
 **Intended readers:** Founder, AI engineer, hydraulic modeling adviser, utility design partner, product reviewer.  
 **Product owner:** Founder; named owner to be assigned before implementation.
 
@@ -9,13 +9,13 @@
 
 ## 1. Executive decision
 
-### Current repository status (21 October 2026)
+### Current repository status (28 October 2026)
 
-The repository contains a runnable Python demo and a generated Net3 benchmark. The current benchmark has 500 labeled cases (400 development, 100 held-out) and two observation sets: sparse coverage (12 pressure junctions and 8 flow pipes) and full coverage (92 junctions and 117 pipes). Each stored reference bank has 24 leak profiles per candidate pipe and 3 normal profiles. The detector is a physics-based reference-pattern matcher; it does not train a machine-learning model on the development cases.
+The repository contains a runnable Streamlit workbench with an employee monitoring dashboard. The dashboard loads a configured full-channel window automatically, compares it with normal-operation profiles, and presents a candidate alert with supporting pressure, flow, and network-map evidence; employees do not choose cases or sensors. A separate history page exposes held-out outcomes for after-action review. The app uses a canonical 500-case high-signal Net3 dataset with full coverage (92 junction pressures and 117 pipe flows), 400 development cases, and 100 held-out cases. A separate 1,000-case classifier experiment uses the same channel layout and simulation ranges; it is not an app source and does not add candidate-pipe coverage. The canonical reference bank has 24 leak profiles per candidate pipe and 24 normal profiles, matched to the high-signal leak ranges. The physics-based detector ranks reference patterns; a separate case-level classifier compares baseline, class weighting, and SMOTE.
 
-For each observation set, the development cases were used to select a threshold on the leading fit score. A weak top leak fit becomes `uncertain`; binary alarm metrics count that as no leak alarm and report the rejected-case count separately. On the full-coverage held-out set, this raised specificity from 40% to 85% and lowered recall from 76.2% to 40%; 38 of 100 cases were rejected. The sparse-set threshold likewise raised specificity to 85% and lowered recall from 55% to 25%, rejecting 33 cases. These are results on generated cases, not evidence that the proposed product requirements or performance gates have been met. See `outputs/evaluations/net3_full_pipes_comparison.md` for the full metrics.
+The monitoring page currently uses the fixed `case_405` feed as a repeatable example; its labeled leak is on pipe 202, and the map highlights that pipe from the top-ranked comparison. The feed is not connected to live utility telemetry. Two saved LLM traces (cases 400 and 405) seed the run-history view. High-signal leak openings are 28–35 mm and last 4–4.5 hours; demand ranges match across development and test. This intentionally makes the benchmark easier. The physics-based ranking currently has no calibrated rejection threshold. The separate classifier chooses its recall-led threshold from out-of-fold development predictions, then reports the held-out set once. See `data/net3_full_high_signal_benchmark/report.md` for current precision, recall, and confusion matrices.
 
-The threshold is specific to the current case and reference banks. It is a cutoff on normalized RMSE, not a probability or general-purpose model-adequacy test. Recalibrate it if the data or reference patterns change.
+Classifier thresholds and results are specific to the current cases, features, and reference ranges. Normalized fit scores are not probabilities. Re-run evaluations after regenerating cases or reference profiles.
 
 The remaining requirements below describe proposed product scope and future validation, not capabilities implied by the demo.
 

@@ -1,4 +1,4 @@
-"""Compatibility entry point for demo and Net3 data generation."""
+"""Compatibility entry point for the full-channel high-signal data generator."""
 
 from leakprobe.generate_data import main
 
