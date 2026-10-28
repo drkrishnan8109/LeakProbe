@@ -1,4 +1,4 @@
-"""Streamlit entry point for the LeakProbe employee monitoring workbench."""
+"""Streamlit entry point for the Leak Probe Water Leak Detection System."""
 import streamlit as st
 
 from leakprobe.ui.pages import (
@@ -10,16 +10,17 @@ from leakprobe.ui.monitoring import render_monitoring_dashboard
 from leakprobe.ui.outcomes import render_outcome_review
 
 st.set_page_config(
-    page_title="LeakProbe | Network Monitoring",
+    page_title="Leak Probe Water Leak Detection System",
     page_icon="💧",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 st.sidebar.title(
-    "LeakProbe",
-    help="The app name for this full-channel water-network monitoring workbench.",
+    "Leak Probe",
+    help="The product name of this full-channel water leak detection system.",
 )
+st.sidebar.caption("Water Leak Detection System")
 st.sidebar.caption(
     "Employee monitoring desk",
     help="The intended employee workflow is to review the automatic alert and verify any pipe candidate in the field.",
