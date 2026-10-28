@@ -16,8 +16,8 @@ st.set_page_config(
 )
 
 st.sidebar.title("LeakProbe")
-st.sidebar.caption("Hydraulic investigation workbench")
-st.sidebar.info("Simulation only · Synthetic data · No field equipment connected")
+st.sidebar.caption("Net3 full-coverage investigation")
+st.sidebar.info("92 pressure channels · 117 flow channels · 500 cases")
 
 page = st.navigation(
     [

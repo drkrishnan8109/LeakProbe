@@ -13,9 +13,10 @@ Leaks waste treated water and the energy and chemicals used to produce it. They 
 LeakProbe is a **hydraulic-model-based leak investigation prototype**:
 
 - It uses a water-network model and pressure/flow time-series observations.
+- Its only active benchmark is the full-channel high-signal Net3 dataset: 92 pressure channels and 117 flow channels in each case.
 - It compares observations against reference patterns for normal operation and candidate leak locations, ranking scenarios by normalized error.
-- It can reject weak leak matches as **uncertain**, rather than always naming a pipe. The score is a model-fit score, not a probability.
-- Its agent can call Python tools to retrieve observations and network or operating information, compare hypotheses, and request an additional measurement.
+- It ranks normal and leak scenarios by fit error. The score is not a probability, and the active high-signal dataset has no calibrated rejection threshold.
+- Its agent can call Python tools to retrieve the complete observation feed and network information, then compare hypotheses using all channels.
 - The LLM coordinates and explains tool use; the underlying scenario scoring is deterministic Python logic, not a trained LLM leak classifier.
 
 The current demo uses the WNTR/EPANET Net3 benchmark and generated experimental data. It is a batch prototype, not a live utility monitoring system.
@@ -35,7 +36,7 @@ That could help utilities prioritize field investigations and avoid low-value vi
 
 The promising product direction is an **operator-facing investigation assistant** that combines hydraulic scenario ranking, explicit uncertainty, and guidance on what to measure next. That is a positioning opportunity, not yet a proven market advantage.
 
-The current evaluation shows substantial room to improve: on the 500-case full-observation experiment, the thresholded detector had **38.2% recall** and rejected **292 cases as uncertain**. The experiment uses generated data and a benchmark network, so these results do not establish performance on utility networks or prove cost savings.
+The high-signal cases use deliberately large, long leaks and matching demand ranges across development and test. They are a controlled benchmark for comparing precision and recall, not evidence of field performance. See the saved full-channel classifier report for the current held-out results.
 
 To build a credible product:
 

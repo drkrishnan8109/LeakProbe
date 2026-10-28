@@ -1,11 +1,10 @@
-"""Streamlit pages for investigation, saved LLM results, benchmarks, and context."""
+"""Streamlit pages over the complete Net3 sensor feed and saved results."""
 import json
 
 import pandas as pd
 import streamlit as st
 
 from leakprobe.net3_tools import Net3Investigation
-from leakprobe.tools import Investigation
 from leakprobe.ui.data_access import (
     load_case_index,
     load_case_observations,
@@ -14,218 +13,126 @@ from leakprobe.ui.data_access import (
 )
 
 
-def _show_demo_result(result: dict) -> None:
+def _render_case_feed(case_id: str, observations: pd.DataFrame) -> None:
+    observations = observations.copy()
+    observations["timestamp_utc"] = pd.to_datetime(observations["timestamp_utc"], utc=True)
+    pressure_cols = [column for column in observations if column.startswith("pressure_")]
+    flow_cols = [column for column in observations if column.startswith("flow_")]
+    numeric = observations[[*pressure_cols, *flow_cols]]
+    missing_count = int(numeric.isna().sum().sum())
+    total_values = int(numeric.size)
+
+    st.caption(
+        f"Case {case_id} · full sensor feed: {len(pressure_cols)} pressure channels and "
+        f"{len(flow_cols)} flow channels · {missing_count:,} missing readings "
+        f"({missing_count / max(total_values, 1):.2%})"
+    )
+    observations = observations.set_index("timestamp_utc")
+    pressure = observations[pressure_cols]
+    flow = observations[flow_cols]
+    pressure_summary = pd.DataFrame({
+        "Minimum across network": pressure.min(axis=1),
+        "Median across network": pressure.median(axis=1),
+        "Maximum across network": pressure.max(axis=1),
+    }, index=observations.index)
+    flow_summary = pd.DataFrame({
+        "Minimum across network": flow.min(axis=1),
+        "Median across network": flow.median(axis=1),
+        "Maximum across network": flow.max(axis=1),
+    }, index=observations.index)
+    left, right = st.columns(2)
+    with left:
+        st.markdown("**Pressure head · m**")
+        st.line_chart(pressure_summary, height=280)
+    with right:
+        st.markdown("**Pipe flow · L/s**")
+        st.line_chart(flow_summary, height=280)
+
+    with st.expander("Full channel inventory"):
+        pressure_names = [column.removeprefix("pressure_").removesuffix("_m")
+                          for column in pressure_cols]
+        flow_names = [column.removeprefix("flow_").removesuffix("_lps")
+                      for column in flow_cols]
+        pressure_panel, flow_panel = st.columns(2)
+        pressure_panel.markdown("**92 pressure channels**")
+        pressure_panel.write(", ".join(pressure_names))
+        flow_panel.markdown("**117 flow channels**")
+        flow_panel.write(", ".join(flow_names))
+
+
+def _show_investigation_result(result: dict) -> None:
     ranking = result["ranking"]
     if not ranking:
         st.warning("No scenario could be compared with the available readings.")
         return
+    decision = result["decision"]
     winner = ranking[0]
-    st.info(
-        f"**Top-ranked scenario: {winner['scenario']}** · "
-        f"Fit score {winner['normalized_rmse']:.3f}. Lower scores fit these readings better. "
-        "This score is not a probability or field confirmation."
+    fit = decision.get("best_fit_score")
+    if decision["prediction"] == "leak":
+        st.warning(f"Leak alert · best fit: {winner['scenario']} · score {fit:.3f}")
+    elif decision["prediction"] == "normal":
+        st.success(f"Normal-operation fit ranks first · score {fit:.3f}")
+    else:
+        st.warning(f"Review needed · {decision.get('reason', 'The result is uncertain.')}")
+    st.caption(
+        "The fit score ranks simulated reference patterns against all sensor channels. "
+        "It is not a probability or a field confirmation."
     )
     table = pd.DataFrame([
-        {"Scenario": row["scenario"], "Normalized fit score": row["normalized_rmse"]}
-        for row in ranking
+        {"Rank": index, "Scenario": row["scenario"], "Candidate pipe": row["leak_pipe"] or "—",
+         "Normalized fit score": row["normalized_rmse"]}
+        for index, row in enumerate(ranking, start=1)
     ])
-    st.dataframe(table, hide_index=True, use_container_width=True,
-                 column_config={"Normalized fit score": st.column_config.NumberColumn(format="%.3f")})
+    st.dataframe(
+        table, hide_index=True, use_container_width=True,
+        column_config={"Normalized fit score": st.column_config.NumberColumn(format="%.3f")},
+    )
+    st.caption(result["score_meaning"])
 
 
-def _render_two_branch_demo() -> None:
-    st.subheader("Two-branch example")
-    st.caption("A small, fixed simulation with two candidate leak branches and stored synthetic readings.")
-    if "demo_revealed" not in st.session_state:
-        st.session_state.demo_revealed = {}
-        st.session_state.demo_remaining = 20
-
-    session = Investigation()
-    session.revealed = dict(st.session_state.demo_revealed)
-    session.remaining_minutes = st.session_state.demo_remaining
-    col1, col2 = st.columns(2)
-    col1.metric("Synthetic investigation time left", f"{session.remaining_minutes} min")
-    col2.metric("Extra readings revealed", len(session.revealed))
-    last_reading = st.session_state.pop("demo_last_reading", None)
-    if last_reading:
-        st.success(f"Synthetic pressure at {last_reading['point']}: {last_reading['pressure_head_m']:.2f} m. Comparison updated.")
-
-    observations = session.observations.copy()
-    observations["timestamp_utc"] = pd.to_datetime(observations["timestamp_utc"], utc=True)
-    pressure, flow = st.columns(2)
-    with pressure:
-        st.markdown("**Upstream pressure · m head**")
-        st.line_chart(observations.set_index("timestamp_utc")[["P01_pressure_m"]], height=250)
-    with flow:
-        st.markdown("**Upstream flow · L/s**")
-        st.line_chart(observations.set_index("timestamp_utc")[["F01_flow_lps"]], height=250)
-
-    if st.button("Compare the three scenarios", type="primary", key="demo_compare"):
-        st.session_state.demo_result = session.compare_hypotheses()
-    result = st.session_state.get("demo_result")
-    if result:
-        _show_demo_result(result)
-
-    if st.button("Recommend a measurement", key="demo_recommend"):
-        st.session_state.demo_recommendation = session.recommend_measurement()
-    plan = st.session_state.get("demo_recommendation")
-    if plan:
-        if plan["recommended"]:
-            recommended = next(row for row in plan["points"] if row["point"] == plan["recommended"])
-            st.info(
-                f"Suggested synthetic reading: **{recommended['point']}**, "
-                f"{recommended['minutes']} minutes. {plan['method']}."
-            )
-            if st.button("Reveal this synthetic reading", key="demo_reveal"):
-                reading = session.collect_demo_measurement(recommended["point"])
-                st.session_state.demo_revealed = dict(session.revealed)
-                st.session_state.demo_remaining = session.remaining_minutes
-                st.session_state.demo_result = session.compare_hypotheses()
-                st.session_state.demo_last_reading = {
-                    "point": recommended["point"],
-                    "pressure_head_m": reading["pressure_head_m"],
-                }
-                st.rerun()
-        else:
-            st.caption("No additional point fits the remaining demonstration budget.")
-
-    if st.session_state.demo_revealed:
-        st.caption("Revealed demo points: " + ", ".join(st.session_state.demo_revealed))
-    if st.button("Reset two-branch example", key="demo_reset"):
-        for key in ("demo_revealed", "demo_remaining", "demo_result", "demo_recommendation", "demo_last_reading"):
-            st.session_state.pop(key, None)
-        st.rerun()
-
-
-def _render_net3_investigation() -> None:
-    st.subheader("Net3 case investigation")
-    st.caption("Choose one bundled case, inspect its sensor readings, and compare normal with candidate leak fits.")
-    cases = load_case_index()
+def render_investigation() -> None:
+    st.title("Net3 leak investigation")
+    st.write("Compare a complete sensor feed with normal operation and candidate leak patterns.")
+    try:
+        cases = load_case_index()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        st.error(f"Could not load the full-channel Net3 case index: {exc}")
+        return
     case_by_id = {row["case_id"]: row for row in cases}
     case_ids = [row["case_id"] for row in cases]
     default_id = next((row["case_id"] for row in cases if row["split"] == "test"), case_ids[0])
     selected_case = st.selectbox(
-        "Synthetic case",
-        case_ids,
+        "Case", case_ids,
         index=case_ids.index(st.session_state.get("net3_case_id", default_id)),
         format_func=lambda case_id: f"{case_id} · {case_by_id[case_id]['split']} split",
         key="net3_case_picker",
     )
     if st.session_state.get("net3_case_id") != selected_case:
         st.session_state.net3_case_id = selected_case
-        st.session_state.net3_revealed = {}
-        st.session_state.net3_remaining = 20
         st.session_state.pop("net3_result", None)
-        st.session_state.pop("net3_recommendation", None)
 
     try:
         session = Net3Investigation(selected_case)
-        session.revealed = dict(st.session_state.get("net3_revealed", {}))
-        session.remaining_minutes = st.session_state.get("net3_remaining", 20)
         observations = load_case_observations(selected_case)
     except (OSError, ValueError, KeyError) as exc:
-        st.error(f"Could not load this synthetic case: {exc}")
+        st.error(f"Could not load this full-coverage case: {exc}")
         return
 
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Split", case_by_id[selected_case]["split"])
-    col2.metric("Candidate pipes", len(session.metadata["candidate_pipes_by_split"][session.split]))
-    col3.metric("Demo time left", f"{session.remaining_minutes} min")
-    last_reading = st.session_state.pop("net3_last_reading", None)
-    if last_reading:
-        st.success(f"Stored synthetic pressure at {last_reading['point']}: {last_reading['pressure_head_m']:.2f} m. Comparison updated.")
+    metrics = st.columns(4)
+    metrics[0].metric("Split", case_by_id[selected_case]["split"])
+    metrics[1].metric("Pressure channels", "92 / 92")
+    metrics[2].metric("Flow channels", "117 / 117")
+    metrics[3].metric("Candidate pipes", len(session.metadata["candidate_pipes_by_split"][session.split]))
+    _render_case_feed(selected_case, observations)
 
-    observations["timestamp_utc"] = pd.to_datetime(observations["timestamp_utc"], utc=True)
-    pressure_cols = [column for column in observations if column.startswith("pressure_")]
-    flow_cols = [column for column in observations if column.startswith("flow_")]
-    left, right = st.columns(2)
-    with left:
-        pressure_selected = st.multiselect(
-            "Pressure sensors · m head", pressure_cols,
-            default=pressure_cols[:3], key=f"pressure_{selected_case}"
-        )
-        if pressure_selected:
-            st.line_chart(observations.set_index("timestamp_utc")[pressure_selected], height=300)
-    with right:
-        flow_selected = st.multiselect(
-            "Flow sensors · L/s", flow_cols,
-            default=flow_cols[:3], key=f"flow_{selected_case}"
-        )
-        if flow_selected:
-            st.line_chart(observations.set_index("timestamp_utc")[flow_selected], height=300)
-
-    st.caption("Readings are synthetic and may include missing values. The case truth is not shown in this investigation view.")
-    if st.button("Compare sensor readings", type="primary", key=f"net3_compare_{selected_case}"):
+    if st.button("Compare the full sensor feed", type="primary", key=f"net3_compare_{selected_case}"):
         st.session_state.net3_result = session.compare_hypotheses()
     result = st.session_state.get("net3_result")
     if result:
-        decision = result["decision"]
-        prediction = decision["prediction"]
-        fit = decision.get("best_fit_score")
-        if prediction == "leak":
-            st.warning(f"Leak scenario ranks first. Best fit score: {fit:.3f}. This is a synthetic model match, not confirmation.")
-        elif prediction == "normal":
-            st.info(f"Normal-operation scenario ranks first. Best fit score: {fit:.3f}. Review the other fits and assumptions.")
-        else:
-            st.warning(f"The result is uncertain. {decision.get('reason', 'Review the available evidence.')}")
-
-        ranking = pd.DataFrame([
-            {"Scenario": row["scenario"], "Pipe": row["leak_pipe"] or "—",
-             "Fit score": row["normalized_rmse"]}
-            for row in result["ranking"]
-        ])
-        st.markdown("**Candidate ranking**")
-        st.dataframe(ranking, hide_index=True, use_container_width=True,
-                     column_config={"Fit score": st.column_config.NumberColumn(format="%.3f")})
-        st.caption(result["score_meaning"])
-
-    if st.button("Recommend a pressure point", key=f"net3_recommend_{selected_case}"):
-        st.session_state.net3_recommendation = session.recommend_measurement()
-    plan = st.session_state.get("net3_recommendation")
-    if plan:
-        if plan["recommended"]:
-            point = plan["recommended"]
-            option = next(row for row in plan["points"] if row["point"] == point)
-            st.info(
-                f"Suggested point: **{point}** · predicted pressure spread "
-                f"{option['pressure_spread_m']:.2f} m across leading fits · "
-                f"{option['minutes']} minutes. {plan['method']}"
-            )
-            if st.button("Reveal the stored synthetic reading", key=f"net3_reveal_{selected_case}"):
-                reading = session.collect_demo_measurement(point)
-                st.session_state.net3_revealed = dict(session.revealed)
-                st.session_state.net3_remaining = session.remaining_minutes
-                st.session_state.net3_result = session.compare_hypotheses()
-                st.session_state.net3_last_reading = {
-                    "point": point,
-                    "pressure_head_m": reading["pressure_head_m"],
-                }
-                st.rerun()
-        else:
-            st.caption("No unmeasured pressure point fits the remaining demonstration budget.")
-    revealed = st.session_state.get("net3_revealed", {})
-    if revealed:
-        st.caption("Synthetic readings revealed: " + ", ".join(revealed))
-    if st.button("Reset this case", key=f"net3_reset_{selected_case}"):
-        for key in ("net3_result", "net3_recommendation", "net3_revealed", "net3_last_reading"):
-            st.session_state.pop(key, None)
-        st.session_state.net3_remaining = 20
+        _show_investigation_result(result)
+    if st.button("Reset comparison", key=f"net3_reset_{selected_case}"):
+        st.session_state.pop("net3_result", None)
         st.rerun()
-
-
-def render_investigation() -> None:
-    st.title("Investigate a synthetic case")
-    st.write("Compare pressure and flow evidence with normal and leak scenarios, then review a possible next measurement.")
-    mode = st.radio(
-        "Choose an example",
-        ["Net3 network", "Two-branch walkthrough"],
-        horizontal=True,
-        key="investigation_mode",
-    )
-    if mode == "Net3 network":
-        _render_net3_investigation()
-    else:
-        _render_two_branch_demo()
 
 
 def _trace_arguments(row: dict) -> dict:
@@ -240,15 +147,15 @@ def _trace_arguments(row: dict) -> dict:
 
 def render_latest_llm_run() -> None:
     st.title("Latest LLM investigation")
-    st.write("Review the last saved live run on the synthetic two-branch case.")
-    st.caption("This page reads the saved trace; opening it does not make a provider call.")
+    st.write("Review the most recent saved Net3 investigation using all 209 sensor channels.")
+    st.caption("This page reads the saved trace and does not make a provider call.")
     try:
         saved_run = load_latest_llm_trace()
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         st.error(f"Could not read the saved LLM trace: {exc}")
         return
     if saved_run is None:
-        st.info("No saved LLM run yet. Run `python run_demo.py` from the repository root to create one.")
+        st.info("No Net3 LLM run is saved. Run `python run_demo.py` to create one.")
         return
 
     status = saved_run.get("status", "unknown")
@@ -257,43 +164,30 @@ def render_latest_llm_run() -> None:
     tool_history = saved_run.get("trace", [])
     usage = saved_run.get("usage", [])
     total_tokens = sum(row.get("total_tokens", 0) for row in usage if isinstance(row, dict))
-    summary_columns = st.columns(3)
-    summary_columns[0].metric("Run status", status.title())
-    summary_columns[1].metric("LLM requests", len(usage))
-    summary_columns[2].metric("Reported tokens", f"{total_tokens:,}")
-
-    measurements = [row for row in tool_history if row.get("tool") == "collect_demo_measurement"]
-    if measurements:
-        latest_measurement = measurements[-1]
-        point = _trace_arguments(latest_measurement).get("point", "Gauge")
-        reading = latest_measurement.get("result") or {}
-        pressure = reading.get("pressure_head_m")
-        if pressure is not None:
-            st.metric("Last synthetic pressure reading", f"{point} · {pressure:.2f} m head")
-            st.caption("MA is the optional pressure gauge on branch A; MB is on branch B. The reading is simulated.")
+    summary = st.columns(4)
+    summary[0].metric("Case", saved_run.get("case_id") or "—")
+    summary[1].metric("Run status", status.title())
+    summary[2].metric("LLM requests", len(usage))
+    summary[3].metric("Reported tokens", f"{total_tokens:,}")
 
     comparisons = [
-        row for row in tool_history
+        row["result"] for row in tool_history
         if row.get("tool") == "compare_hypotheses"
         and isinstance(row.get("result"), dict)
         and row["result"].get("ranking")
     ]
     if comparisons:
-        latest_comparison = comparisons[-1]["result"]
-        labels = {"leak_A": "Leak · Branch A", "leak_B": "Leak · Branch B", "normal": "Normal operation"}
-        ranking_rows = [
-            {"Rank": index, "Scenario": labels.get(row["scenario"], row["scenario"]),
+        st.subheader("Latest full-channel comparison")
+        rows = [
+            {"Rank": index, "Scenario": row["scenario"], "Pipe": row["leak_pipe"] or "—",
              "Normalized fit score": row["normalized_rmse"]}
-            for index, row in enumerate(latest_comparison["ranking"], start=1)
+            for index, row in enumerate(comparisons[-1]["ranking"], start=1)
         ]
-        st.subheader("Latest tool comparison")
         st.dataframe(
-            pd.DataFrame(ranking_rows),
-            hide_index=True,
-            use_container_width=True,
+            pd.DataFrame(rows), hide_index=True, use_container_width=True,
             column_config={"Normalized fit score": st.column_config.NumberColumn(format="%.3f")},
         )
-        st.caption("Lower scores fit these synthetic readings better. They are not probabilities or field confirmation.")
+        st.caption(comparisons[-1]["score_meaning"])
 
     answer = saved_run.get("answer")
     if answer:
@@ -303,34 +197,30 @@ def render_latest_llm_run() -> None:
         st.info("The saved run has no final written interpretation.")
 
     with st.expander("Tool steps"):
-        history = [
-            {"Step": row.get("tool", "unknown").replace("_", " ").title(),
-             "Details": _trace_arguments(row).get("point", "") or
-                       ("Runtime-required comparison" if row.get("runtime_required") else "")}
-            for row in tool_history
-        ]
+        history = [{"Step": row.get("tool", "unknown").replace("_", " ").title()}
+                   for row in tool_history]
         st.dataframe(pd.DataFrame(history), hide_index=True, use_container_width=True)
 
 
 def render_benchmarks() -> None:
     st.title("Classifier benchmarks")
-    st.write("Compare the saved baseline, class-weighted, and SMOTE results on synthetic cases.")
-    report_name = st.selectbox("Dataset", ["Original Net3", "High-signal diagnostic"])
+    st.write("Compare baseline, class-weighted, and SMOTE results on complete sensor feeds.")
+    report_name = "High-signal Net3"
     try:
         report = load_report(report_name)
     except (OSError, ValueError, KeyError) as exc:
         st.error(f"Could not load the saved benchmark report: {exc}")
         return
 
-    if report_name == "High-signal diagnostic":
-        st.warning("This dataset uses intentionally large, long leaks to smoke-test the classifier. It is not field-performance evidence.")
-    else:
-        st.info("This is the original synthetic Net3 classifier benchmark. The test set has 80 leak and 20 normal cases.")
-
+    st.warning(
+        "This is the high-signal benchmark: leaks are intentionally large and long, "
+        "and the train/test leak parameter ranges match."
+    )
     st.caption(
-        f"Positive class: leak · Development threshold target: "
-        f"{report['target_leak_recall']:.0%} recall · "
-        f"Test cases: {report['test_counts']['leak']} leaks, {report['test_counts']['normal']} normal"
+        f"Positive class: leak · {report['pressure_channel_count']} pressure + "
+        f"{report['flow_channel_count']} flow channels · Development threshold target: "
+        f"{report['target_leak_recall']:.0%} recall · Test cases: "
+        f"{report['test_counts']['leak']} leaks, {report['test_counts']['normal']} normal"
     )
     rows = []
     for name, variant in report["variants"].items():
@@ -356,9 +246,7 @@ def render_benchmarks() -> None:
         st.bar_chart(scores.set_index("Variant")[["Leak recall"]], y_label="Rate")
     st.markdown("**Held-out test results**")
     st.dataframe(
-        scores,
-        hide_index=True,
-        use_container_width=True,
+        scores, hide_index=True, use_container_width=True,
         column_config={
             "Leak precision": st.column_config.NumberColumn(format="percent"),
             "Leak recall": st.column_config.NumberColumn(format="percent"),
@@ -396,37 +284,29 @@ def render_benchmarks() -> None:
             })
         if in_sample_rows:
             st.markdown("**In-sample training scores (optimistic diagnostic)**")
-            st.dataframe(
-                pd.DataFrame(in_sample_rows), hide_index=True, use_container_width=True,
-                column_config={
-                    "Leak precision": st.column_config.NumberColumn(format="percent"),
-                    "Leak recall": st.column_config.NumberColumn(format="percent"),
-                    "Balanced accuracy": st.column_config.NumberColumn(format="percent"),
-                },
-            )
-        st.caption("In-sample scores evaluate the model on cases it trained on. Use the held-out test table as the main comparison.")
+            st.dataframe(pd.DataFrame(in_sample_rows), hide_index=True, use_container_width=True)
+        st.caption("In-sample scores evaluate cases used for training. Use the held-out table as the main comparison.")
 
 
 def render_about() -> None:
     st.title("About this workbench")
     st.write(
-        "LeakProbe is a research demonstration for investigating simulated water-network cases. "
-        "It compares hydraulic reference patterns and helps the user inspect a possible next measurement."
+        "LeakProbe compares a complete Net3 pressure and flow feed with stored normal-operation and candidate-leak patterns."
     )
-    st.subheader("What is included")
+    st.subheader("Sensor coverage")
     st.markdown(
-        "- A two-branch teaching example with stored synthetic readings.\n"
-        "- The EPA Net3 example network with simulated pressure and flow observations.\n"
-        "- A saved comparison of baseline, class-weighted, and SMOTE classifier experiments."
+        "- 92 pressure channels, one for every junction.\n"
+        "- 117 flow channels, one for every pipe.\n"
+        "- Every case and classifier benchmark is checked against this channel layout."
     )
     st.subheader("How to read a result")
     st.markdown(
-        "- A fit score measures how closely a simulated scenario matches the supplied readings. It is not a probability.\n"
-        "- A recommended pressure point is a demonstration heuristic. Its stored reading is synthetic, not a field measurement.\n"
-        "- Precision and recall on these generated cases do not establish performance on a real utility network."
+        "- A fit score measures how closely a reference scenario matches the supplied readings. It is not a probability.\n"
+        "- A rejected result is marked uncertain and should be reviewed.\n"
+        "- Benchmark precision and recall describe these stored cases; they do not establish field performance."
     )
     st.subheader("Scope")
     st.info(
-        "No real telemetry, GIS, work-order system, pump or valve control, crew dispatch, or excavation workflow is connected. "
-        "The app makes no field diagnosis."
+        "The bundled Net3 feed and labels are generated benchmark data. No utility telemetry, GIS, work orders, "
+        "controls, crew dispatch, or excavation workflow is connected."
     )

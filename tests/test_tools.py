@@ -1,29 +1,24 @@
 import unittest
-from leakprobe.tools import Investigation, dispatch
 
-class ToolTests(unittest.TestCase):
-    def test_upstream_ambiguity_and_measurement_update(self):
-        session = Investigation()
-        before = dispatch(session, 'compare_hypotheses', {})['ranking']
-        scores = {r['scenario']: r['normalized_rmse'] for r in before}
-        self.assertAlmostEqual(scores['leak_A'], scores['leak_B'], places=5)
-        observations = dispatch(session, 'get_observations', {})
-        self.assertNotIn('MA_pressure_m', observations['readings'][0])
-        self.assertEqual(dispatch(session, 'recommend_measurement', {})['recommended'], 'MA')
-        self.assertIn('error', dispatch(session, 'collect_demo_measurement', {'point':'MB'}))
-        dispatch(session, 'collect_demo_measurement', {'point':'MA'})
-        after = dispatch(session, 'compare_hypotheses', {})['ranking']
-        self.assertEqual(after[0]['scenario'], 'leak_A')
-        self.assertLess(after[0]['normalized_rmse'], after[1]['normalized_rmse'])
+from leakprobe.net3_tools import Net3Investigation, dispatch_net3
 
-    def test_schema_and_allowlist(self):
-        session = Investigation()
-        for name, args in [('shell', {}), ('get_observations', {'path':'/etc/passwd'}),
-                           ('collect_demo_measurement', {'point':'INVALID'})]:
-            self.assertIn('error', dispatch(session, name, args))
 
-    def test_same_measurement_not_charged_twice(self):
-        session = Investigation()
-        dispatch(session, 'collect_demo_measurement', {'point':'MA'})
-        dispatch(session, 'collect_demo_measurement', {'point':'MA'})
-        self.assertEqual(session.remaining_minutes, 5)
+class FullChannelToolTests(unittest.TestCase):
+    def test_observation_tool_returns_all_required_channels(self):
+        session = Net3Investigation()
+        result = dispatch_net3(session, "get_observations", {})
+
+        self.assertEqual(result["pressure_channel_count"], 92)
+        self.assertEqual(result["flow_channel_count"], 117)
+        first = result["readings"][0]
+        self.assertEqual(sum(name.startswith("pressure_") for name in first), 92)
+        self.assertEqual(sum(name.startswith("flow_") for name in first), 117)
+
+    def test_schema_and_tool_allowlist_reject_other_requests(self):
+        session = Net3Investigation()
+        self.assertIn("error", dispatch_net3(session, "shell", {}))
+        self.assertIn("error", dispatch_net3(session, "get_observations", {"path": "/etc/passwd"}))
+
+
+if __name__ == "__main__":
+    unittest.main()

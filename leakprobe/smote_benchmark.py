@@ -1,7 +1,7 @@
 """Experimental SMOTE benchmark, isolated from the physics-based Net3 detector.
 
 Run with ``python -m leakprobe.smote_benchmark`` after installing requirements.
-Features and reports are written to ``data/net3_smote_benchmark``.
+Features and reports are written to ``data/net3_full_high_signal_benchmark``.
 """
 import json
 import argparse
@@ -10,10 +10,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .paths import DATA
+from .coverage import validate_full_channel_coverage
+from .paths import DATA, NET3_DATA
 
-SOURCE = DATA / "net3"
-OUT = DATA / "net3_smote_benchmark"
+SOURCE = NET3_DATA
+OUT = DATA / "net3_full_high_signal_benchmark"
 SEED = 2026
 POSITIVE = "single_leak"
 DEFAULT_TARGET_RECALL = 0.90
@@ -39,10 +40,14 @@ def extract_case_features(case_row, source=SOURCE):
 
 
 def load_dataset(source=SOURCE):
+    metadata = json.loads((source / "metadata.json").read_text(encoding="utf-8"))
     cases = json.loads((source / "cases.json").read_text(encoding="utf-8"))
     labels = json.loads((source / "truth_labels.json").read_text(encoding="utf-8"))
     rows = []
     for case in cases:
+        observations = pd.read_csv(source / case["observations_file"])
+        validate_full_channel_coverage(metadata, observations.columns,
+                                       f"{case['case_id']} observations")
         row = extract_case_features(case, source)
         row.update(case_id=case["case_id"], split=case["split"],
                    label=labels[case["case_id"]]["incident"])
@@ -137,6 +142,8 @@ def run(source=SOURCE, output=OUT, target_recall=DEFAULT_TARGET_RECALL):
         "benchmark": "experimental synthetic Net3 case-level leak classifier",
         "positive_class": POSITIVE,
         "source_data": str(source.relative_to(DATA) if source.is_relative_to(DATA) else source),
+        "pressure_channel_count": 92,
+        "flow_channel_count": 117,
         "training_counts": {"normal": int(counts.get(0, 0)), "leak": int(counts.get(1, 0))},
         "test_counts": {"normal": int((y_test == 0).sum()), "leak": int((y_test == 1).sum())},
         "smote_k_neighbors": k_neighbors,
@@ -177,7 +184,7 @@ def run(source=SOURCE, output=OUT, target_recall=DEFAULT_TARGET_RECALL):
                       "probability_leak": test_probability, "predicted_leak": prediction
                       }).to_csv(output / f"{name}_test_predictions.csv", index=False)
 
-    # Requested in-sample diagnostic on the 400 development cases. Keep its
+    # Requested in-sample diagnostic on the development cases. Keep its
     # outputs distinct from the untouched 100-case held-out test results.
     training_reports = {}
     for name, (sampler, class_weight) in variants.items():
@@ -206,6 +213,8 @@ def run(source=SOURCE, output=OUT, target_recall=DEFAULT_TARGET_RECALL):
     lines = ["# Recall led SMOTE Net3 benchmark", "",
              "Experimental case-level classifier; the existing detector remains physics based.",
              f"Positive class: leak. Target development recall: {target_recall:.0%}. Synthetic source data only.", "",
+             "All three variants use Random Forests. `baseline` uses global balanced class weights; `class_weight` recalculates balanced weights per tree; `smote` adds synthetic examples of the minority class inside training folds and also uses per-tree weights.",
+             f"The development set has {int((y_train == 1).sum())} leak cases and {int((y_train == 0).sum())} normal cases. With SMOTE's default balancing, the minority class here is normal, so SMOTE creates normal-like training examples; it does not add leak cases or modify held-out sensor data.", "",
              "Thresholds maximize precision among those meeting target recall on out-of-fold development predictions.", "",
              "| Variant | Threshold | Dev target met | Test leak precision | Test leak recall | Test leak F1 | Test balanced accuracy | TP / FN / FP / TN |",
              "|---|---:|:---:|---:|---:|---:|---:|---:|"]
@@ -221,8 +230,8 @@ def run(source=SOURCE, output=OUT, target_recall=DEFAULT_TARGET_RECALL):
         )
     lines += ["", "A target marked ‘no’ could not be met by the selected thresholding procedure on development data. "
               "Test results are held out once and should not be used to tune the model.", ""]
-    lines += ["## 400-case development set (in-sample diagnostic)", "",
-              "Each model below was fitted on all 400 development cases and scored on those same cases. "
+    lines += [f"## {len(train)}-case development set (in-sample diagnostic)", "",
+              f"Each model below was fitted on all {len(train)} development cases and scored on those same cases. "
               "These figures are expected to be optimistic and are not a generalization estimate.", "",
               "| Variant | Leak precision | Leak recall | Leak F1 | Balanced accuracy | TP / FN / FP / TN |",
               "|---|---:|---:|---:|---:|---:|"]
@@ -242,7 +251,7 @@ def run(source=SOURCE, output=OUT, target_recall=DEFAULT_TARGET_RECALL):
         score = result["held_out_test"]
         print(f"{name}: leak precision={score['leak_precision']:.3f}, "
               f"recall={score['leak_recall']:.3f}, F1={score['leak_f1']:.3f}")
-    print("400-case in-sample diagnostic (optimistic; not held-out performance):")
+    print(f"{len(train)}-case in-sample diagnostic (optimistic; not held-out performance):")
     for name, result in training_reports.items():
         score = result["in_sample"]
         print(f"{name}: leak precision={score['leak_precision']:.3f}, "

@@ -1,4 +1,4 @@
-"""Compatibility entry point for the LeakProbe demo."""
+"""Compatibility entry point for full-channel Net3 investigation."""
 
 from leakprobe.run_demo import main
 

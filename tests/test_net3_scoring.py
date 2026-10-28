@@ -34,8 +34,7 @@ class VectorizedProfileScoringTests(unittest.TestCase):
              "flow": {"10": [4.0, 4.0]}},
         ]
 
-        scores = _score_profiles(observations, models, ["1", "2"], ["10"],
-                                 1.0, {}, 0)
+        scores = _score_profiles(observations, models, ["1", "2"], ["10"], 1.0)
 
         flow_channel_error = ((2 / 0.15) ** 2) / 2
         expected = [
@@ -43,20 +42,6 @@ class VectorizedProfileScoringTests(unittest.TestCase):
             np.sqrt((2.0 + 0.0 + flow_channel_error) / 3),
         ]
         np.testing.assert_allclose(scores, expected)
-
-    def test_revealed_reading_adds_one_sensor_channel(self):
-        observations = pd.DataFrame({"pressure_1_m": [1.0]})
-        models = [
-            {"pressure": {"1": [1.0], "2": [2.0]}, "flow": {}},
-            {"pressure": {"1": [1.0], "2": [5.0]}, "flow": {}},
-        ]
-        revealed = {"2": {"pressure_head_m": 3.0}}
-
-        scores = _score_profiles(observations, models, ["1"], [], 1.0,
-                                 revealed, 0)
-
-        np.testing.assert_allclose(scores, [1 / np.sqrt(2), np.sqrt(2)])
-
 
 if __name__ == "__main__":
     unittest.main()

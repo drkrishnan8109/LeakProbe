@@ -1,6 +1,6 @@
 # Streamlit front end
 
-**Status: implemented locally. Community Cloud deployment is the remaining step.**
+**Status:** the full-channel workbench is implemented locally. Community Cloud deployment still requires a signed-in account with repository access.
 
 ## Run locally
 
@@ -13,81 +13,43 @@ python -m pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-The app works without an API key and makes no external model call.
+The app starts without an API key and makes no external model call.
 
 ## Pages
 
-- **Investigate:** switch between the two-branch walkthrough and the 500-case sparse Net3 dataset. Inspect pressure and flow charts, compare scenarios, get a measurement recommendation, and reveal a stored synthetic reading.
-- **Latest LLM run:** review the last saved two-branch LLM answer, its final tool comparison, synthetic measurement, and reported token usage. The page reads the saved trace and makes no provider call; it refreshes when the trace file changes.
-- **Benchmarks:** compare saved baseline, class-weighted, and SMOTE reports for the original and high-signal datasets.
-- **About:** review the simulation assumptions and limits.
+- **Investigate:** select one of the 500 high-signal Net3 cases, inspect network-wide pressure and flow summaries, then run the deterministic comparison. All 92 pressure and 117 flow channels are used; there is no sensor selector or optional gauge step.
+- **Latest LLM run:** review the newest saved full-channel Net3 trace and its tool comparison. The page reads a file and does not call the provider.
+- **Benchmarks:** compare baseline, class-weighted, and SMOTE results from the full-channel high-signal dataset.
+- **About:** review the channel coverage and result limitations.
 
-The high-signal data uses intentionally large, long leaks. It is an easy classifier diagnostic, not evidence of field performance.
+The stored case outcomes are available in the dataset files but remain hidden on the investigation page. The benchmark uses deliberately large, long leaks and matched operating ranges, so its results describe this controlled dataset only.
 
-## Purpose
+## Data and scoring
 
-Build a browser-based, simulation-only LeakProbe workbench around the investigation tools already in this repository. The front end should help a user inspect sensor evidence, compare normal and leak hypotheses, understand uncertainty, and see which synthetic measurement could help next. It should not present the current demo as a live utility-monitoring or field-confirmation system.
+The canonical source is `data/net3_full_high_signal/`. Every observation file must have 92 pressure columns, 117 flow columns, and the timestamp column. A missing value within one of those channels is allowed; a missing channel or smaller sensor set is rejected when loaded.
 
-## Proposed first release
-
-### Investigation
-
-- Start with the existing two-branch walkthrough and the standard sparse Net3 cases.
-- Let the user select a Net3 case and explicitly run the deterministic comparison.
-- Show pressure and flow time series with units, missing readings, and data provenance.
-- Show ranked candidate pipes and their normalized fit scores. Label scores as fit diagnostics, never probabilities.
-- Show the result as leak candidate, normal candidate, or uncertain, with the reason and limitations visible.
-- Offer the existing measurement recommendation. A separate button reveals the stored synthetic reading, consumes the demo time budget, and refreshes the comparison.
-- Keep the case truth label out of the initial investigation view; an optional answer reveal can be considered for teaching mode.
-
-### Benchmark view
-
-- Read the saved benchmark reports rather than training models whenever the page reruns.
-- Compare precision, recall, confusion matrices, and false alarms for the baseline, class-weighted, and SMOTE variants.
-- Let the user view the original benchmark and the intentionally high-signal diagnostic side by side.
-- Label both as synthetic.
-
-### About and limitations
-
-- Explain the synthetic Net3 network, sensors, six-hour window, scenario assumptions, and current data limits.
-- Distinguish observed readings, simulated readings, predictions, and confirmed facts in both labels and charts.
-- State that the prototype does not control pumps or valves, dispatch crews, or authorize excavation.
+The Streamlit page calls `Net3Investigation.compare_hypotheses()` and displays the returned ranking. Fit scores are error measures, not probabilities. The classifier table reads the saved report from `data/net3_full_high_signal_benchmark/report.json`; it does not retrain on app page reruns.
 
 ## App structure
 
 ```text
 streamlit_app.py                 Streamlit entry point and navigation
-leakprobe/ui/data_access.py      Cached read-only dataset and report loading
-leakprobe/ui/pages.py            Investigation, saved LLM run, benchmark, and About pages
-.streamlit/config.toml           App theme
+leakprobe/ui/data_access.py      Cached read-only case and report loading
+leakprobe/ui/pages.py            Investigation, saved LLM, benchmark, and About pages
+leakprobe/net3_tools.py          Full-channel scenario comparison
+leakprobe/coverage.py             92/117 channel validation
 ```
 
-Use Streamlit's `st.Page` and `st.navigation` for the three pages; the entry point can provide a shared title and persistent simulation notice. Streamlit currently recommends this approach for flexible multipage apps. [Official multipage app guidance](https://docs.streamlit.io/develop/concepts/multipage-apps/page-and-navigation)
-
-Call existing Python investigation functions from the UI rather than reimplementing their scoring. Keep the selected case, revealed synthetic readings, and remaining demo budget in per-session state. Do not cache a mutable investigation object across users. Cache read-only tables and JSON with `st.cache_data`; Streamlit describes it as the data cache and distinguishes it from shared resource caching. [Session State](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state) · [Caching overview](https://docs.streamlit.io/develop/concepts/architecture/caching)
+Streamlit's `st.Page` and `st.navigation` provide the multipage navigation. Mutable case state is limited to the selected case and its comparison result; cached objects are read-only.
 
 ## Hosting
 
-The intended host is Streamlit Community Cloud. Deploy repository `drkrishnan8109/LeakProbe`, branch `feature/net3-synthetic-benchmark`, entry point `streamlit_app.py`, and Python 3.12. Community Cloud installs dependencies from the root `requirements.txt`. [Deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) · [Dependency setup](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies)
+The intended host is Streamlit Community Cloud. Deploy repository `drkrishnan8109/LeakProbe`, branch `feature/net3-synthetic-benchmark`, entry point `streamlit_app.py`, and Python 3.12. Community Cloud installs dependencies from the root `requirements.txt`. See [deployment guidance](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) and [dependency setup](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies).
 
-The LLM results page displays the last saved trace from the CLI; it does not send requests from Streamlit. A provider-backed summary inside the app is not included. If added later, make it opt-in and keep provider credentials in host secrets. [Secrets management](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management)
+The CLI can create a saved LLM trace using the optional Nebius adapter. The Streamlit page only displays that trace; it does not call Nebius. Keep provider credentials in host secrets or `.env`, never in the repository.
 
-## Acceptance checks
+## Current limits
 
-- The app starts locally with the documented command and works without an API key.
-- A selected Net3 case produces the same deterministic ranking and decision as the existing Python interface.
-- Revealing a synthetic measurement updates the ranking and respects the existing time budget.
-- Every displayed score has a label and explanation; none is presented as a probability or field confirmation.
-- The benchmark page matches the saved JSON reports, including class counts and confusion matrices.
-- The latest-run page shows a saved LLM result without making a provider call and reloads when the trace file changes.
-- Missing files or invalid case selections show a useful error instead of a blank page.
-- Session data from one user cannot mutate another user's investigation.
-- The optional LLM path is off until the user clicks it, and secrets remain outside source control.
+The app does not connect to utility telemetry, GIS, work orders, controls, crew dispatch, or excavation workflows. The high-signal cases are generated benchmark data. They are intentionally easier than routine operating conditions and cannot establish field precision or recall.
 
-## Explicitly outside the first release
-
-Real utility data upload, SCADA/GIS/work-order integration, authentication, geographic maps, collaborative workspaces, operational alerts, and model calibration are not in the current demo. They need separate data, workflow, and security decisions before implementation.
-
-## Deployment status
-
-The code is ready for review. Community Cloud requires a signed-in account with access to the GitHub repository before it can provide a hosted URL.
+The requested employee alert dashboard is a separate UI change. Its workflow and screen plan should be reviewed before implementation.
