@@ -4,6 +4,7 @@ import json
 import pandas as pd
 import streamlit as st
 
+from leakprobe.ui.branding import render_product_header
 from leakprobe.ui.data_access import (
     load_benchmark_case_history,
     load_llm_trace_history,
@@ -91,7 +92,8 @@ def _render_benchmark_case_history() -> None:
 
 
 def render_llm_run_history() -> None:
-    st.title(
+    render_product_header()
+    st.header(
         "Saved runs and traces",
         help=(
             "Browse saved investigation runs, their pattern comparisons, optional LLM summaries, "
@@ -272,7 +274,8 @@ def render_llm_run_history() -> None:
 
 
 def render_benchmarks() -> None:
-    st.title(
+    render_product_header()
+    st.header(
         "Classifier benchmarks",
         help=(
             "Compare the held-out scores of three ways of training the same leak classifier: "
@@ -464,7 +467,8 @@ def render_benchmarks() -> None:
 
 
 def render_about() -> None:
-    st.title(
+    render_product_header()
+    st.header(
         "About this workbench",
         help="Product context, sensor-channel coverage, interpretation guidance, and current system scope.",
     )
