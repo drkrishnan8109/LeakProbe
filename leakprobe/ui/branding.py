@@ -2,7 +2,7 @@
 import streamlit as st
 
 
-PRODUCT_NAME = "Leak Probe Water Leak Detection System"
+PRODUCT_NAME = "LeakProbe - Water Leak Detection System"
 
 
 def render_product_header() -> None:
