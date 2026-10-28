@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from leakprobe.ui.branding import render_product_header
 from leakprobe.ui.data_access import (
     MONITORING_CASE_ID,
     load_case_index,
@@ -140,7 +141,8 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
 
 
 def render_monitoring_dashboard() -> None:
-    st.title(
+    render_product_header()
+    st.header(
         "Network monitoring",
         help=(
             "The operations view for the currently selected full-channel sensor feed. "
