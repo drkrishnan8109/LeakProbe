@@ -27,12 +27,22 @@ LeakProbe is intended to help an operator move from **“something looks wrong�
 
 That could help utilities prioritize field investigations and avoid low-value visits. The business case should be tested against the utility’s current process and measured using operational outcomes, rather than assumed from model scores.
 
-## 4. Other companies in this market
+## 4. Why an LLM, and why Nemotron
+
+The hydraulic analysis should determine which network patterns best match the readings. An LLM is required for the natural-language investigation assistant, not for the numerical leak score. A fixed alert can run without it. The assistant experience uses the LLM to coordinate a bounded sequence of analysis tools, then explain the returned evidence in plain language: what pattern ranked first, how it compared with normal operation, what the fit score means, and what should be checked next.
+
+In the current prototype, the LLM can call allowlisted Python tools to retrieve the full feed and network details and run the deterministic scenario comparison. The app saves the tool calls and results so an analyst can review how the explanation was produced. The model does not calculate the hydraulic fit score, change sensor readings, confirm a physical leak, or issue field instructions.
+
+The LLM matters when the product needs to turn a technical ranking into a consistent investigation handoff. As the workflow grows, it could also help interpret operator questions and summarize maintenance notes or event records alongside the numerical results. Those extensions need their own validation. The LLM's reasoning reduces analyst effort and improves the usefulness of the handoff.
+
+The prototype currently configures **NVIDIA Nemotron 3 Super 120B A12B** through **Nebius Token Factory**. NVIDIA describes this model for agentic reasoning and tool use, which match the coordination task in LeakProbe. Nebius provides an OpenAI-compatible API, so the prototype can use its existing client interface to call the model. Nemotron's open-weight availability also leaves a possible self-hosting path if future operational requirements justify the deployment and licensing work. Nemotron is a model choice for evaluation [NVIDIA model documentation](https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3-super-120b-a12b) · [Nebius Token Factory Nemotron documentation](https://nebius.com/services/token-factory/models/nvidia-nemotron-models-inference)
+
+## 5. Other companies in this market
 
 - **Xylem** — Xylem Vue includes leak-detection and water-network analytics applications. [Xylem Vue](https://www.xylem.com/en-us/catalog/products--services/digital-water/xylem-vue/)
 - **Bentley Systems** — OpenFlows Water and OpenFlows WaterSight provide water-network hydraulic modeling and digital-twin capabilities, including leak and anomaly detection. [OpenFlows Water](https://www.bentley.com/products/openflows-water/) · [OpenFlows WaterSight](https://www.bentley.com/products/openflows-watersight/)
 
-## 5. Why LeakProbe could stand out, and how to scale it
+## 6. Why LeakProbe could stand out, and how to scale it
 
 The promising product direction is an **operator-facing investigation assistant** that combines hydraulic scenario ranking, explicit uncertainty, and guidance on what to measure next. That is a positioning opportunity, not yet a proven market advantage.
 
