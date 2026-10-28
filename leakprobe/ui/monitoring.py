@@ -90,14 +90,7 @@ def _reference_deviations(
 
 def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
     pipes = [row for row in layout["pipes"] if row["id"] != candidate_pipe]
-    highlighted = [
-        {
-            **row,
-            "mid_x": (row["x"] + row["x2"]) / 2,
-            "mid_y": (row["y"] + row["y2"]) / 2,
-        }
-        for row in layout["pipes"] if row["id"] == candidate_pipe
-    ]
+    highlighted = [row for row in layout["pipes"] if row["id"] == candidate_pipe]
     encodings = {
         "x": {"field": "x", "type": "quantitative", "axis": None},
         "x2": {"field": "x2"},
@@ -135,24 +128,8 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
                  "tooltip": [{"field": "id", "title": "Reservoir"}],
              }},
             {"data": {"values": highlighted},
-             "mark": {"type": "rule", "color": "#dc2626", "strokeWidth": 16},
+             "mark": {"type": "rule", "color": "#dc2626", "strokeWidth": 6},
              "encoding": encodings},
-            {"data": {"values": highlighted},
-             "mark": {"type": "point", "shape": "diamond", "filled": True,
-                      "color": "#dc2626", "stroke": "white", "strokeWidth": 2, "size": 1500},
-             "encoding": {
-                 "x": {"field": "mid_x", "type": "quantitative", "axis": None},
-                 "y": {"field": "mid_y", "type": "quantitative", "axis": None},
-                 "tooltip": [{"field": "id", "title": "Leak candidate pipe"}],
-             }},
-            {"data": {"values": highlighted},
-             "mark": {"type": "text", "align": "center", "baseline": "middle",
-                      "fontSize": 16, "fontWeight": "bold", "color": "white"},
-             "encoding": {
-                 "x": {"field": "mid_x", "type": "quantitative", "axis": None},
-                 "y": {"field": "mid_y", "type": "quantitative", "axis": None},
-                 "text": {"field": "id", "type": "nominal"},
-             }},
         ],
     }
 
@@ -211,11 +188,9 @@ def render_monitoring_dashboard() -> None:
         st.warning("Review required — the current feed does not support a clear leak or normal result.")
 
     st.subheader("Network and sensor map")
-    if candidate_pipe:
-        st.markdown(f"**:red[Candidate leak pipe {candidate_pipe} is highlighted on the map.]**")
     st.vega_lite_chart(None, _network_map_spec(layout, candidate_pipe), use_container_width=True)
     if candidate_pipe:
-        st.caption(f"Red segment, diamond, and label identify candidate pipe {candidate_pipe}. Blue circles are pressure junctions; gray segments are other pipes; dashed segments are pumps.")
+        st.caption(f"Candidate pipe {candidate_pipe} is red. Blue circles are pressure junctions; gray lines are other pipes; dashed lines are pumps.")
     else:
         st.caption("Blue circles are pressure junctions; gray segments are pipes; dashed segments are pumps. No leak candidate is highlighted.")
 
