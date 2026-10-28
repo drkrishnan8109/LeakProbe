@@ -4,146 +4,10 @@ import json
 import pandas as pd
 import streamlit as st
 
-from leakprobe.net3_tools import Net3Investigation
 from leakprobe.ui.data_access import (
-    load_case_index,
-    load_case_observations,
     load_latest_llm_trace,
     load_report,
 )
-
-
-def _render_case_feed(case_id: str, observations: pd.DataFrame) -> None:
-    observations = observations.copy()
-    observations["timestamp_utc"] = pd.to_datetime(observations["timestamp_utc"], utc=True)
-    pressure_cols = [column for column in observations if column.startswith("pressure_")]
-    flow_cols = [column for column in observations if column.startswith("flow_")]
-    numeric = observations[[*pressure_cols, *flow_cols]]
-    missing_count = int(numeric.isna().sum().sum())
-    total_values = int(numeric.size)
-
-    st.caption(
-        f"Case {case_id} · full sensor feed: {len(pressure_cols)} pressure channels and "
-        f"{len(flow_cols)} flow channels · {missing_count:,} missing readings "
-        f"({missing_count / max(total_values, 1):.2%})"
-    )
-    observations = observations.set_index("timestamp_utc")
-    pressure = observations[pressure_cols]
-    flow = observations[flow_cols]
-    pressure_summary = pd.DataFrame({
-        "Minimum across network": pressure.min(axis=1),
-        "Median across network": pressure.median(axis=1),
-        "Maximum across network": pressure.max(axis=1),
-    }, index=observations.index)
-    flow_summary = pd.DataFrame({
-        "Minimum across network": flow.min(axis=1),
-        "Median across network": flow.median(axis=1),
-        "Maximum across network": flow.max(axis=1),
-    }, index=observations.index)
-    left, right = st.columns(2)
-    with left:
-        st.markdown("**Pressure head · m**")
-        st.line_chart(pressure_summary, height=280)
-    with right:
-        st.markdown("**Pipe flow · L/s**")
-        st.line_chart(flow_summary, height=280)
-
-    with st.expander("Full channel inventory"):
-        pressure_names = [column.removeprefix("pressure_").removesuffix("_m")
-                          for column in pressure_cols]
-        flow_names = [column.removeprefix("flow_").removesuffix("_lps")
-                      for column in flow_cols]
-        pressure_panel, flow_panel = st.columns(2)
-        pressure_panel.markdown("**92 pressure channels**")
-        pressure_panel.write(", ".join(pressure_names))
-        flow_panel.markdown("**117 flow channels**")
-        flow_panel.write(", ".join(flow_names))
-
-
-def _show_investigation_result(result: dict) -> None:
-    ranking = result["ranking"]
-    if not ranking:
-        st.warning("No scenario could be compared with the available readings.")
-        return
-    decision = result["decision"]
-    winner = ranking[0]
-    fit = decision.get("best_fit_score")
-    if decision["prediction"] == "leak":
-        st.warning(f"Leak alert · best fit: {winner['scenario']} · score {fit:.3f}")
-    elif decision["prediction"] == "normal":
-        st.success(f"Normal-operation fit ranks first · score {fit:.3f}")
-    else:
-        st.warning(f"Review needed · {decision.get('reason', 'The result is uncertain.')}")
-    st.caption(
-        "The fit score ranks simulated reference patterns against all sensor channels. "
-        "It is not a probability or a field confirmation."
-    )
-    table = pd.DataFrame([
-        {"Rank": index, "Scenario": row["scenario"], "Candidate pipe": row["leak_pipe"] or "—",
-         "Normalized fit score": row["normalized_rmse"]}
-        for index, row in enumerate(ranking, start=1)
-    ])
-    st.dataframe(
-        table, hide_index=True, use_container_width=True,
-        column_config={"Normalized fit score": st.column_config.NumberColumn(format="%.3f")},
-    )
-    st.caption(result["score_meaning"])
-
-
-def render_investigation() -> None:
-    st.title("Net3 leak investigation")
-    st.write("Compare a complete sensor feed with normal operation and candidate leak patterns.")
-    try:
-        cases = load_case_index()
-    except (OSError, ValueError, json.JSONDecodeError) as exc:
-        st.error(f"Could not load the full-channel Net3 case index: {exc}")
-        return
-    case_by_id = {row["case_id"]: row for row in cases}
-    case_ids = [row["case_id"] for row in cases]
-    default_id = next((row["case_id"] for row in cases if row["split"] == "test"), case_ids[0])
-    selected_case = st.selectbox(
-        "Case", case_ids,
-        index=case_ids.index(st.session_state.get("net3_case_id", default_id)),
-        format_func=lambda case_id: f"{case_id} · {case_by_id[case_id]['split']} split",
-        key="net3_case_picker",
-    )
-    if st.session_state.get("net3_case_id") != selected_case:
-        st.session_state.net3_case_id = selected_case
-        st.session_state.pop("net3_result", None)
-
-    try:
-        session = Net3Investigation(selected_case)
-        observations = load_case_observations(selected_case)
-    except (OSError, ValueError, KeyError) as exc:
-        st.error(f"Could not load this full-coverage case: {exc}")
-        return
-
-    metrics = st.columns(4)
-    metrics[0].metric("Split", case_by_id[selected_case]["split"])
-    metrics[1].metric("Pressure channels", "92 / 92")
-    metrics[2].metric("Flow channels", "117 / 117")
-    metrics[3].metric("Candidate pipes", len(session.metadata["candidate_pipes_by_split"][session.split]))
-    _render_case_feed(selected_case, observations)
-
-    if st.button("Compare the full sensor feed", type="primary", key=f"net3_compare_{selected_case}"):
-        st.session_state.net3_result = session.compare_hypotheses()
-    result = st.session_state.get("net3_result")
-    if result:
-        _show_investigation_result(result)
-    if st.button("Reset comparison", key=f"net3_reset_{selected_case}"):
-        st.session_state.pop("net3_result", None)
-        st.rerun()
-
-
-def _trace_arguments(row: dict) -> dict:
-    arguments = row.get("arguments", {})
-    if isinstance(arguments, str):
-        try:
-            arguments = json.loads(arguments)
-        except json.JSONDecodeError:
-            return {}
-    return arguments if isinstance(arguments, dict) else {}
-
 
 def render_latest_llm_run() -> None:
     st.title("Latest LLM investigation")
@@ -301,8 +165,8 @@ def render_about() -> None:
     )
     st.subheader("How to read a result")
     st.markdown(
-        "- A fit score measures how closely a reference scenario matches the supplied readings. It is not a probability.\n"
-        "- A rejected result is marked uncertain and should be reviewed.\n"
+        "- The alert highlights the lowest-error candidate pattern; the fit score is not a probability.\n"
+        "- Follow the normal field verification process before confirming a leak.\n"
         "- Benchmark precision and recall describe these stored cases; they do not establish field performance."
     )
     st.subheader("Scope")

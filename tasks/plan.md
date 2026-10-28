@@ -11,10 +11,13 @@
 - [x] Document the canonical app data source and the separate 1,000-case experiment.
 - [x] Document the separate 1,000-case, 800/200 classifier experiment and its limitations.
 
-## Next requested UI work
+## Employee monitoring dashboard
 
-- [ ] Present an employee workflow and alert-dashboard plan for review.
-- [ ] Wait for approval of that plan before changing the broader dashboard flow.
+- [x] Load the configured full-channel feed automatically without asking an employee to select cases or sensors.
+- [x] Compare pressure and flow readings against the normal-operation reference bank.
+- [x] Show the alert state, leading candidate pipe, network map, baseline charts, and channel-level departures.
+- [x] Add a held-out outcome review page for after-action use, separate from alert scoring.
+- [x] Update navigation and user documentation to explain the employee workflow and limits.
 
 ## Hosting
 
