@@ -16,9 +16,19 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.sidebar.title("LeakProbe")
-st.sidebar.caption("Employee monitoring desk")
+st.sidebar.title(
+    "LeakProbe",
+    help="The app name for this full-channel water-network monitoring workbench.",
+)
+st.sidebar.caption(
+    "Employee monitoring desk",
+    help="The intended employee workflow is to review the automatic alert and verify any pipe candidate in the field.",
+)
 st.sidebar.info("Full network coverage · 92 pressure + 117 flow channels")
+st.sidebar.caption(
+    "Coverage counts all configured sensor channels in the Net3 feed.",
+    help="A complete feed has one pressure channel for each of 92 junctions and one flow channel for each of 117 pipes.",
+)
 
 page = st.navigation(
     {
