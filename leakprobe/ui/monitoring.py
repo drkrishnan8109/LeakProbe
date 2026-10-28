@@ -90,7 +90,14 @@ def _reference_deviations(
 
 def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
     pipes = [row for row in layout["pipes"] if row["id"] != candidate_pipe]
-    highlighted = [row for row in layout["pipes"] if row["id"] == candidate_pipe]
+    highlighted = [
+        {
+            **row,
+            "mid_x": (row["x"] + row["x2"]) / 2,
+            "mid_y": (row["y"] + row["y2"]) / 2,
+        }
+        for row in layout["pipes"] if row["id"] == candidate_pipe
+    ]
     encodings = {
         "x": {"field": "x", "type": "quantitative", "axis": None},
         "x2": {"field": "x2"},
@@ -100,7 +107,7 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
     return {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "width": "container",
-        "height": 390,
+        "height": 460,
         "autosize": {"type": "fit", "contains": "padding"},
         "config": {"view": {"stroke": None}, "axis": {"grid": False}},
         "layer": [
@@ -110,9 +117,6 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
             {"data": {"values": layout["pumps"]},
              "mark": {"type": "rule", "color": "#64748b", "strokeWidth": 2,
                       "strokeDash": [5, 3]},
-             "encoding": encodings},
-            {"data": {"values": highlighted},
-             "mark": {"type": "rule", "color": "#c2410c", "strokeWidth": 4},
              "encoding": encodings},
             {"data": {"values": layout["junctions"]},
              "mark": {"type": "point", "shape": "circle", "filled": True,
@@ -129,6 +133,25 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
                  "x": {"field": "x", "type": "quantitative", "axis": None},
                  "y": {"field": "y", "type": "quantitative", "axis": None},
                  "tooltip": [{"field": "id", "title": "Reservoir"}],
+             }},
+            {"data": {"values": highlighted},
+             "mark": {"type": "rule", "color": "#dc2626", "strokeWidth": 16},
+             "encoding": encodings},
+            {"data": {"values": highlighted},
+             "mark": {"type": "point", "shape": "diamond", "filled": True,
+                      "color": "#dc2626", "stroke": "white", "strokeWidth": 2, "size": 1500},
+             "encoding": {
+                 "x": {"field": "mid_x", "type": "quantitative", "axis": None},
+                 "y": {"field": "mid_y", "type": "quantitative", "axis": None},
+                 "tooltip": [{"field": "id", "title": "Leak candidate pipe"}],
+             }},
+            {"data": {"values": highlighted},
+             "mark": {"type": "text", "align": "center", "baseline": "middle",
+                      "fontSize": 16, "fontWeight": "bold", "color": "white"},
+             "encoding": {
+                 "x": {"field": "mid_x", "type": "quantitative", "axis": None},
+                 "y": {"field": "mid_y", "type": "quantitative", "axis": None},
+                 "text": {"field": "id", "type": "nominal"},
              }},
         ],
     }
@@ -187,6 +210,15 @@ def render_monitoring_dashboard() -> None:
     else:
         st.warning("Review required — the current feed does not support a clear leak or normal result.")
 
+    st.subheader("Network and sensor map")
+    if candidate_pipe:
+        st.markdown(f"**:red[Candidate leak pipe {candidate_pipe} is highlighted on the map.]**")
+    st.vega_lite_chart(None, _network_map_spec(layout, candidate_pipe), use_container_width=True)
+    if candidate_pipe:
+        st.caption(f"Red segment, diamond, and label identify candidate pipe {candidate_pipe}. Blue circles are pressure junctions; gray segments are other pipes; dashed segments are pumps.")
+    else:
+        st.caption("Blue circles are pressure junctions; gray segments are pipes; dashed segments are pumps. No leak candidate is highlighted.")
+
     st.subheader("Readings compared with the normal baseline")
     pressure_chart, flow_chart = _baseline_series(observations, snapshot["normal_profiles"])
     left, right = st.columns(2)
@@ -197,10 +229,6 @@ def render_monitoring_dashboard() -> None:
         st.markdown("**Median absolute pipe flow · L/s**")
         st.line_chart(flow_chart, height=245, y_label="Flow (L/s)")
     st.caption("The normal reference is the median of 24 stored normal-operation profiles. The charts summarize the network; the alert comparison uses all 92 pressure and 117 flow channels.")
-
-    st.subheader("Network and sensor map")
-    st.vega_lite_chart(None, _network_map_spec(layout, candidate_pipe), use_container_width=True)
-    st.caption("Blue circles are the 92 pressure junctions. Pipe segments carry the 117 flow channels. The highlighted pipe is the top leak candidate; dashed segments are pumps.")
 
     st.subheader("Evidence for this monitoring window")
     evidence = st.columns(4)

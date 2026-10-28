@@ -9,7 +9,7 @@ import streamlit as st
 from leakprobe.net3_tools import Net3Investigation
 from leakprobe.paths import DATA, NET3_DATA, OUTPUTS
 
-MONITORING_CASE_ID = "case_405"
+MONITORING_CASE_ID = "case_402"  # Held-out Pipe 247 leak used for the alternate map example.
 
 
 @st.cache_data(show_spinner=False)
