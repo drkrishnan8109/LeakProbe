@@ -7,7 +7,10 @@ from datetime import datetime, timezone
 from .paths import OUTPUTS, ROOT
 
 
-def investigate(client, model, max_rounds=8, max_tool_calls=16, case_id=None):
+def investigate(client, model, max_rounds=8, max_tool_calls=16, case_id=None, instructions=None, compact=False):
+    if compact:
+        from .employee_investigator import investigate_employee
+        return investigate_employee(client, model, case_id=case_id, max_rounds=max_rounds, max_tool_calls=max_tool_calls)
     from .net3_tools import Net3Investigation, dispatch_net3, net3_tool_schemas
 
     session = Net3Investigation(case_id)
@@ -19,6 +22,8 @@ and all 117 flow channels; use that full sensor feed. No additional sensor
 selection or field collection is available in this workflow. Explain what the
 ranked fit scores show, but do not call them probabilities or claim field
 confirmation. State uncertainty and a practical review step."""
+    if instructions:
+        system += "\n" + instructions
     messages = [
         {"role": "system", "content": system},
         {"role": "user", "content": f"Investigate Net3 case {session.case_id} using the full pressure and flow feed."},

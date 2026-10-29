@@ -94,7 +94,7 @@ def _render_benchmark_case_history() -> None:
 def render_llm_run_history() -> None:
     render_product_header()
     st.header(
-        "Saved runs and traces",
+        "Investigation history",
         help=(
             "Browse saved investigation runs, their pattern comparisons, optional LLM summaries, "
             "and the recorded sequence of analysis-tool calls."
@@ -276,7 +276,7 @@ def render_llm_run_history() -> None:
 def render_benchmarks() -> None:
     render_product_header()
     st.header(
-        "Classifier benchmarks",
+        "Model validation",
         help=(
             "Compare the held-out scores of three ways of training the same leak classifier: "
             "baseline, class-weighted, and SMOTE."
@@ -290,10 +290,7 @@ def render_benchmarks() -> None:
         st.error(f"Could not load the saved benchmark report: {exc}")
         return
 
-    st.warning(
-        "This is the high-signal benchmark: leaks are intentionally large and long, "
-        "and the train/test leak parameter ranges match."
-    )
+    st.caption("High-signal Net3 validation · see About for evaluation conditions and limitations.")
     st.caption(
         f"Positive class: leak · {report['pressure_channel_count']} pressure + "
         f"{report['flow_channel_count']} flow channels · Development threshold target: "
@@ -467,37 +464,59 @@ def render_benchmarks() -> None:
 
 
 def render_about() -> None:
-    render_product_header()
-    st.header(
-        "About this workbench",
-        help="Product context, sensor-channel coverage, interpretation guidance, and current system scope.",
+    from leakprobe.ui.branding import render_compact_style
+
+    render_compact_style()
+    st.title("LeakProbe")
+    st.caption("Water Leak Detection & Investigation")
+    st.header("About LeakProbe")
+    st.write(
+        "LeakProbe is a water network monitoring and investigation platform designed to help operators "
+        "identify potential leaks, understand unusual pressure and flow patterns, and take informed action."
     )
     st.write(
-        "LeakProbe compares a complete Net3 pressure and flow feed with stored normal-operation and candidate-leak patterns."
+        "By bringing network monitoring, leak alerts, investigation insights, and review history into "
+        "one place, LeakProbe helps teams investigate potential problems more efficiently."
     )
-    st.subheader(
-        "Sensor coverage",
-        help="The complete Net3 measurement layout required by the app and benchmark: 92 pressure channels and 117 flow channels.",
+
+    st.divider()
+    st.subheader("What LeakProbe Does")
+    features = (
+        ("Network Monitoring", "Monitor pressure and flow readings across the water network and identify unusual operating patterns."),
+        ("Leak Detection", "Identify suspected leaks and highlight the most likely affected pipes based on available sensor evidence."),
+        ("Intelligent Investigation", "Review evidence-based explanations, understand possible causes, and receive recommended next steps for verification."),
+        ("Alert Management", "Acknowledge alerts, record findings, and maintain an investigation history for future reference."),
     )
+    for start in (0, 2):
+        columns = st.columns(2)
+        for column, (title, description) in zip(columns, features[start:start + 2]):
+            with column:
+                with st.container(border=True):
+                    st.markdown(f"**{title}**")
+                    st.write(description)
+
+    st.divider()
+    st.subheader("How LeakProbe Works")
     st.markdown(
-        "- 92 pressure channels, one for every junction.\n"
-        "- 117 flow channels, one for every pipe.\n"
-        "- Every case and classifier benchmark is checked against this channel layout."
+        "1. **Monitor:** LeakProbe checks incoming network readings.\n"
+        "2. **Detect:** Unusual patterns are analyzed to identify potential leaks.\n"
+        "3. **Investigate:** Employees review candidate locations, supporting evidence, and investigation recommendations.\n"
+        "4. **Review:** Employees acknowledge alerts and record their findings."
     )
-    st.subheader(
-        "How to read a result",
-        help="Guidance for interpreting candidate matches, field checks, and classifier benchmark scores.",
-    )
+
+    st.divider()
+    st.subheader("Understanding Alerts")
+    # Match the labels in the employee alert queue; do not introduce new detector states.
     st.markdown(
-        "- The alert highlights the lowest-error candidate pattern; the fit score is not a probability.\n"
-        "- Follow the normal field verification process before confirming a leak.\n"
-        "- Benchmark precision and recall describe these stored cases; they do not establish field performance."
+        "- **Suspected leak:** An abnormal pattern suggests a possible leak that requires verification.\n"
+        "- **No alert:** The current assessment has not identified a leak requiring attention.\n"
+        "- **Review required:** Available evidence or data quality is insufficient for a clear assessment."
     )
-    st.subheader(
-        "Scope",
-        help="The current boundaries of this workbench and the systems it does not connect to.",
-    )
-    st.info(
-        "The bundled Net3 feed and labels are generated benchmark data. No utility telemetry, GIS, work orders, "
-        "controls, crew dispatch, or excavation workflow is connected."
+
+    st.divider()
+    st.subheader("Product Scope")
+    st.caption(
+        "Current feed: Net3 demonstration data. See the "
+        "[technical documentation](https://github.com/drkrishnan8109/LeakProbe/blob/main/docs/STREAMLIT_FRONTEND_README.md#current-limits) "
+        "for evaluation limitations."
     )

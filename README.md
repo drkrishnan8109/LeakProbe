@@ -1,4 +1,6 @@
-# LeakProbe
+# LeakProbe — AI-Assisted Water Leak Detection & Investigation
+
+Monitor network signals, investigate anomalies, identify candidate leaks, and support faster field response.
 
 LeakProbe is a Streamlit workbench for comparing a water-network sensor feed with normal-operation and candidate-leak patterns. The app uses the **canonical 500-case high-signal Net3 dataset**, with pressure at all 92 junctions and flow in all 117 pipes. A separate 1,000-case run is retained for a sample-size comparison; it is not an app data source.
 
@@ -15,7 +17,13 @@ python -m pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-The default Monitoring page automatically loads a configured six-hour sensor window, compares all 92 pressure and 117 flow channels with normal-operation references, and shows the result, network map, and readings that differ from baseline. Employees do not select a case or sensors. History & outcomes provides held-out labels for after-action review, while Run history & traces lists saved LLM investigations. Model performance compares the baseline, class-weighted, and SMOTE classifiers. Opening the app does not call an LLM provider.
+The Monitoring page automatically assesses the canonical 500 recorded sensor windows and presents a browsable alert queue. Employees filter and open generated assessments; they do not configure sensor channels or detector inputs. The selected record shows its interactive network schematic, affected sensors, observed readings versus baseline, AI investigation and review form. All 92 pressure and 117 flow channels are retained. The **demo feed** uses archived simulated Net3 observations; these independent windows are not simultaneous live incidents. Archived timestamps and incomplete readings are explicitly flagged.
+
+**AI Investigation** displays a matching saved model explanation and offers an explicit **Run AI Investigation** action using the existing Nebius/Nemotron tool loop. Opening a page never calls the provider. New runs are limited to four model requests and eight tool calls, with two attempts per alert and no automatic retries. Without credentials, monitoring, saved explanations and employee review remain available offline. Legacy traces lacking a model identifier are labeled honestly; their text is not silently rewritten.
+
+Employees can acknowledge alerts, record review status, enter notes, and record leak confirmed / no leak / further investigation required. UTC event history is stored in a local SQLite database. **History & outcomes** shows employee reviews; synthetic labels, replay controls, technical diagnostics, traces, and classifier benchmarks are under **Evaluation / Admin**. Admin is navigation separation, not an authentication boundary.
+
+See [the employee guide](docs/EMPLOYEE_DASHBOARD.md) for launch and verification commands and [the implementation audit](docs/EMPLOYEE_DASHBOARD_AUDIT.md) for scope and limitations.
 
 To run an offline investigation from the terminal:
 

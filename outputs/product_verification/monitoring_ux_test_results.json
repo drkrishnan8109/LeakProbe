@@ -1,0 +1,10 @@
+{
+  "timestamp_utc": "2026-10-29T10:25:08.685273+00:00",
+  "tests": 81,
+  "failures": [
+    "test_employee_dashboard.AIIntegrationTests.test_real_bundled_trace_matches_current_feed_and_ranking",
+    "test_employee_dashboard.OfflineUITests.test_existing_admin_pages_still_render (page='render_llm_run_history')"
+  ],
+  "errors": [],
+  "skipped": []
+}
