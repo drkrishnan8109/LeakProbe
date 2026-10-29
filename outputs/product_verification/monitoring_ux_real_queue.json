@@ -1,0 +1,13 @@
+{
+  "records": 500,
+  "unique_records": 500,
+  "assessment_counts": {
+    "leak": 417,
+    "normal": 83,
+    "uncertain": 0
+  },
+  "rescoring": false,
+  "paid_calls": 0,
+  "real_cache_ui_check": "passed",
+  "all_records_accessible": true
+}

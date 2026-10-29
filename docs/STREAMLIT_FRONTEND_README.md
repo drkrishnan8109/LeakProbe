@@ -21,14 +21,16 @@ The app starts without an API key and makes no external model call.
 2. Read the network status and candidate pipe. A leak alert recommends that the employee follow the usual field verification process.
 3. Compare network-wide median pressure and flow with the normal-operation reference. The topology map highlights the leading pipe candidate, and the evidence section lists channels outside the normal reference range.
 4. Use the scenario-fit details when more context is needed. Fit errors rank candidate patterns; they are not probabilities or field confirmation. The dashboard does not create work orders or dispatch crews.
-5. After an investigation is closed, use **History & outcomes** to review recorded outcomes. This page is for after-action review, not part of the current alert calculation.
+5. Use **AI Investigation** to read a matching saved explanation or explicitly request a bounded Nemotron investigation. No inference occurs on page load. A missing API key leaves the dashboard functional offline.
+6. Acknowledge the alert and record review status, reviewer notes and field assessment. **History & outcomes** contains these employee-entered records. Synthetic reference labels and replay controls are under **Evaluation / Admin**.
 
 The configured monitor window is `case_405` from the canonical 500-case dataset. Its full-channel feed is labeled with a leak on pipe 202, and the scenario comparison ranks pipe 202 first. The map highlights pipe 202 from the comparison result. It provides a repeatable example for the employee workflow; a production deployment would replace that local input with a live or regularly delivered sensor feed.
 
 ## Pages
 
 - **Monitoring:** automatic full-channel comparison, normal-reference charts, network topology, alert evidence, and feed details.
-- **History & outcomes:** held-out outcomes for after-action review.
+- **History & outcomes:** persistent employee-entered reviews and timestamped event history, separate from synthetic labels.
+- **Evaluation / Admin:** replay controls and synthetic reference labels. This grouping does not implement authentication or authorization.
 - **Run history & traces:** browse all saved full-channel LLM runs, compare their lead fit and metadata, and open an individual explanation. This page reads trace files and does not call the provider. Bundled traces include stable run timestamps; future runs saved on Community Cloud need persistent storage or a repository update to survive redeploys.
 - **Model performance:** saved baseline, class-weighted, and SMOTE benchmark results.
 - **About:** channel coverage, data provenance, and result limitations.
@@ -55,9 +57,9 @@ Streamlit's `st.Page` and `st.navigation` provide the multipage navigation. Feed
 
 ## Hosting
 
-The intended host is Streamlit Community Cloud. Deploy repository `drkrishnan8109/LeakProbe`, branch `feature/net3-synthetic-benchmark`, entry point `streamlit_app.py`, and Python 3.12. Community Cloud installs dependencies from the root `requirements.txt`. See [deployment guidance](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) and [dependency setup](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies).
+The intended host is Streamlit Community Cloud. The target repository branch is now `main`, entry point `streamlit_app.py`, and Python 3.12. Community Cloud installs dependencies from the root `requirements.txt`. Deployment has not been performed. Use persistent storage for employee records. See [deployment guidance](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) and [dependency setup](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies).
 
-The CLI can create a saved LLM trace using the optional Nebius adapter. The Streamlit page only displays that trace; it does not call Nebius. Keep provider credentials in host secrets or `.env`, never in the repository.
+The CLI and the explicit dashboard **Run AI Investigation** button reuse the optional Nebius adapter. The dashboard never runs inference automatically; it requires a user click and enforces request/tool/attempt budgets. Keep provider credentials in host secrets or `.env`, never in the repository. See [the current employee guide](EMPLOYEE_DASHBOARD.md) for states, persistence and offline verification.
 
 ## Current limits
 

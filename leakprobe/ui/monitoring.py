@@ -102,6 +102,7 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
         "x2": {"field": "x2"},
         "y": {"field": "y", "type": "quantitative", "axis": None},
         "y2": {"field": "y2"},
+        "tooltip": [{"field": "id", "title": "Pipe / link"}],
     }
     return {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -111,6 +112,9 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
         "config": {"view": {"stroke": None}, "axis": {"grid": False}},
         "layer": [
             {"data": {"values": pipes},
+             # A top-level selection is duplicated into every layer by Vega-Lite.
+             # Bind it once; the layered chart shares the x/y scales by default.
+             "params": [{"name": "network_view", "select": "interval", "bind": "scales"}],
              "mark": {"type": "rule", "color": "#9aa9b4", "strokeWidth": 1},
              "encoding": encodings},
             {"data": {"values": layout["pumps"]},
@@ -140,29 +144,28 @@ def _network_map_spec(layout: dict, candidate_pipe: str | None) -> dict:
     }
 
 
-def render_monitoring_dashboard() -> None:
+def render_evaluation_replay() -> None:
     render_product_header()
     st.header(
-        "Network monitoring",
+        "Window replay",
         help=(
             "The operations view for the currently selected full-channel sensor feed. "
             "It compares the feed with normal-operation references and candidate leak patterns."
         ),
     )
     st.write("The current full-channel feed is checked automatically against normal operation and candidate leak patterns.")
-    st.caption("Demo and review: choose a saved case below to update the alert, pipe highlight, charts, and timestamps together.")
+    st.caption("Open a monitoring record to review its alert, network map and sensor evidence.")
     try:
         case_ids = [case["case_id"] for case in load_case_index()]
         default_case_index = case_ids.index(MONITORING_CASE_ID) if MONITORING_CASE_ID in case_ids else 0
         selected_case_id = st.selectbox(
-            "Feed selection (Demo control)",
+            "Monitoring record",
             options=case_ids,
             index=default_case_index,
             key="monitoring_case_id",
             help=(
-                "Choose a saved case for demo or review. Its alert, candidate pipe, network map, "
-                "baseline charts, and timestamps update together. This control does not change "
-                "the live feed or create a work order."
+                "Open a saved record. Its alert, candidate pipe, network map, baseline charts "
+                "and timestamps update together. This selection changes only the displayed assessment."
             ),
         )
         with st.spinner("Checking the latest monitoring window…"):
@@ -228,6 +231,7 @@ def render_monitoring_dashboard() -> None:
             "of time-stamped feed records in this window."
         ),
     )
+    st.caption("Net3 simulation feed")
     st.caption(
         f"Latest reading: {latest_time.strftime('%d %b %Y %H:%M UTC')} · "
         f"{missing_readings:,} missing sensor values",

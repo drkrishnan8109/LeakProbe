@@ -8,8 +8,9 @@ import streamlit as st
 
 from leakprobe.net3_tools import Net3Investigation
 from leakprobe.paths import DATA, NET3_DATA, OUTPUTS
+from leakprobe.ui.operations import validate_feed
 
-MONITORING_CASE_ID = "case_402"  # Held-out Pipe 247 leak used for the alternate map example.
+MONITORING_CASE_ID = "case_405"  # Configured archived showcase; a real saved investigation exists.
 
 
 @st.cache_data(show_spinner=False)
@@ -26,6 +27,7 @@ def load_case_index(data_dir: str = str(NET3_DATA)) -> list[dict]:
 def load_monitoring_snapshot(case_id: str = MONITORING_CASE_ID) -> dict:
     """Load the configured feed, normal references, and automatic assessment."""
     session = Net3Investigation(case_id)
+    quality = validate_feed(session.observations, session.metadata, session.hypotheses["normal"])
     return {
         "case_id": session.case_id,
         "split": session.split,
@@ -34,6 +36,8 @@ def load_monitoring_snapshot(case_id: str = MONITORING_CASE_ID) -> dict:
         "normal_profiles": session.hypotheses["normal"],
         "pressure_sensors": session.metadata["monitor_pressure_nodes"],
         "flow_sensors": session.metadata["flow_sensors"],
+        "quality": quality,
+        "metadata": session.metadata,
     }
 
 
@@ -76,14 +80,14 @@ def load_network_layout() -> dict:
 
 @st.cache_data(show_spinner=False)
 def load_outcome_records() -> list[dict]:
-    """Read held-out ground-truth outcomes for after-action review."""
+    """Read synthetic reference labels for Evaluation / Admin only."""
     labels = read_json(str(NET3_DATA / "truth_labels.json"))
     return [
         {
             "Window": case["case_id"],
-            "Verified outcome": ("Leak confirmed" if labels[case["case_id"]]["incident"] == "single_leak"
-                                 else "Normal operation confirmed"),
-            "Confirmed pipe": labels[case["case_id"]]["leak_pipe"] or "—",
+            "Reference outcome": ("Leak" if labels[case["case_id"]]["incident"] == "single_leak"
+                                  else "Normal"),
+            "Reference pipe": labels[case["case_id"]]["leak_pipe"] or "—",
         }
         for case in load_case_index()
         if case["split"] == "test"
@@ -172,11 +176,19 @@ def load_llm_trace_history() -> list[dict]:
     saved_runs = []
     for path in (OUTPUTS / "traces").glob("net3_full_high_signal_*_llm_trace.json"):
         modified_ns = path.stat().st_mtime_ns
-        run = _read_json_at_mtime(str(path), modified_ns)
+        try:
+            run = _read_json_at_mtime(str(path), modified_ns)
+        except (OSError, ValueError):
+            continue
+        if not isinstance(run, dict) or not isinstance(run.get("trace", []), list):
+            continue
         saved_at = run.get("saved_at_utc")
-        timestamp = datetime.fromisoformat(saved_at) if saved_at else datetime.fromtimestamp(
-            modified_ns / 1_000_000_000, tz=timezone.utc
-        )
+        try:
+            timestamp = datetime.fromisoformat(saved_at) if saved_at else datetime.fromtimestamp(
+                modified_ns / 1_000_000_000, tz=timezone.utc
+            )
+        except (ValueError, TypeError):
+            continue
         if timestamp.tzinfo is None:
             timestamp = timestamp.replace(tzinfo=timezone.utc)
         timestamp = timestamp.astimezone(timezone.utc)

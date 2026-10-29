@@ -9,6 +9,18 @@
 
 ## 1. Executive decision
 
+### Employee demo update (29 October 2026)
+
+The employee view now uses an automatic simulated feed with explicit freshness and
+coverage reporting, persistent employee alert reviews, and an on-demand bounded AI
+investigation action. Synthetic labels and replay are under Evaluation / Admin.
+The configured showcase is `case_405`; its existing model explanation is reused only
+when the readings and ranking match. Legacy reports disclose missing model provenance
+and known evidence contradictions. No paid inference or deployment was performed.
+See [the implementation audit](EMPLOYEE_DASHBOARD_AUDIT.md) and
+[employee guide](EMPLOYEE_DASHBOARD.md). Historical status below describes the prior
+implementation; the longer-term PRD remains proposed scope, not completed functionality.
+
 ### Current repository status (28 October 2026)
 
 The repository contains a runnable Streamlit workbench with an employee monitoring dashboard. The dashboard loads a configured full-channel window automatically, compares it with normal-operation profiles, and presents a candidate alert with supporting pressure, flow, and network-map evidence; employees do not choose cases or sensors. A separate history page exposes held-out outcomes for after-action review. The app uses a canonical 500-case high-signal Net3 dataset with full coverage (92 junction pressures and 117 pipe flows), 400 development cases, and 100 held-out cases. A separate 1,000-case classifier experiment uses the same channel layout and simulation ranges; it is not an app source and does not add candidate-pipe coverage. The canonical reference bank has 24 leak profiles per candidate pipe and 24 normal profiles, matched to the high-signal leak ranges. The physics-based detector ranks reference patterns; a separate case-level classifier compares baseline, class weighting, and SMOTE.
